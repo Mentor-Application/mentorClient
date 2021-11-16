@@ -59,12 +59,16 @@ export const login = () => {
           </div>
           <input
             placeholder="Username"
+              onFocus={(e) => e.target.placeholder = ''}
+              onBlur={(e) => e.target.placeholder = 'Username'}
             type="text"
             className={classes.username}
             onChange={(e) => setemail(e.target.value)}
           ></input>
           <input
-            placeholder="Password"
+             placeholder="Password"
+             onFocus={(e) => e.target.placeholder = ''}
+             onBlur={(e) => e.target.placeholder = 'Password'}
             type="password"
             className={classes.password}
             onChange={(e) => setPassword(e.target.value)}

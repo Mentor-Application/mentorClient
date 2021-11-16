@@ -1,7 +1,7 @@
 :root {
   --primary: #0166b2;
 }
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap");
+/*@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');*/
 
 html,
 body,
@@ -11,10 +11,15 @@ div#__next > div {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: "Roboto Condensed", sans-serif;
   background-image: url("../utils/images/background.jpeg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
+
+@font-face {
+  font-family: 'Work Sans', sans-serif;; 
+  src: url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+}
+  

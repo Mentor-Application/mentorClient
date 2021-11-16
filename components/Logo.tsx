@@ -9,8 +9,8 @@ export const Logo = () => {
         <Image src={logo} height={90} width={200}></Image>
       </div>
       <div className="d-flex justify-content-center">
-        <h4 style={{ fontWeight: "bold", marginTop: "10px" }}>
-          online mentor record
+        <h4 style={{ fontWeight: "bold", marginTop: "15px" }}>
+          Online Mentor record
         </h4>
       </div>
     </div>

@@ -14,7 +14,7 @@ const IndexPage = () => {
           <Logo></Logo>
         </div>
         <div
-          style={{ fontWeight: "bold" }}
+          style={{ fontWeight: "bold", marginTop: "5px"}}
           className="d-flex justify-content-center"
         >
           Login as
@@ -26,7 +26,7 @@ const IndexPage = () => {
           {FrontPageItems.map((item) => {
             return (
               <Link href="/login">
-                <a>
+                <a >
                   <FrontPageButton id={item.id} title={item.title} />
                 </a>
               </Link>
