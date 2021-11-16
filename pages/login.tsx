@@ -11,19 +11,27 @@ export const login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     console.log(email + " " + password);
-    const response = await fetch("http://localhost:8090/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email: email, password: password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = response.json();
-    data.then((res) => {
-      const items = res;
-      console.log(items);
-      router.push("/landing");
-    });
+    try {
+      const response = await fetch("http://localhost:8090/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ email: email, password: password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = response.json();
+      data.then((res) => {
+        const items = res;
+        console.log(items);
+        if (res.status === "OK") {
+          router.push("/landing");
+        } else {
+          console.log("error");
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
