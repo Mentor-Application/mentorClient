@@ -6,8 +6,9 @@ import classes from "../styles/login.module.css";
 export const login = () => {
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("Invalid login");
   const router = useRouter();
-
+  const [isError, setIsError] = useState(true);
   const handleLogin = async (e) => {
     e.preventDefault();
     console.log(email + " " + password);
@@ -26,7 +27,8 @@ export const login = () => {
         if (res.status === "OK") {
           router.push("/landing");
         } else {
-          console.log("error");
+          console.log(errorMessage);
+          setIsError(false);
         }
       });
     } catch (err) {
@@ -48,10 +50,13 @@ export const login = () => {
         </div>
 
         <form
-          style={{ marginTop: "7%" }}
+          style={{ marginTop: "5%" }}
           className=" d-flex flex-column align-items-center"
           onSubmit={handleLogin}
         >
+          <div style={{ color: "red" }} hidden={isError}>
+            {errorMessage}
+          </div>
           <input
             placeholder="Username"
             type="text"
