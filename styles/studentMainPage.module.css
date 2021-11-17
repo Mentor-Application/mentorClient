@@ -1,0 +1,23 @@
+.navbar {
+  background: #ffffff;
+  height: 90%;
+  border-radius: 30px;
+  width: 85%;
+}
+
+.forms {
+  height: 90%;
+  background: #ffffff;
+  width: 90%;
+  border-radius: 30px;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge add Firefox */
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+}

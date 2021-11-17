@@ -54,21 +54,21 @@ export const login = () => {
           className=" d-flex flex-column align-items-center"
           onSubmit={handleLogin}
         >
-          <div style={{ color: "red" }} hidden={isError}>
+          <div style={{ color: "red", marginBottom: "3%" }} hidden={isError}>
             {errorMessage}
           </div>
           <input
             placeholder="Username"
-              onFocus={(e) => e.target.placeholder = ''}
-              onBlur={(e) => e.target.placeholder = 'Username'}
+            onFocus={(e) => (e.target.placeholder = "")}
+            onBlur={(e) => (e.target.placeholder = "Username")}
             type="text"
             className={classes.username}
             onChange={(e) => setemail(e.target.value)}
           ></input>
           <input
-             placeholder="Password"
-             onFocus={(e) => e.target.placeholder = ''}
-             onBlur={(e) => e.target.placeholder = 'Password'}
+            placeholder="Password"
+            onFocus={(e) => (e.target.placeholder = "")}
+            onBlur={(e) => (e.target.placeholder = "Password")}
             type="password"
             className={classes.password}
             onChange={(e) => setPassword(e.target.value)}

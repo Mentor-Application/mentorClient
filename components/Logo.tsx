@@ -10,7 +10,7 @@ export const Logo = () => {
       </div>
       <div className="d-flex justify-content-center">
         <h4 style={{ fontWeight: "bold", marginTop: "15px" }}>
-          Online Mentor record
+          Online Mentor Record
         </h4>
       </div>
     </div>

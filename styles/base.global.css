@@ -16,10 +16,10 @@ div#__next > div {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  overflow: hidden;
 }
 
 @font-face {
-  font-family: 'Work Sans', sans-serif;; 
-  src: url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+  font-family: "Work Sans", sans-serif;
+  src: url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap");
 }
-  
