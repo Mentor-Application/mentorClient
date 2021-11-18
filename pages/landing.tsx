@@ -1,4 +1,5 @@
 import React from "react";
+import StudentProfile from "../components/studentProfile";
 import classes from "../styles/studentMainPage.module.css";
 
 export const landing = () => {
@@ -23,39 +24,9 @@ export const landing = () => {
         >
           <div
             style={{ height: "70%" }}
-            className="d-flex justify-content-center align-items-center col-lg-6 col-md-8"
+            className="d-flex justify-content-center align-items-center col-lg-12 col-md-8"
           >
-            <div className={classes.forms}></div>
-          </div>
-          <div
-            style={{ height: "70%" }}
-            className="d-flex justify-content-center align-items-center col-lg-6 col-md-8"
-          >
-            <div className={classes.forms}></div>
-          </div>
-          <div
-            style={{ height: "70%" }}
-            className="d-flex justify-content-center align-items-center col-lg-6 col-md-8"
-          >
-            <div className={classes.forms}></div>
-          </div>
-          <div
-            style={{ height: "70%" }}
-            className="d-flex justify-content-center align-items-center col-lg-6 col-md-8"
-          >
-            <div className={classes.forms}></div>
-          </div>
-          <div
-            style={{ height: "70%" }}
-            className="d-flex justify-content-center align-items-center col-lg-6 col-md-8"
-          >
-            <div className={classes.forms}></div>
-          </div>
-          <div
-            style={{ height: "70%" }}
-            className="d-flex justify-content-center align-items-center col-lg-6 col-md-8"
-          >
-            <div className={classes.forms}></div>
+            <StudentProfile></StudentProfile>
           </div>
         </div>
       </div>
