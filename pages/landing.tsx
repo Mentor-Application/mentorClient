@@ -1,5 +1,5 @@
 import React from "react";
-import StudentProfile from "../components/studentProfile";
+import StudentProfile from "../components/StudentProfile";
 import classes from "../styles/studentMainPage.module.css";
 
 export const landing = () => {
@@ -23,9 +23,10 @@ export const landing = () => {
           className="row"
         >
           <div
-            style={{ height: "70%" }}
+            style={{ height: "90%" }}
             className="d-flex justify-content-center align-items-center col-lg-12 col-md-8"
           >
+            <div className={classes.vl}></div>
             <StudentProfile></StudentProfile>
           </div>
         </div>

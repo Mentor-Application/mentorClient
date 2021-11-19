@@ -5,9 +5,42 @@
   width: 85%;
 }
 
+.label{
+  color: #0166b2;
+  font-weight: bold;
+  margin-bottom: 2%;
+}
+
+.input{
+  height:'35px';
+  width: 30%;
+}
+
 .forms {
   height: 90%;
   background: #ffffff;
   width: 90%;
   border-radius: 30px;
+}
+
+.box{
+  height: 40px;
+  margin-bottom: 5%;
+  background: #ffffff;
+  border-radius: 25px; 
+  border: 2.5px solid #0166b2;
+}
+
+.dropdownbutton{
+  background-color: #ffffff;
+  width: 60%;
+  border-radius: 15px;
+  border: 2.5px solid #0166b2;
+}
+
+.vl {
+  border-left: 2px solid #0166b2;
+  height: 60%;
+  position:absolute;
+  left: 60%;
 }
