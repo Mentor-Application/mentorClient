@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Logo from "../components/Logo";
 import { useRouter } from "next/dist/client/router";
 import classes from "../styles/login.module.css";
+import { loginInfo } from "../interfaces";
+import { ApiService } from "../services/api.service";
+import { AuthService } from "../services/auth.service";
 
 export const login = () => {
   const [email, setemail] = useState("");
@@ -9,31 +12,17 @@ export const login = () => {
   const [errorMessage, setErrorMessage] = useState("Invalid login");
   const router = useRouter();
   const [isError, setIsError] = useState(true);
-  const handleLogin = async (e) => {
+
+  const loginData: loginInfo = {
+    email: email,
+    password: password,
+  };
+
+  let authService: AuthService = new AuthService();
+
+  const handleLogin = (e) => {
     e.preventDefault();
-    console.log(email + " " + password);
-    try {
-      const response = await fetch("http://localhost:8090/auth/login", {
-        method: "POST",
-        body: JSON.stringify({ email: email, password: password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = response.json();
-      data.then((res) => {
-        const items = res;
-        console.log(items);
-        if (res.status === "OK") {
-          router.push("/landing");
-        } else {
-          console.log(errorMessage);
-          setIsError(false);
-        }
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    authService.login(loginData);
   };
 
   return (

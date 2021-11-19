@@ -5,8 +5,13 @@
 // import { User } from 'path/to/interfaces';
 
 export type User = {
-  id: number;
-  name: string;
+  id: string;
+  userName: string;
+  email: string;
+  roles: Array<string>;
+};
+
+export type loginInfo = {
   email: string;
   password: string;
 };
