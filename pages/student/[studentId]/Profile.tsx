@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import StudentProfile from "../../../components/StudentProfile";
+import { User } from "../../../interfaces";
 import classes from "../../../styles/studentMainPage.module.css";
 
 export const Profile = () => {

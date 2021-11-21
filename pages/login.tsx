@@ -41,7 +41,8 @@ export const login = () => {
 
   const deserializerToken = (input: any) => {
     const token = `${input.tokenType} ${input.accessToken}`;
-    setAccessToken(token);
+    console.log(token);
+    sessionStorage.setItem("accessToken", JSON.stringify(token));
   };
 
   const setAuthUser = (user) => {
@@ -49,7 +50,6 @@ export const login = () => {
     console.log(currentuser);
     sessionStorage.setItem("user", JSON.stringify(currentuser));
     deserializerToken(user);
-    sessionStorage.setItem("accessToken", accessToken);
   };
 
   const handleLogin = (e) => {

@@ -6,6 +6,16 @@ export class ApiService {
     "Content-Type": "application/json",
   };
 
+  intercep() {
+    axios.interceptors.request.use((req) => {
+      const token = sessionStorage.getItem("token");
+      if (!req.baseURL.includes("auth")) {
+        req.headers.authorization = token;
+      }
+      return req;
+    });
+  }
+
   async get(url: string) {
     try {
       const response = await axios.get(`${environment.api_url}/${url}`, {

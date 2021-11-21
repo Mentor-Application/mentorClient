@@ -9,19 +9,27 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { useForm } from "react-hook-form";
 import { browser } from "process";
 import { ApiService } from "../services/api.service";
+import { User } from "../interfaces";
 
 // import ButtonGroup from "react-bootstrap/ButtonGroup";
 // import Select from 'react-select';
 
 export const StudentProfile = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, setValue, getValues } = useForm();
   const [isChecked, setIsChecked] = useState(true);
   const [branch, setBranch] = useState("");
+
   let apiService: ApiService = new ApiService();
   const submitProfile = (values) => {
-    apiService.post("student/profile", values).then((res) => {
-      console.log(res);
-    });
+    console.log(values);
+    apiService
+      .post("student/profile", values)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -74,7 +82,7 @@ export const StudentProfile = () => {
           <Row>
             <Col>
               <label className={classes.label}>Branch</label>
-              <input
+              {/* <input
                 {...register("branch")}
                 style={{
                   color: "#0166b2",
@@ -97,8 +105,8 @@ export const StudentProfile = () => {
                 <option value="BME" />
                 <option value="CIVIL" />
                 <option value="CHEM" />
-              </datalist>
-              {/* <Dropdown>
+              </datalist> */}
+              <Dropdown>
                 <Dropdown.Toggle
                   id="dropdown-custom-1"
                   style={{
@@ -123,6 +131,7 @@ export const StudentProfile = () => {
                 >
                   <Dropdown.Item
                     onClick={() => {
+                      setValue("branch", "CSE");
                       setBranch("CSE");
                     }}
                     eventKey="option-1"
@@ -132,15 +141,16 @@ export const StudentProfile = () => {
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
+                      setValue("branch", "IT");
                       setBranch("IT");
                     }}
                     eventKey="option-2"
-                    as="button"
                   >
                     IT
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
+                      setValue("branch", "EEE");
                       setBranch("EEE");
                     }}
                     eventKey="option-3"
@@ -150,6 +160,7 @@ export const StudentProfile = () => {
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
+                      setValue("branch", "ECE");
                       setBranch("ECE");
                     }}
                     eventKey="option-4"
@@ -159,6 +170,7 @@ export const StudentProfile = () => {
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
+                      setValue("branch", "MECH");
                       setBranch("MECH");
                     }}
                     eventKey="option-5"
@@ -168,6 +180,7 @@ export const StudentProfile = () => {
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
+                      setValue("branch", "BME");
                       setBranch("BME");
                     }}
                     eventKey="option-6"
@@ -177,7 +190,8 @@ export const StudentProfile = () => {
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
-                      setBranch("CIVIL");
+                      setValue("branch", "CIVIL");
+                      setBranch("CHEM");
                     }}
                     eventKey="option-7"
                     as="button"
@@ -185,7 +199,7 @@ export const StudentProfile = () => {
                     CIVIL
                   </Dropdown.Item>
                 </Dropdown.Menu>
-              </Dropdown>{" "} */}
+              </Dropdown>
             </Col>
             <Col>
               <label className={classes.label}>Section</label>
@@ -280,7 +294,7 @@ export const StudentProfile = () => {
               Email ID
             </label>
             <input
-              {...register("email")}
+              {...register("emailId")}
               style={{ width: "80%" }}
               className={classes.box}
               type="email"
@@ -329,7 +343,7 @@ export const StudentProfile = () => {
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
             ></textarea>
-            <button type="submit"> submit</button>
+            <button type="submit">submit</button>
           </Row>
         </div>
       </form>
