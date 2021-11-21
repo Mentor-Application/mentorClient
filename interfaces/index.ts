@@ -8,6 +8,10 @@ export type User = {
   id: string;
   userName: string;
   email: string;
+  studentId: string;
+  mentorId: string;
+  parentId: string;
+  facultyId: string;
   roles: Array<string>;
 };
 

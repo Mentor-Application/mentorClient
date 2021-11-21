@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../components/Logo";
 import { useRouter } from "next/dist/client/router";
 import classes from "../styles/login.module.css";
-import { loginInfo } from "../interfaces";
+import { loginInfo, User } from "../interfaces";
 import { ApiService } from "../services/api.service";
-import { AuthService } from "../services/auth.service";
 
 export const login = () => {
   const [email, setemail] = useState("");
@@ -12,17 +11,64 @@ export const login = () => {
   const [errorMessage, setErrorMessage] = useState("Invalid login");
   const router = useRouter();
   const [isError, setIsError] = useState(true);
-
+  const [loggedInUser, setLoggedInUser] = useState(Object);
+  const [userInfo, setUserInfo] = useState(Object);
+  const [accessToken, setAccessToken] = useState("");
+  const [userId, setUserId] = useState("");
   const loginData: loginInfo = {
     email: email,
     password: password,
   };
 
-  let authService: AuthService = new AuthService();
+  let apiService: ApiService = new ApiService();
+
+  useEffect(() => {
+    setAuthUser(loggedInUser);
+  }, [loggedInUser]);
+
+  const deserializerUser = (input: any) => {
+    userInfo.id = input.id;
+    setUserId(input.id);
+    userInfo.userName = input.userName;
+    userInfo.email = input.email;
+    userInfo.roles = input.roles;
+    userInfo.studentId = input.studentId;
+    userInfo.mentorId = input.mentorId;
+    userInfo.parentId = input.parentId;
+    userInfo.facultyId = input.facultyId;
+    return userInfo;
+  };
+
+  const deserializerToken = (input: any) => {
+    const token = `${input.tokenType} ${input.accessToken}`;
+    setAccessToken(token);
+  };
+
+  const setAuthUser = (user) => {
+    const currentuser = deserializerUser(user);
+    console.log(currentuser);
+    sessionStorage.setItem("user", JSON.stringify(currentuser));
+    deserializerToken(user);
+    sessionStorage.setItem("accessToken", accessToken);
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
-    authService.login(loginData);
+    apiService
+      .post("auth/login", loginData)
+      .then((res) => {
+        const { status } = res;
+        if (status === "OK") {
+          setLoggedInUser(res);
+          router.push("student");
+        } else {
+          setIsError(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsError(false);
+      });
   };
 
   return (

@@ -24,8 +24,7 @@ export class ApiService {
     const response = await axios
       .post(`${environment.api_url}/${url}`, data)
       .then((res) => {
-        const data = res.data;
-        return data;
+        return res.data;
       })
       .catch((res) => {
         console.log(res);
