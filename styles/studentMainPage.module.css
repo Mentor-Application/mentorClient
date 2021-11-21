@@ -44,3 +44,10 @@
   position:absolute;
   left: 60%;
 }
+
+.heading{
+  text-align: center;
+  color: #0166b2;
+  font-family: inherit;
+  font-weight: 600;
+}

@@ -6,13 +6,35 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row'; 
 //import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
+import { useState } from "react"
 // import ButtonGroup from "react-bootstrap/ButtonGroup";
 // import Select from 'react-select';
 
 export const StudentProfile = () => {
+//   constructor() {
+//     super();
+
+//     state = {
+//       dropDownValue: "Select an item"
+//     }
+//   }
+
+//   const [text,setTextContent]=useState('')
+
+//   const onSubmit = (e) => {
+//     e.preventDefault()
+
+//     // changeValue({text}) 
+
+//     setTextContent({dropDownValue: text})
+  
+// }
   
 
   return (
+
+    
+
     <div className={classes.forms}>
       <form className="d-flex flex-row justify-content-around align-items-center">
 
@@ -28,7 +50,7 @@ export const StudentProfile = () => {
               Male
             </label>
       
-            <label style={{marginLeft:'150px'}} className={classes.label}>
+            <label style={{marginLeft:'35%'}} className={classes.label}>
               <input type="radio" value="Female"  />
               Female
             </label>
@@ -38,16 +60,16 @@ export const StudentProfile = () => {
             <Col>
           <label className={classes.label}>Branch</label>
           <Dropdown >
-          <Dropdown.Toggle  id="dropdown-custom-1"  style={{backgroundColor:"white",border:'2.5px solid #0166b2',borderRadius:'25px',width:'65%',height:'40px'}} >    </Dropdown.Toggle>
+          <Dropdown.Toggle  id="dropdown-custom-1" style={{color:'#0166b2',backgroundColor:"white",border:'2.5px solid #0166b2',borderRadius:'25px',width:'65%',height:'40px'}} >    </Dropdown.Toggle>
           <Dropdown.Menu className="dropdown"
-            id="dropdown-menu-align-right" style={{backgroundColor:"white",borderRadius:'25px'}} >
-              <Dropdown.Item eventKey="option-1">CSE</Dropdown.Item>
-              <Dropdown.Item eventKey="option-2">IT</Dropdown.Item>
-              <Dropdown.Item eventKey="option-3">EEE</Dropdown.Item>
-              <Dropdown.Item eventKey="option-4">ECE</Dropdown.Item>
-              <Dropdown.Item eventKey="option-5">MECH</Dropdown.Item>
-              <Dropdown.Item eventKey="option-6">BME</Dropdown.Item>
-              <Dropdown.Item eventKey="option-7">CIVIL</Dropdown.Item>
+            id="dropdown-menu-align-right" style={{color:'#0166b2',backgroundColor:"white",borderRadius:'25px'}} >
+              <Dropdown.Item eventKey="option-1" as="button"><div >CSE</div></Dropdown.Item>
+              <Dropdown.Item eventKey="option-2" as="button">IT</Dropdown.Item>
+              <Dropdown.Item eventKey="option-3" as="button">EEE</Dropdown.Item>
+              <Dropdown.Item eventKey="option-4" as="button">ECE</Dropdown.Item>
+              <Dropdown.Item eventKey="option-5" as="button">MECH</Dropdown.Item>
+              <Dropdown.Item eventKey="option-6" as="button">BME</Dropdown.Item>
+              <Dropdown.Item eventKey="option-7" as="button">CIVIL</Dropdown.Item>
          </Dropdown.Menu>
          </Dropdown>{' '}
          </Col>
@@ -70,7 +92,7 @@ export const StudentProfile = () => {
           </Row>
           <Row>
             <Col>
-              <label style={{marginBottom:'28px'}} className={classes.label}>Hostel / Day Scholar</label>
+              <label style={{marginBottom:'5px'}} className={classes.label}>Hostel / Day Scholar</label>
               <Dropdown >
               <Dropdown.Toggle  id="dropdown-custom-1"  style={{backgroundColor:"white",border:'2.5px solid #0166b2',borderRadius:'25px',width:'65%',height:'40px'}} >    </Dropdown.Toggle>
               <Dropdown.Menu className="dropdown"
@@ -93,7 +115,7 @@ export const StudentProfile = () => {
 
         <div className="d-flex flex-column col-lg-4">
           <Row>
-          <label className={classes.label}>Email ID</label>
+          <label style={{marginTop:'20px'}} className={classes.label}>Email ID</label>
           <input style={{width:'80%'}} className={classes.box} type="email" ></input>
           </Row>
           <Row>
@@ -114,7 +136,7 @@ export const StudentProfile = () => {
           </Row>
           <Row>
           <label className={classes.label}>Address for Communication</label>
-          <input style={{width:'80%'}} className={classes.box} type="textarea" ></input>
+          <textarea style={{width:'80%',height:'90px'}} className={classes.box}  ></textarea>
           </Row>
         </div>
       </form>
