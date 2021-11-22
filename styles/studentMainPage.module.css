@@ -5,14 +5,25 @@
   width: 85%;
 }
 
-.label{
+.navbarActive {
+  background: #ffffff;
+  height: 90%;
+  border-radius: 30px;
+  width: 85%;
+
+  position: absolute;
+  transition: all;
+  left: 0%;
+}
+
+.label {
   color: #0166b2;
   font-weight: bold;
   margin-bottom: 2%;
 }
 
-.input{
-  height:'35px';
+.input {
+  height: "35px";
   width: 30%;
 }
 
@@ -23,15 +34,15 @@
   border-radius: 30px;
 }
 
-.box{
+.box {
   height: 40px;
   margin-bottom: 5%;
   background: #ffffff;
-  border-radius: 25px; 
+  border-radius: 25px;
   border: 2.5px solid #0166b2;
 }
 
-.dropdownbutton{
+.dropdownbutton {
   background-color: #ffffff;
   width: 60%;
   border-radius: 15px;
@@ -41,11 +52,11 @@
 .vl {
   border-left: 2px solid #0166b2;
   height: 60%;
-  position:absolute;
+  position: absolute;
   left: 60%;
 }
 
-.heading{
+.heading {
   text-align: center;
   color: #0166b2;
   font-family: inherit;

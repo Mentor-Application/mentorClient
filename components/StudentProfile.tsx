@@ -7,9 +7,8 @@ import Row from "react-bootstrap/Row";
 //import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from "react-bootstrap/Dropdown";
 import { useForm } from "react-hook-form";
-import { browser } from "process";
+
 import { ApiService } from "../services/api.service";
-import { User } from "../interfaces";
 
 // import ButtonGroup from "react-bootstrap/ButtonGroup";
 // import Select from 'react-select';
@@ -32,13 +31,15 @@ export const StudentProfile = () => {
       });
   };
 
+  let whiteBox = `${classes.forms}  d-flex justify-content-center col-xl-11`;
   return (
-    <div className={classes.forms}>
+    <div className={whiteBox}>
       <form
+        style={{ marginLeft: "7%", overflowY: "scroll" }}
         onSubmit={handleSubmit(submitProfile)}
-        className="d-flex flex-row justify-content-around align-items-center"
+        className="row d-flex justify-content-around"
       >
-        <div className="d-flex flex-column col-lg-4">
+        <div className="d-flex flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-11">
           <Row>
             <label style={{ marginTop: "20px" }} className={classes.label}>
               Name
@@ -82,7 +83,7 @@ export const StudentProfile = () => {
           <Row>
             <Col>
               <label className={classes.label}>Branch</label>
-              {/* <input
+              <input
                 {...register("branch")}
                 style={{
                   color: "#0166b2",
@@ -105,8 +106,8 @@ export const StudentProfile = () => {
                 <option value="BME" />
                 <option value="CIVIL" />
                 <option value="CHEM" />
-              </datalist> */}
-              <Dropdown>
+              </datalist>
+              {/* <Dropdown>
                 <Dropdown.Toggle
                   id="dropdown-custom-1"
                   style={{
@@ -199,7 +200,7 @@ export const StudentProfile = () => {
                     CIVIL
                   </Dropdown.Item>
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
             </Col>
             <Col>
               <label className={classes.label}>Section</label>
@@ -288,7 +289,7 @@ export const StudentProfile = () => {
           </Row>
         </div>
 
-        <div className="d-flex flex-column col-lg-4">
+        <div className="d-flex flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-11">
           <Row>
             <label style={{ marginTop: "20px" }} className={classes.label}>
               Email ID
