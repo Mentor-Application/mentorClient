@@ -8,7 +8,7 @@ export const index = () => {
   const router = useRouter();
   const studentId = router.query.studentId;
   const [showNav, setShowNav] = useState(false);
-  const navCss = `${
+  let navCss = `${
     showNav
       ? "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 position-absolute col-sm-4 col-8"
       : "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4"
@@ -31,7 +31,7 @@ export const index = () => {
       style={{ width: "100vw", height: "100vh" }}
       className="d-flex flex-row"
     >
-      <div style={{ height: "100vh" }} className={navCss}>
+      <div style={{ height: "90vh", marginTop: "3%" }} className={navCss}>
         <div className={classes.navbar}></div>
       </div>
 
@@ -39,11 +39,16 @@ export const index = () => {
         style={{ height: "100vh" }}
         className="home d-flex flex-column col-lg-9 col-xl-9"
       >
-        <div className="d-md-none ">
-          <button>
-            <GiHamburgerMenu onClick={handleClick} />
-          </button>
-        </div>
+        <button
+          className="d-md-none"
+          onClick={() => {
+            setShowNav((state) => !state);
+            console.log(showNav);
+          }}
+        >
+          <GiHamburgerMenu />
+        </button>
+
         <Profile></Profile>
       </div>
     </div>
