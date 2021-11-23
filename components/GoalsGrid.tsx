@@ -3,6 +3,8 @@ import classes from "../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { MdCheckCircle } from 'react-icons/md';
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const GoalsGrid = () => {
     const { register, handleSubmit, setValue, getValues } = useForm();
@@ -17,9 +19,10 @@ const GoalsGrid = () => {
          <div className={classes.forms}>
             
           <form onSubmit={handleSubmit(submitProfile)} 
-          className="d-flex flex-row justify-content-around align-items-center">
+          className="d-flex flex-column justify-content-around align-items-center">
+            
 
-         <table style={{marginTop:'20%'}} className={classes.table}>
+         <table style={{marginTop:'0%'}} className={classes.table}>
             <tr>
                 <th style={{width:'5%'}} className={classes.tablehead} >No.</th>
                 <th className={classes.tablehead} >Domain</th>
@@ -55,11 +58,9 @@ const GoalsGrid = () => {
              
            </tr>
          </table>
-      
-            <div >
-              <button style= {{bottom:'0',right:'0'}} type="submit" >accept<FontAwesomeIcon icon="coffee" /></button>
-            </div>
-         {/* <button style={{float : 'right'}} type="submit">submit</button> */}
+        <div>  
+         <button className={classes.icon} type="submit" ><FontAwesomeIcon style={{fontSize : '200%', color:'white'}} icon={faCheckCircle} /></button>
+       </div>
        </form>
        </div>
     )

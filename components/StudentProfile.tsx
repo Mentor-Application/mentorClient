@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 //import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from "react-bootstrap/Dropdown";
 import { useForm } from "react-hook-form";
+import { ErrorMessage } from '@hookform/error-message';
 
 import { ApiService } from "../services/api.service";
 
@@ -14,7 +15,7 @@ import { ApiService } from "../services/api.service";
 // import Select from 'react-select';
 
 export const StudentProfile = () => {
-  const { register, handleSubmit, setValue, getValues } = useForm();
+  const { register, handleSubmit, setValue, getValues,setError,formState:{errors}} = useForm();
   const [isChecked, setIsChecked] = useState(true);
   const [branch, setBranch] = useState("");
 
@@ -45,11 +46,18 @@ export const StudentProfile = () => {
               Name
             </label>
             <input
-              {...register("studentName")}
+              {...register("studentName",{required:"Student Name Required"})}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
             ></input>
+            <ErrorMessage errors={errors} name="singleErrorInput" />
+      
+            <ErrorMessage
+              errors={errors}
+              name="singleErrorInput"
+              render={({ message }) => <p>{message}</p>}
+            />
           </Row>
 
           <Row>
@@ -88,8 +96,8 @@ export const StudentProfile = () => {
                 style={{
                   color: "#0166b2",
                   backgroundColor: "white",
-                  border: "2.5px solid #0166b2",
-                  borderRadius: "25px",
+                  border: "1.5px solid #0166b2",
+                  borderRadius: "15px",
                   width: "80%",
                   height: "40px",
                 }}
@@ -206,7 +214,7 @@ export const StudentProfile = () => {
               <label className={classes.label}>Section</label>
               <input
                 {...register("section")}
-                style={{ width: "65%", height: "42.5px" }}
+                style={{ width: "75%", height: "42.5px" }}
                 className={classes.box}
                 type="text"
               ></input>
@@ -250,7 +258,27 @@ export const StudentProfile = () => {
           </Row>
           <Row>
             <Col>
-              <label style={{ marginBottom: "5px" }} className={classes.label}>
+
+            <label className={classes.label}>Hosteller/Day Scholar</label>
+              <input
+                {...register("mode")}
+                style={{
+                  color: "#0166b2",
+                  backgroundColor: "white",
+                  border: "1.5px solid #0166b2",
+                  borderRadius: "15px",
+                  width: "80%",
+                  height: "40px",
+                }}
+                list="mode"
+                type="text"
+              ></input>
+
+              <datalist id="mode">
+                <option value="Hosteller" />
+                <option value="Day Scholar" />
+              </datalist>
+              {/* <label style={{ marginBottom: "5px" }} className={classes.label}>
                 Hostel / Day Scholar
               </label>
               <Dropdown>
@@ -274,7 +302,7 @@ export const StudentProfile = () => {
                   <Dropdown.Item eventKey="choice-1">Hosteller</Dropdown.Item>
                   <Dropdown.Item eventKey="choice-2">Day Scholar</Dropdown.Item>
                 </Dropdown.Menu>
-              </Dropdown>{" "}
+              </Dropdown>{" "} */}
             </Col>
 
             <Col>

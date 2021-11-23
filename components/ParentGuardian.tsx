@@ -9,19 +9,20 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 export const ParentGuardian = () => {
 
+  let whiteBox = `${classes.forms}  d-flex justify-content-center col-xl-11`;
+
     return (
 
-    
-
-        <div className={classes.forms}>
+        <div className={whiteBox}>
             
-          <form className="d-flex flex-row justify-content-around align-items-center">
-           <div className="d-flex flex-column col-lg-4">
+          <form style={{ marginLeft: "7%", overflowY: "scroll" }}
+          className="row d-flex justify-content-around">
+           <div className="d-flex flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-11">
                 <Row>
-                   <h3 style={{marginTop:'5%',marginBottom:'5%'}} className={classes.heading}>Parent</h3>
+                   <h3 style={{marginTop:'10%'}} className={classes.heading}>Parent</h3>
                 </Row>
 
-                <Row><label style={{marginTop:'0%'}} className={classes.label}>Name</label>
+                <Row><label style={{marginTop:'20px'}} className={classes.label}>Name</label>
                 <input style={{width:'80%'}} className={classes.box} type="text" ></input>
                 </Row>
 
@@ -31,15 +32,13 @@ export const ParentGuardian = () => {
                 </Row>
 
                 <Row>
-                <label style={{marginTop:'20%'}} className={classes.label}>Email ID</label>
+                <label  className={classes.label}>Email ID</label>
                 <input style={{width:'80%'}} className={classes.box} type="text" ></input>
                 </Row>
               
            </div>
     
-           <div className={classes.vl}></div>
-    
-            <div className="d-flex flex-column col-lg-4">
+            <div className="d-flex flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-11">
                 <Row>
                    <h4 style={{marginTop:'10%'}} className={classes.heading}>Local Guardian(for hosteller)</h4>
                 </Row>

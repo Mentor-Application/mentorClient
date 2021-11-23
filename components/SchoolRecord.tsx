@@ -21,9 +21,9 @@ const SchoolRecord = () => {
     };
 
     return (
-        <div className={classes.forms}>
+        <div style={{overflowX:'auto'}} className={classes.forms}>
             
-          <form onSubmit={handleSubmit(submitProfile)} 
+          <form onSubmit={handleSubmit(submitProfile)} style={{overflowX:'auto'}}
           className="d-flex flex-row justify-content-around align-items-center">
           
   

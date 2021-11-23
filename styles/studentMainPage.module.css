@@ -39,8 +39,8 @@
   height: 40px;
   margin-bottom: 5%;
   background: #ffffff;
-  border-radius: 25px;
-  border: 2.5px solid #0166b2;
+  border-radius: 15px;
+  border: 1.5px solid #0166b2;
 }
 
 .dropdownbutton {
@@ -94,5 +94,13 @@
 }
 
 .inputbox:focus {
-  border: white;
+  outline: none !important;
+}
+
+.icon{
+  right: 10;
+  bottom: 0; 
+  background-color:#0166b2;
+  border-radius: 15px;
+  border:none;
 }
