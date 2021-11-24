@@ -112,3 +112,27 @@
   border-radius: 15px;
   border: none;
 }
+
+.photo{
+  height: 80%;
+  background-color: gray;
+  
+}
+.navbtn{
+  background: #0166b2;
+  color: #ffffff;
+  font-weight: bold;
+  border: none;
+  border-color: 2 px solid #0166b2;
+  border-radius: 30px;
+  margin-top: 100%;
+  width: 70%;
+  height: 25px;
+  font-family: inherit;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 35px;
+}

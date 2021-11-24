@@ -1,4 +1,4 @@
-import { useRouter } from "next/dist/client/router";
+import { Router, useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../components/Navbar";
 import classes from "../../../styles/studentMainPage.module.css";
@@ -29,7 +29,15 @@ export const index = () => {
   return (
     <div style={{ width: "100%", height: "100vh" }} className="d-flex flex-row">
       <div style={{ height: "90vh", marginTop: "3%" }} className={navCss}>
-        <div className={classes.navbar}></div>
+        <div className={classes.navbar}>
+          <div className="col-md-12 col-lg-12 justify-content-center align-items-center">
+              <button  type="button" className={classes.navbtn}>Your Profile</button>
+              <button  type="button" onClick={() => router.push(`/student/${studentId}/Marks`)}
+              style={{marginTop:"20%"}}className={classes.navbtn}>Marks</button>
+              <button  type="button" style={{marginTop:"20%"}} className={classes.navbtn}>Meeting details</button>
+              <button  type="button" style={{marginTop:"20%"}} className={classes.navbtn}>Career Information</button>
+          </div>  
+        </div>
       </div>
 
       <div
