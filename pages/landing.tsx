@@ -5,6 +5,7 @@ import ParentGuardian from "../components/ParentGuardian";
 import SchoolRecord from "../components/SchoolRecord";
 import StudentProfile from "../components/StudentProfile";
 import classes from "../styles/studentMainPage.module.css";
+import MentorMeetingDetails from "./student/[studentId]/MentorMeetingDetails";
 
 export const landing = () => {
   return (
@@ -57,6 +58,12 @@ export const landing = () => {
             className="d-flex justify-content-center align-items-center col-lg-12 col-md-8"
           >
             <HobbiesStrength></HobbiesStrength>
+          </div>
+          <div
+            style={{ height: "100%" }}
+            className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12"
+          >
+            <MentorMeetingDetails></MentorMeetingDetails>
           </div>
           
         </div>
