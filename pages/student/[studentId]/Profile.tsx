@@ -16,24 +16,23 @@ export const Profile = () => {
         overflowY: "scroll",
         height: "100vh",
       }}
-      className="row"
+      className="row justify-content-center"
     >
       <div
-        style={{ height: "100%" }}
-        className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12"
+        style={{ height: "115%", overflow: "hidden" }}
+        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        {/* <div className={classes.vl}></div> */}
         <StudentProfile></StudentProfile>
       </div>
       <div
         style={{ height: "100%" }}
-        className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12"
+        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
         <ParentGuardian></ParentGuardian>
       </div>
       <div
         style={{ height: "100%" }}
-        className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12"
+        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
         <SchoolRecord></SchoolRecord>
       </div>

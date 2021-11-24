@@ -27,17 +27,14 @@ export const index = () => {
   // }, []);
 
   return (
-    <div
-      style={{ width: "100vw", height: "100vh" }}
-      className="d-flex flex-row"
-    >
+    <div style={{ width: "100%", height: "100vh" }} className="d-flex flex-row">
       <div style={{ height: "90vh", marginTop: "3%" }} className={navCss}>
         <div className={classes.navbar}></div>
       </div>
 
       <div
         style={{ height: "100vh" }}
-        className="home d-flex flex-column col-lg-9 col-xl-9"
+        className="home d-flex flex-column col-12 col-md-8 col-sm-12 col-lg-9 col-xl-9"
       >
         <button
           className="d-md-none"

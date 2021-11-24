@@ -19,6 +19,13 @@ div#__next > div {
   overflow: hidden;
 }
 
+* {
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
 @font-face {
   font-family: "Work Sans", sans-serif;
   src: url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap");

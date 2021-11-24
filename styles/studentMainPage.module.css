@@ -20,8 +20,14 @@
   color: #0166b2;
   font-weight: bold;
   margin-bottom: 2%;
+  margin-left: 15%;
 }
 
+.label2 {
+  color: #0166b2;
+  font-weight: bold;
+  margin-bottom: 2%;
+}
 .input {
   height: "35px";
   width: 30%;
@@ -29,10 +35,10 @@
 
 .forms {
   margin-top: 8%;
-  height: 90%;
   background: #ffffff;
   width: 90%;
   border-radius: 30px;
+  overflow-x: hidden;
 }
 
 .box {
@@ -53,7 +59,7 @@
 .vl {
   border-left: 2px solid #0166b2;
   height: 60%;
-  position: absolute;
+
   left: 60%;
 }
 
@@ -69,24 +75,26 @@
   font-weight: 500;
   text-align: center;
   color: #0166b2;
-  table-layout: fixed;
+  table-layout: auto;
   width: 70%;
+  overflow-x: scroll;
+  margin-right: 10%;
 }
 
-.inputbox{
+.inputbox {
   border: none;
   width: 100%;
   height: 100%;
 }
 
-.tablehead{
+.tablehead {
   color: #0166b2;
   text-align: center;
   border: 1px solid #0166b2;
   height: 50px;
 }
 
-.inputgoals{
+.inputgoals {
   border: none;
   margin-top: 10%;
   margin-left: 5%;
@@ -97,10 +105,10 @@
   outline: none !important;
 }
 
-.icon{
+.icon {
   right: 10;
-  bottom: 0; 
-  background-color:#0166b2;
+  bottom: 0;
+  background-color: #0166b2;
   border-radius: 15px;
-  border:none;
+  border: none;
 }
