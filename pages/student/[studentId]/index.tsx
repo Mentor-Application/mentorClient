@@ -4,6 +4,8 @@ import Navbar from "../../../components/Navbar";
 import classes from "../../../styles/studentMainPage.module.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Profile from "./Profile";
+import Marks from "./Marks";
+import MentorMeetingDetails from "./MentorMeetingDetails";
 export const index = () => {
   const router = useRouter();
   const studentId = router.query.studentId;
@@ -11,7 +13,7 @@ export const index = () => {
   let navCss = `${
     showNav
       ? "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 position-absolute col-sm-4 col-8"
-      : "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4"
+      : "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 d-none d-sm-flex"
   } `;
 
   const handleClick = (e) => {
@@ -20,23 +22,51 @@ export const index = () => {
     setShowNav(!showNav);
   };
 
+  const [pageRoute, setPageRoute] = useState("profile");
   // useEffect(() => {
   //   document.addEventListener("keypress", (e) => {
   //     if (e.code === "Space") setShowNav((state) => !state);
   //   });
   // }, []);
+  let navStyle = `${classes.navbar} d-flex flex-column justify-content-center`;
 
   return (
     <div style={{ width: "100%", height: "100vh" }} className="d-flex flex-row">
       <div style={{ height: "90vh", marginTop: "3%" }} className={navCss}>
-        <div className={classes.navbar}>
-          <div className="col-md-12 col-lg-12 justify-content-center align-items-center">
-              <button  type="button" className={classes.navbtn}>Your Profile</button>
-              <button  type="button" onClick={() => router.push(`/student/${studentId}/Marks`)}
-              style={{marginTop:"20%"}}className={classes.navbtn}>Marks</button>
-              <button  type="button" style={{marginTop:"20%"}} className={classes.navbtn}>Meeting details</button>
-              <button  type="button" style={{marginTop:"20%"}} className={classes.navbtn}>Career Information</button>
-          </div>  
+        <div className={navStyle}>
+          <div
+            style={{ height: "45%", background: "red" }}
+            className=""
+            id="profilePic"
+          ></div>
+          <div className="d-flex flex-column align-items-center ">
+            <button
+              type="button"
+              onClick={() => {
+                setPageRoute("profile");
+              }}
+              className={classes.navbtn}
+            >
+              Your Profile
+            </button>
+            <button
+              type="button"
+              onClick={() => setPageRoute("marks")}
+              className={classes.navbtn}
+            >
+              Marks
+            </button>
+            <button
+              type="button"
+              onClick={() => setPageRoute("mentormeeting")}
+              className={classes.navbtn}
+            >
+              Meeting details
+            </button>
+            <button type="button" className={classes.navbtn}>
+              Career Information
+            </button>
+          </div>
         </div>
       </div>
 
@@ -53,8 +83,19 @@ export const index = () => {
         >
           <GiHamburgerMenu />
         </button>
+        {(() => {
+          if (pageRoute.match("profile")) {
+            return <Profile></Profile>;
+          } else if (pageRoute.match("marks")) {
+            return <Marks></Marks>;
+          } else if (pageRoute.match("mentormeeting")) {
+            return <MentorMeetingDetails></MentorMeetingDetails>;
+          } else {
+            return <></>;
+          }
+        })()}
 
-        <Profile></Profile>
+        {/* {pageRoute.match("profile") ? <Profile></Profile> : <Marks></Marks>} */}
       </div>
     </div>
   );
