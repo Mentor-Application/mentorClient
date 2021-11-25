@@ -22,7 +22,7 @@ const GoalsGrid = () => {
           className="d-flex flex-column justify-content-around align-items-center">
             
 
-         <table style={{marginTop:'0%'}} className={classes.table}>
+         <table style={{marginTop:'0%',}} className={classes.table}>
             <tr>
                 <th style={{width:'5%'}} className={classes.tablehead} >No.</th>
                 <th className={classes.tablehead} >Domain</th>

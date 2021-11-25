@@ -87,6 +87,7 @@
   height: 100%;
 }
 
+
 .tablehead {
   color: #0166b2;
   text-align: center;
@@ -129,4 +130,40 @@
   height: 50%;
   font-family: inherit;
   cursor: pointer;
+}
+.dropdown{
+  position: relative;
+  display: inline-block;
+}
+.dropdownbutton{
+  background-color:#0166b2;
+  padding: 10px;
+}
+.dropdown-menu{
+  display: none;
+  position: absolute;
+}
+.inpBoxes{
+  border: 1px solid #0166b2;
+  text-align: center;
+  color: #0166b2;
+  table-layout: auto;
+  width: 30px;
+  overflow-x: scroll;
+  margin-right: 10%;
+}
+.dropdown-button-dark-example2{
+  background: #0166b2;
+  margin-left: 20%;
+}
+.univ{
+  text-align: center;
+  font-weight: bold;
+  font-size: x-large;
+}
+.internal{
+  text-align: center;
+  font-weight: bold;
+  font-size: x-large;
+  margin-top: 75%;
 }
