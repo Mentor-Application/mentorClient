@@ -76,7 +76,6 @@
   text-align: center;
   color: #0166b2;
   table-layout: auto;
-  width: 70%;
   overflow-x: scroll;
   margin-right: 10%;
 }
@@ -97,6 +96,7 @@
 
 .inputgoals {
   border: none;
+  width: 80%;
   margin-top: 10%;
   margin-left: 5%;
   border-bottom: 2px solid #0166b2;
@@ -106,11 +106,14 @@
   outline: none !important;
 }
 
+.inputgoals:focus {
+  outline: none !important;
+}
+
 .icon {
-  right: 10;
-  bottom: 0;
   background-color: #0166b2;
-  border-radius: 15px;
+  color: #ffffff;
+  border-radius: 50%;
   border: none;
 }
 

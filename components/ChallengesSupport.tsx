@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import classes from "../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const ChallengesSupport = () => {
 
@@ -13,18 +15,20 @@ const ChallengesSupport = () => {
       console.log(values);
     };
     
-    return (
-        <div className={classes.forms}>
-            
-          <form onSubmit={handleSubmit(submitProfile)} 
-          className="d-flex flex-row justify-content-around align-items-center">
-  
-         <table style={{marginTop:'20%'}} className={classes.table}>
+    let whiteBox = `${classes.forms} col-12 col-xl-11`;
+
+  return (
+    <div style={{ overflowX: "auto", height: "65%" }} className={whiteBox}>
+      <form
+        onSubmit={handleSubmit(submitProfile)}
+        className="d-flex flex-column justify-content-around align-items-center"
+      >
+        <table style={{ marginTop: "10%",marginLeft:'10%' }} className={classes.table}>
             <tr>
-                <th style={{width:'5%'}} className={classes.tablehead} >No.</th>
+                <th style={{width:'10%'}} className={classes.tablehead} >No.</th>
                 <th style={{width:'20%'}} className={classes.tablehead} >Domain</th>
-                <th className={classes.tablehead} >Challenges</th>
-                <th className={classes.tablehead} >Sources of Support</th>
+                <th style={{width:'45%'}}className={classes.tablehead} >Challenges</th>
+                <th style={{width:'200%'}}className={classes.tablehead} >Sources of Support</th>
             </tr>
            <tr>
              <td className={classes.tablehead} >1.</td> 
@@ -56,7 +60,9 @@ const ChallengesSupport = () => {
              
            </tr>
          </table>
-         {/* <div style={{marginTop:'40%'}}><button  type="submit" >Submit</button></div> */}
+         <div style={{marginTop:'5%',marginLeft:'60%'}}>  
+                <button className={classes.icon} type="submit" ><FontAwesomeIcon style={{fontSize:'110%'}} icon={faCheck} /></button>
+         </div>
        </form>
        </div>
     )

@@ -3,31 +3,30 @@ import classes from "../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { MdCheckCircle } from 'react-icons/md';
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const GoalsGrid = () => {
     const { register, handleSubmit, setValue, getValues } = useForm();
-
   
     let apiService: ApiService = new ApiService();
     const submitProfile = (values) => {
       console.log(values);
     };
+    let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
     return (
-         <div className={classes.forms}>
+         <div style={{ overflowX: "auto", height: "65%" }} className={whiteBox}>
             
           <form onSubmit={handleSubmit(submitProfile)} 
           className="d-flex flex-column justify-content-around align-items-center">
             
 
-         <table style={{marginTop:'0%',}} className={classes.table}>
+         <table style={{marginTop:'10%',marginLeft:'10%'}} className={classes.table}>
             <tr>
-                <th style={{width:'5%'}} className={classes.tablehead} >No.</th>
+                <th style={{width:'10%'}} className={classes.tablehead} >No.</th>
                 <th className={classes.tablehead} >Domain</th>
-                <th className={classes.tablehead} >Goal</th>
-                <th className={classes.tablehead} >Plan of Action</th>
+                <th style={{width:'30%'}} className={classes.tablehead} >Goal</th>
+                <th style={{width:'30%'}} className={classes.tablehead} >Plan of Action</th>
             </tr>
            <tr>
              <td className={classes.tablehead} >1.</td> 
@@ -58,8 +57,8 @@ const GoalsGrid = () => {
              
            </tr>
          </table>
-        <div>  
-         <button className={classes.icon} type="submit" ><FontAwesomeIcon style={{fontSize : '200%', color:'white'}} icon={faCheckCircle} /></button>
+        <div style={{marginTop:'5%',marginLeft:'60%'}}>  
+         <button className={classes.icon} type="submit" ><FontAwesomeIcon style={{fontSize:'110%'}} icon={faCheck} /></button>
        </div>
        </form>
        </div>

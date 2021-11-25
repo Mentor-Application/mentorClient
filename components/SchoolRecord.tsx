@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import classes from "../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+
 
 const SchoolRecord = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
@@ -30,11 +33,11 @@ const SchoolRecord = () => {
         <table style={{ marginTop: "10%" }} className={classes.table}>
           <tr>
             <th className={classes.tablehead}>Course</th>
-            <th className={classes.tablehead}>Year in which passed</th>
-            <th style={{ width: "20%" }} className={classes.tablehead}>
+            <th style={{ width: "15%" }}className={classes.tablehead}>Year in which passed</th>
+            <th style={{ width: "45%" }} className={classes.tablehead}>
               Name of the School/Institution
             </th>
-            <th style={{ width: "30%" }} className={classes.tablehead}>
+            <th style={{ width: '20%' }} className={classes.tablehead}>
               Board
             </th>
             <th className={classes.tablehead}>Percentage</th>
@@ -144,7 +147,9 @@ const SchoolRecord = () => {
             </td>
           </tr>
         </table>
-        {/* <div style={{marginTop:'40%'}}><button  type="submit" >Submit</button></div> */}
+        <div style={{marginTop:'5%',marginLeft:'83%'}}>  
+         <button className={classes.icon} type="submit" ><FontAwesomeIcon style={{fontSize:'110%'}} icon={faCheck} /></button>
+       </div>
       </form>
     </div>
   );

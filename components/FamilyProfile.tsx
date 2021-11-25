@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import classes from "../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const FamilyProfile = () => {
 
@@ -14,13 +16,15 @@ const FamilyProfile = () => {
     };
 
     
+    let whiteBox = `${classes.forms} col-12 col-xl-11`;
+
     return (
-        <div className={classes.forms}>
-            
-          <form onSubmit={handleSubmit(submitProfile)} 
-          className="d-flex flex-row justify-content-around align-items-center">
-  
-         <table style={{marginTop:'20%'}} className={classes.table}>
+      <div style={{ overflowX: "auto", height: "65%" }} className={whiteBox}>
+        <form
+          onSubmit={handleSubmit(submitProfile)}
+          style={{ overflowX: "auto", marginLeft: "10%" }}
+        >
+          <table style={{ marginTop: "10%" }} className={classes.table}>
             <tr>
                 <th style={{width:'5%'}} className={classes.tablehead} >No.</th>
                 <th className={classes.tablehead} >Relationship</th>
@@ -59,7 +63,9 @@ const FamilyProfile = () => {
              
            </tr>
          </table>
-         {/* <div style={{marginTop:'40%'}}><button  type="submit" >Submit</button></div> */}
+         <div style={{marginTop:'5%',marginLeft:'83%'}}>  
+                <button className={classes.icon} type="submit" ><FontAwesomeIcon style={{fontSize:'110%'}} icon={faCheck} /></button>
+         </div>
        </form>
        </div>
     )

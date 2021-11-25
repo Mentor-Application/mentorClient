@@ -8,7 +8,8 @@ import Row from "react-bootstrap/Row";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { ApiService } from "../services/api.service";
 
 // import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -49,7 +50,7 @@ export const StudentProfile = () => {
       >
         <div className="d-flex  flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
           <Row className="d-flex justify-content-center">
-            <label style={{ marginTop: "20px" }} className={classes.label}>
+            <label style={{ marginTop: "10%" }} className={classes.label}>
               Name
             </label>
             <input
@@ -59,17 +60,17 @@ export const StudentProfile = () => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-            ></input>
-            <ErrorMessage errors={errors} name="singleErrorInput" />
+            />
+           <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="studentName" /></span>
 
-            <ErrorMessage
+            {/* <ErrorMessage
               errors={errors}
               name="singleErrorInput"
               render={({ message }) => <p>{message}</p>}
-            />
+            /> */}
           </Row>
 
-          <Row style={{ marginTop: "5%" }}>
+          <Row style={{ marginTop: "2%",marginLeft:'-10%' }}>
             <div className="radio d-flex">
               <label className={classes.label}>
                 <input
@@ -109,7 +110,9 @@ export const StudentProfile = () => {
             >
               <label className={classes.label}>Branch</label>
               <input
-                {...register("branch")}
+                {...register("branch", {
+                  required: "Branch Required",
+                })}
                 style={{
                   color: "#0166b2",
                   backgroundColor: "white",
@@ -133,6 +136,7 @@ export const StudentProfile = () => {
                 <option value="CIVIL" />
                 <option value="CHEM" />
               </datalist>
+              <span style={{color:'red',marginTop:'-1%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="branch" /></span>
             </Col>
             <Col
               style={{ textAlign: "start" }}
@@ -140,54 +144,71 @@ export const StudentProfile = () => {
             >
               <label className={classes.label}>Section</label>
               <input
-                {...register("section")}
+                {...register("section", {
+                  required: "Section Required",
+                })}
                 style={{ width: "75%", height: "42.5px", marginLeft: "10%" }}
                 className={classes.box}
                 type="text"
               ></input>
+              <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="section" /></span>
             </Col>
           </Row>
-          <Row className="d-flex justify-content-center">
+          <Row style={{marginTop:'2%'}}className="d-flex justify-content-center">
             <label className={classes.label}>Date of Birth </label>
             <input
-              {...register("dob")}
+              {...register("dob", {
+                required: "Date Required",
+              })}
               style={{ width: "80%" }}
               className={classes.box}
               type="date"
             ></input>
+            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="dob" /></span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Father's Mobile Number</label>
             <input
-              {...register("fatherMobileNumber")}
+              {...register("fatherMobileNumber", {
+                required: "MobileNumber Required",
+              })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
             ></input>
+            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="fatherMobileNumber" /></span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Religion</label>
             <input
-              {...register("religion")}
+              {...register("religion", {
+                required: "Religion Required",
+              })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
             ></input>
+            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="religion" /></span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Community</label>
             <input
-              {...register("community")}
+              {...register("community", {
+                required: "Community Required",
+              })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
             ></input>
+            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="community" /></span>
           </Row>
           <Row className="d-flex justify-content-center">
             <Col>
               <label className={classes.label}>Hosteller/Day Scholar</label>
               <input
-                {...register("mode")}
+                {...register("mode", {
+                  required: "Mode Required",
+                })}
                 style={{
                   color: "#0166b2",
                   backgroundColor: "white",
@@ -205,77 +226,103 @@ export const StudentProfile = () => {
                 <option value="Hosteller" />
                 <option value="Day Scholar" />
               </datalist>
+              <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="mode" /></span>
             </Col>
 
             <Col>
               <label className={classes.label}>Room No./Hostel No.</label>
               <input
-                {...register("busRouteNumber")}
+                {...register("busRouteNumber", {
+                  required: "Number Required",
+                })}
                 style={{ width: "65%", height: "42.5px", marginLeft: "15%" }}
                 className={classes.box}
                 type="text"
               ></input>
+              <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="busRouteNumber" /></span>
             </Col>
           </Row>
         </div>
         {/* <div className={middileLine}></div> */}
         <div className="d-flex flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
           <Row className="d-flex justify-content-center">
-            <label style={{ marginTop: "20px" }} className={classes.label}>
+            <label style={{ marginTop: "10%" }} className={classes.label}>
               Email ID
             </label>
             <input
-              {...register("emailId")}
+              {...register("emailId", {
+                required: "EmailID Required",
+              })}
               style={{ width: "80%" }}
               className={classes.box}
               type="email"
             ></input>
+            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="emailId" /></span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Student's Mobile Number</label>
             <input
-              {...register("mobileNumber")}
+              {...register("mobileNumber", {
+                required: "Number Required",
+              })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
             ></input>
+            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="mobileNumber" /></span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Period of Study </label>
             <input
-              {...register("periodOfStudy")}
+              {...register("periodOfStudy", {
+                required: "Period of Study Required",
+              })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
             ></input>
+            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="periodOfStudy" /></span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Mother's Mobile Number</label>
             <input
-              {...register("motherMobileNumber")}
+              {...register("motherMobileNumber", {
+                required: "Number Required",
+              })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
             ></input>
+            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="motherMobileNumber" /></span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Blood Group</label>
             <input
-              {...register("bloodGroup")}
+              {...register("bloodGroup", {
+                required: "Blood Group Required",
+              })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
             ></input>
+            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="bloodGroup" /></span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Address for Communication</label>
             <textarea
-              {...register("address")}
+              {...register("address", {
+                required: "Address Required",
+              })}
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
             ></textarea>
-            <button type="submit">submit</button>
+            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="address" /></span>
           </Row>
+          <Row>
+          <div style={{marginTop:'5%',marginLeft:'60%',marginBottom:'5%'}}>  
+                <button className={classes.icon} title='Submit' type="submit" ><FontAwesomeIcon style={{fontSize:'110%'}} icon={faCheck} /></button>
+            </div>
+            </Row>
         </div>
       </form>
     </div>

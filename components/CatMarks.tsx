@@ -14,7 +14,7 @@ const CatMarks = () => {
     return (
         <div className={classes.forms}>
             <form onSubmit={handleSubmit(submitProfile)} className="justify-content-around align-items-center d-flex flex-column ">
-                <table style={{marginTop:'0%'}} className={classes.table}>
+                <table style={{marginTop:'0%',marginLeft:'10%'}} className={classes.table}>
                 <tr>
                     <th style={{width:"5%"}}className={classes.tablehead}>SI No.</th>
                     <th className={classes.tablehead}>Subject Code and Name</th>
