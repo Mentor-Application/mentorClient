@@ -7,10 +7,23 @@ import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const SchoolRecord = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
-  const { register:register1, handleSubmit:handleSubmit1 } = useForm();
-  const { register:register2, handleSubmit:handleSubmit2 } = useForm();
-  const { register:resgister3, handleSubmit:handleSubmit3 } = useForm();
-  const { register:register4, handleSubmit:handleSubmit4 } = useForm();
+  const { register: register1, handleSubmit: handleSubmit1 } = useForm();
+  const { register: register2, handleSubmit: handleSubmit2 } = useForm();
+
+  const [schoolRecord, setSchoolRecord] = useState([]);
+
+  const onsubmit = (values) => {
+    schoolRecord.push(values);
+  };
+
+  const onsubmit1 = (values) => {
+    schoolRecord.push(values);
+  };
+
+  const onsubmit2 = (values) => {
+    schoolRecord.push(values);
+    console.log(schoolRecord);
+  };
 
   let apiService: ApiService = new ApiService();
   const submitProfile = (values) => {
@@ -29,10 +42,7 @@ const SchoolRecord = () => {
 
   return (
     <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
-      <form
-        onSubmit={handleSubmit(submitProfile)}
-        style={{ marginLeft: "10%", height: "80%" }}
-      >
+      <form style={{ marginLeft: "10%", height: "80%" }}>
         <table style={{ marginTop: "10%" }} className={classes.table}>
           <tr>
             <th className={classes.tablehead}>Course</th>
@@ -76,34 +86,34 @@ const SchoolRecord = () => {
                 className={classes.inputbox}
                 type="text"
               />
-            </td>   
+            </td>
           </tr>
           <tr>
             <td className={classes.tablehead}>12th</td>
             <td className={classes.table}>
               <input
-                {...register("12thyear")}
+                {...register1("12thyear")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("12thschoolname")}
+                {...register1("12thschoolname")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("12thboard")}
+                {...register1("12thboard")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("12thpercentage")}
+                {...register1("12thpercentage")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -124,28 +134,28 @@ const SchoolRecord = () => {
             <td className={classes.tablehead}>Diploma</td>
             <td className={classes.table}>
               <input
-                {...register("diplomayear")}
+                {...register2("diplomayear")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("diplomaschoolname")}
+                {...register2("diplomaschoolname")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("diplomaboard")}
+                {...register2("diplomaboard")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("diplomapercentage")}
+                {...register2("diplomapercentage")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -153,7 +163,16 @@ const SchoolRecord = () => {
           </tr>
         </table>
         <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-          <button className={classes.icon} type="submit">
+          <button
+            className={classes.icon}
+            type="button"
+            onClick={(e) => {
+              console.log("clicking");
+              handleSubmit(onsubmit)();
+              handleSubmit1(onsubmit1)();
+              handleSubmit2(onsubmit2)();
+            }}
+          >
             <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
           </button>
         </div>
