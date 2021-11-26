@@ -11,13 +11,18 @@ const CatMarks = () => {
     const submitProfile = (values) => {
       console.log(values);
     };
+    let whiteBox = `${classes.forms} col-12 col-xl-11`;
+
     return (
-        <div className={classes.forms}>
-            <form onSubmit={handleSubmit(submitProfile)} className="justify-content-around align-items-center d-flex flex-column ">
-                <table style={{marginTop:'0%',marginLeft:'10%'}} className={classes.table}>
+      <div style={{ overflowX: "auto", height: "65%" }} className={whiteBox}>
+        <form
+          onSubmit={handleSubmit(submitProfile)}
+          style={{ overflowX: "auto" }}
+        >
+                <table style={{marginLeft:'10%'}} className={classes.table}>
                 <tr>
-                    <th style={{width:"5%"}}className={classes.tablehead}>SI No.</th>
-                    <th className={classes.tablehead}>Subject Code and Name</th>
+                    <th style={{width:"5%"}} className={classes.tablehead}>SI No.</th>
+                    <th style={{width:"50%"}} className={classes.tablehead}>Subject Code and Name</th>
                     <th className={classes.tablehead}>CAT 1 Marks</th>
                     <th className={classes.tablehead}>CAT 2 Marks</th>
                     <th className={classes.tablehead}>CAT 3 Marks</th>
@@ -73,7 +78,7 @@ const CatMarks = () => {
                 </tr>
                 <tr>
                     <td className={classes.tablehead}>Attendance</td>
-                    <td className={classes.table}><input className={classes.inputbox}></input></td>
+                    <td ><input className={classes.inputbox}></input></td>
                 </tr>
                 </table>
                 

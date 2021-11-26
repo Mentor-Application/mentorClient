@@ -8,6 +8,10 @@ import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const SchoolRecord = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
+  const { register:register1, handleSubmit:handleSubmit1 } = useForm();
+  const { register:register2, handleSubmit:handleSubmit2 } = useForm();
+  const { register:resgister3, handleSubmit:handleSubmit3 } = useForm();
+  const { register:register4, handleSubmit:handleSubmit4 } = useForm();
 
   let apiService: ApiService = new ApiService();
   const submitProfile = (values) => {
@@ -71,7 +75,7 @@ const SchoolRecord = () => {
                 className={classes.inputbox}
                 type="text"
               />
-            </td>
+            </td>   
           </tr>
           <tr>
             <td className={classes.tablehead}>12th</td>

@@ -48,47 +48,48 @@ export const Marks = () => {
             </input> */}
             <Dropdown>
             <Dropdown.Toggle id="dropwdown-custom-1"style={{
-                    color: "#0166b2",
-                    backgroundColor: "white",
+                    color: "white",
+                    backgroundColor: "#0166b2",
                     border: "2.5px solid #0166b2",
                     marginLeft:"20px",
-                    marginTop:"10px",
-                    borderRadius: "25px",
-                    width: "25%",
-                    height: "40px",}}>SEMESTER</Dropdown.Toggle>
+                    fontWeight:'bold',
+                    marginTop:"5%",
+                    borderRadius: "15px",
+                    width: "15%",
+                    height: "40px",}}>Semester</Dropdown.Toggle>
                      <Dropdown.Menu
                     id="dropdown-menu-align-right"
-                    style={{background:"#0166b2",color:"#ffffff"}}
+                    style={{background:"white",color:"#0166b2"}}
                     className="DropDown"
                     
                 >
-                <Dropdown.Item href="#/Semester1">Semester-1</Dropdown.Item>
-                <Dropdown.Item href="#/Semester2">Semester-2</Dropdown.Item>
+                <Dropdown.Item style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester1">Semester-1</Dropdown.Item>
+                <Dropdown.Item  style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester2">Semester-2</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item href="#/Semester3">Semester-3</Dropdown.Item>
-                <Dropdown.Item href="#/Semester4">Semester-4</Dropdown.Item>
+                <Dropdown.Item  style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester3">Semester-3</Dropdown.Item>
+                <Dropdown.Item  style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester4">Semester-4</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item href="#/Semester5">Semester-5</Dropdown.Item>
-                <Dropdown.Item href="#/Semester6">Semester-6</Dropdown.Item>
+                <Dropdown.Item style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester5">Semester-5</Dropdown.Item>
+                <Dropdown.Item style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester6">Semester-6</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item href="#/Semester7">Semester-7</Dropdown.Item>
-                <Dropdown.Item href="#/Semester8">Semester-8</Dropdown.Item>
+                <Dropdown.Item style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester7">Semester-7</Dropdown.Item>
+                <Dropdown.Item style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester8">Semester-8</Dropdown.Item>
                 <Dropdown.Divider />
                 </Dropdown.Menu>
                 </Dropdown>
                 <Row>
-                <div className={classes.internal} style={{color:'#0166b2',}}>Internal Assesment Results </div>
+                <div className={classes.internal} style={{color:'#0166b2',marginTop:'5%'}}>Internal Assesment Results </div>
                 </Row>
                 <div style={{ height: "100%" }}
-                    className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
+                    className="d-flex justify-content-center  col-lg-12 col-md-11 col-xl-12">
                         <CatMarks></CatMarks></div>
                 <Row>
                 <div className={classes.univ} style={{color:'#0166b2',}}>University examination Results </div>
                 </Row>
-                <div style={{ height: "100%" }}
+                <div style={{ height: "110%" }}
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12" >
                         <SemesterMarks></SemesterMarks></div>       
-            </div>
+               </div>
         </div>
     );
 }
