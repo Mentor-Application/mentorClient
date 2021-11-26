@@ -6,6 +6,9 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Profile from "./Profile";
 import Marks from "./Marks";
 import MentorMeetingDetails from "./MentorMeetingDetails";
+import AdditionalDetails from "./AdditionalDetails";
+import Image from "next/image";
+import prof from "../../../public/profileIcon.jpg";
 export const index = () => {
   const router = useRouter();
   const studentId = router.query.studentId;
@@ -33,12 +36,13 @@ export const index = () => {
   return (
     <div style={{ width: "100%", height: "100vh" }} className="d-flex flex-row">
       <div style={{ height: "90vh", marginTop: "3%" }} className={navCss}>
-        <div className={navStyle}>
+        <div className={navStyle}> 
           <div
-            style={{ height: "45%", background: "red" }}
-            className=""
+            style={{ height: "45%",  }}
+            className={classes.proficn}
             id="profilePic"
-          ></div>
+          ><Image src={prof}></Image> <div style={{color:"#0166b2",fontWeight:"bold",marginTop:"2%",textAlign:"center"}}>Student Name</div>
+          </div>
           <div className="d-flex flex-column align-items-center ">
             <button
               type="button"
@@ -63,7 +67,7 @@ export const index = () => {
             >
               Meeting details
             </button>
-            <button type="button" className={classes.navbtn}>
+            <button type="button"  onClick={() => setPageRoute("additionaldetails")}className={classes.navbtn}>
               Career Information
             </button>
           </div>
@@ -90,7 +94,10 @@ export const index = () => {
             return <Marks></Marks>;
           } else if (pageRoute.match("mentormeeting")) {
             return <MentorMeetingDetails></MentorMeetingDetails>;
-          } else {
+          } else if (pageRoute.match("additionaldetails")){
+            return <AdditionalDetails></AdditionalDetails>
+          }
+            else {
             return <></>;
           }
         })()}
