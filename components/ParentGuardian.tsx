@@ -6,31 +6,30 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 //import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from "react-bootstrap/Dropdown";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
 export const ParentGuardian = () => {
-
-    const {
-      register,
-      handleSubmit,
-      setValue,
-      getValues,
-      setError,
-      formState: { errors },
-    } = useForm();
-    const [isChecked, setIsChecked] = useState(true);
-    const [branch, setBranch] = useState("");
-    const submitProfile = (values) => {
-      console.log(values);
-    }
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    setError,
+    formState: { errors },
+  } = useForm();
+  const [isChecked, setIsChecked] = useState(true);
+  const [branch, setBranch] = useState("");
+  const submitProfile = (values) => {
+    console.log(values);
+  };
 
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
 
   return (
-    <div style={{ height: "80%" }} className={whiteBox}>
+    <div style={{ height: "100%" }} className={whiteBox}>
       <form
         style={{ overflowY: "scroll" }}
         onSubmit={handleSubmit(submitProfile)}
@@ -55,7 +54,10 @@ export const ParentGuardian = () => {
               className={classes.box}
               type="text"
             ></input>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="parentName" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="parentName" />
+            </span>
           </Row>
 
           <Row className="d-flex justify-content-center">
@@ -67,7 +69,10 @@ export const ParentGuardian = () => {
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
             ></textarea>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="addresscomm" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="addresscomm" />
+            </span>
           </Row>
 
           <Row className="d-flex justify-content-center">
@@ -80,7 +85,10 @@ export const ParentGuardian = () => {
               className={classes.box}
               type="text"
             ></input>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="emailIde" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="emailIde" />
+            </span>
           </Row>
         </div>
 
@@ -132,15 +140,18 @@ export const ParentGuardian = () => {
             ></input>
           </Row>
           <Row>
-          <div style={{marginTop:'5%',marginBottom:'4%',marginLeft:'60%'}}>  
-           <button className={classes.icon} type="submit" ><FontAwesomeIcon style={{fontSize:'110%'}} icon={faCheck} /></button>
-         </div>
+            <div
+              style={{ marginTop: "5%", marginBottom: "4%", marginLeft: "60%" }}
+            >
+              <button className={classes.icon} type="submit">
+                <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+              </button>
+            </div>
           </Row>
         </div>
-        
       </form>
     </div>
   );
 };
 
-export default ParentGuardian
+export default ParentGuardian;

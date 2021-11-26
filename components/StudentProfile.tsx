@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { ApiService } from "../services/api.service";
 
@@ -42,7 +42,7 @@ export const StudentProfile = () => {
   let middileLine = `${classes.vl} col-1 d-flex justify-content-center`;
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
   return (
-    <div style={{ height: "87%" }} className={whiteBox}>
+    <div style={{ height: "90%" }} className={whiteBox}>
       <form
         style={{ overflowY: "scroll", overflowX: "hidden" }}
         onSubmit={handleSubmit(submitProfile)}
@@ -61,7 +61,10 @@ export const StudentProfile = () => {
               className={classes.box}
               type="text"
             />
-           <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="studentName" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="studentName" />
+            </span>
 
             {/* <ErrorMessage
               errors={errors}
@@ -70,7 +73,7 @@ export const StudentProfile = () => {
             /> */}
           </Row>
 
-          <Row style={{ marginTop: "2%",marginLeft:'-10%' }}>
+          <Row style={{ marginTop: "2%", marginLeft: "-10%" }}>
             <div className="radio d-flex">
               <label className={classes.label}>
                 <input
@@ -136,7 +139,12 @@ export const StudentProfile = () => {
                 <option value="CIVIL" />
                 <option value="CHEM" />
               </datalist>
-              <span style={{color:'red',marginTop:'-1%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="branch" /></span>
+              <span
+                style={{ color: "red", marginTop: "-1%", marginLeft: "15%" }}
+              >
+                {" "}
+                <ErrorMessage errors={errors} name="branch" />
+              </span>
             </Col>
             <Col
               style={{ textAlign: "start" }}
@@ -151,10 +159,18 @@ export const StudentProfile = () => {
                 className={classes.box}
                 type="text"
               ></input>
-              <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="section" /></span>
+              <span
+                style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}
+              >
+                {" "}
+                <ErrorMessage errors={errors} name="section" />
+              </span>
             </Col>
           </Row>
-          <Row style={{marginTop:'2%'}}className="d-flex justify-content-center">
+          <Row
+            style={{ marginTop: "2%" }}
+            className="d-flex justify-content-center"
+          >
             <label className={classes.label}>Date of Birth </label>
             <input
               {...register("dob", {
@@ -164,7 +180,10 @@ export const StudentProfile = () => {
               className={classes.box}
               type="date"
             ></input>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="dob" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="dob" />
+            </span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Father's Mobile Number</label>
@@ -176,7 +195,10 @@ export const StudentProfile = () => {
               className={classes.box}
               type="text"
             ></input>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="fatherMobileNumber" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="fatherMobileNumber" />
+            </span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Religion</label>
@@ -188,7 +210,10 @@ export const StudentProfile = () => {
               className={classes.box}
               type="text"
             ></input>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="religion" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="religion" />
+            </span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Community</label>
@@ -200,7 +225,10 @@ export const StudentProfile = () => {
               className={classes.box}
               type="text"
             ></input>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="community" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="community" />
+            </span>
           </Row>
           <Row className="d-flex justify-content-center">
             <Col>
@@ -226,7 +254,12 @@ export const StudentProfile = () => {
                 <option value="Hosteller" />
                 <option value="Day Scholar" />
               </datalist>
-              <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="mode" /></span>
+              <span
+                style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}
+              >
+                {" "}
+                <ErrorMessage errors={errors} name="mode" />
+              </span>
             </Col>
 
             <Col>
@@ -239,7 +272,12 @@ export const StudentProfile = () => {
                 className={classes.box}
                 type="text"
               ></input>
-              <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="busRouteNumber" /></span>
+              <span
+                style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}
+              >
+                {" "}
+                <ErrorMessage errors={errors} name="busRouteNumber" />
+              </span>
             </Col>
           </Row>
         </div>
@@ -257,7 +295,10 @@ export const StudentProfile = () => {
               className={classes.box}
               type="email"
             ></input>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="emailId" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="emailId" />
+            </span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Student's Mobile Number</label>
@@ -269,7 +310,10 @@ export const StudentProfile = () => {
               className={classes.box}
               type="text"
             ></input>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="mobileNumber" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="mobileNumber" />
+            </span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Period of Study </label>
@@ -281,7 +325,10 @@ export const StudentProfile = () => {
               className={classes.box}
               type="text"
             ></input>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="periodOfStudy" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="periodOfStudy" />
+            </span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Mother's Mobile Number</label>
@@ -293,7 +340,10 @@ export const StudentProfile = () => {
               className={classes.box}
               type="text"
             ></input>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="motherMobileNumber" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="motherMobileNumber" />
+            </span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Blood Group</label>
@@ -305,7 +355,10 @@ export const StudentProfile = () => {
               className={classes.box}
               type="text"
             ></input>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="bloodGroup" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="bloodGroup" />
+            </span>
           </Row>
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Address for Communication</label>
@@ -316,13 +369,20 @@ export const StudentProfile = () => {
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
             ></textarea>
-            <span style={{color:'red',marginTop:'-5%',marginLeft:'15%'}}> <ErrorMessage errors={errors} name="address" /></span>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="address" />
+            </span>
           </Row>
           <Row>
-          <div style={{marginTop:'5%',marginLeft:'60%',marginBottom:'5%'}}>  
-                <button className={classes.icon} title='Submit' type="submit" ><FontAwesomeIcon style={{fontSize:'110%'}} icon={faCheck} /></button>
+            <div
+              style={{ marginTop: "5%", marginLeft: "60%", marginBottom: "5%" }}
+            >
+              <button className={classes.icon} title="Submit" type="submit">
+                <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+              </button>
             </div>
-            </Row>
+          </Row>
         </div>
       </form>
     </div>
