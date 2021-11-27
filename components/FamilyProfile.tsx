@@ -7,6 +7,23 @@ import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const FamilyProfile = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
+  const { register: register1, handleSubmit: handleSubmit1 } = useForm();
+  const { register: register2, handleSubmit: handleSubmit2 } = useForm();
+
+  const [familyProfile, setfamilyProfile] = useState([]);
+
+  const onsubmit = (values) => {
+    familyProfile.push(values);
+  };
+
+  const onsubmit1 = (values) => {
+    familyProfile.push(values);
+  };
+
+  const onsubmit2 = (values) => {
+    familyProfile.push(values);
+    console.log(familyProfile);
+  };
 
   let apiService: ApiService = new ApiService();
   const submitProfile = (values) => {
@@ -43,28 +60,28 @@ const FamilyProfile = () => {
             <td className={classes.table}>Father</td>
             <td className={classes.table}>
               <input
-                {...register("fage")}
+                {...register("age")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("feq")}
+                {...register("educationalQualification")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("focc")}
+                {...register("occupation")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("fai")}
+                {...register("annualIncome")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -75,28 +92,28 @@ const FamilyProfile = () => {
             <td className={classes.table}>Mother</td>
             <td className={classes.table}>
               <input
-                {...register("mage")}
+                {...register1("age")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("meq")}
+                {...register1("educationalQualification")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("mocc")}
+                {...register1("occupation")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("mai")}
+                {...register1("annualIncome")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -108,28 +125,28 @@ const FamilyProfile = () => {
             <td className={classes.table}>Sibling(s)</td>
             <td className={classes.table}>
               <input
-                {...register("sage")}
+                {...register2("age")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("seq")}
+                {...register2("educationalQualification")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("socc")}
+                {...register2("occupation")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("sai")}
+                {...register2("annualIncome")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -137,7 +154,13 @@ const FamilyProfile = () => {
           </tr>
         </table>
         <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-          <button className={classes.icon} type="submit">
+          <button  className={classes.icon}
+            type="button"
+            onClick={(e) => {
+              handleSubmit(onsubmit)();
+              handleSubmit1(onsubmit1)();
+              handleSubmit2(onsubmit2)();
+            }}>
             <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
           </button>
         </div>

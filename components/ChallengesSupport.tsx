@@ -7,6 +7,28 @@ import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const ChallengesSupport = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
+  const { register: register1, handleSubmit: handleSubmit1 } = useForm();
+  const { register: register2, handleSubmit: handleSubmit2 } = useForm();
+  const { register: register3, handleSubmit: handleSubmit3 } = useForm();
+
+  const [challengesSupport, setchallengesSupport] = useState([]);
+
+  const onsubmit = (values) => {
+    challengesSupport.push(values);
+  };
+
+  const onsubmit1 = (values) => {
+    challengesSupport.push(values);
+  };
+
+  const onsubmit2 = (values) => {
+    challengesSupport.push(values);
+  };
+
+  const onsubmit3 = (values) => {
+    challengesSupport.push(values);
+    console.log(challengesSupport);
+  };
 
   let apiService: ApiService = new ApiService();
   const submitProfile = (values) => {
@@ -44,14 +66,14 @@ const ChallengesSupport = () => {
             <td className={classes.table}>Academic</td>
             <td className={classes.table}>
               <input
-                {...register("achallenges")}
+                {...register("challenges")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("asourcesupport")}
+                {...register("sourceOfSupport")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -62,14 +84,14 @@ const ChallengesSupport = () => {
             <td className={classes.table}>Relationship</td>
             <td className={classes.table}>
               <input
-                {...register("rchallenges")}
+                {...register1("challenges")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("rsourcesupport")}
+                {...register1("sourceOfSupport")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -80,14 +102,14 @@ const ChallengesSupport = () => {
             <td className={classes.table}>Health</td>
             <td className={classes.table}>
               <input
-                {...register("hchallenges")}
+                {...register2("challenges")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("hsourcesupport")}
+                {...register2("sourceOfSupport")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -99,14 +121,14 @@ const ChallengesSupport = () => {
             <td className={classes.table}>Financial</td>
             <td className={classes.table}>
               <input
-                {...register("fchallenges")}
+                {...register3("challenges")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("fsourcesupport")}
+                {...register3("sourceOfSupport")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -114,7 +136,14 @@ const ChallengesSupport = () => {
           </tr>
         </table>
         <div style={{ marginTop: "5%", marginLeft: "60%" }}>
-          <button className={classes.icon} type="submit">
+          <button className={classes.icon}
+            type="button"
+            onClick={(e) => {
+              handleSubmit(onsubmit)();
+              handleSubmit1(onsubmit1)();
+              handleSubmit2(onsubmit2)();
+              handleSubmit3(onsubmit3)();
+            }}>
             <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
           </button>
         </div>

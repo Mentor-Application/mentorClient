@@ -3,10 +3,34 @@ import classes from "../../../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../../../services/api.service"
 import { Dropdown, DropdownButton, Row } from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 export const MentorMeetingDetails = () => {
 
-    const { register, handleSubmit, setValue, getValues,formState: { errors }, } = useForm();
+  const { register, handleSubmit, setValue, getValues,formState: { errors }, } = useForm();
+  const { register: register1, handleSubmit: handleSubmit1 } = useForm();
+  const { register: register2, handleSubmit: handleSubmit2 } = useForm();
+  const { register: register3, handleSubmit: handleSubmit3 } = useForm();
+  
+  const [mentorMeetingDetails, setmentorMeetingDetails] = useState([]);
+
+  const onsubmit = (values) => {
+    mentorMeetingDetails.push(values);
+  };
+
+  const onsubmit1 = (values) => {
+    mentorMeetingDetails.push(values);
+  };
+
+  const onsubmit2 = (values) => {
+    mentorMeetingDetails.push(values);
+  };
+
+  const onsubmit3 = (values) => {
+    mentorMeetingDetails.push(values);
+    console.log(mentorMeetingDetails);
+  };
 
   
     let apiService: ApiService = new ApiService();
@@ -75,35 +99,50 @@ export const MentorMeetingDetails = () => {
                 <th className={classes.tablehead} >Remarks</th>
             </tr>
            <tr>
-             <td style={{height:'50px'}} className={classes.table} ><input {...register("achallenges")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register("achallenges")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register("achallenges")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register("asourcesupport")} className={classes.inputbox} type="text"/></td>  
+             <td style={{height:'50px'}} className={classes.table} ><input {...register("date")} className={classes.inputbox} type="text"/></td> 
+             <td className={classes.table} ><input {...register("time")} className={classes.inputbox} type="text"/></td> 
+             <td className={classes.table} ><input {...register("focusOfDiscussion")} className={classes.inputbox} type="text"/></td> 
+             <td className={classes.table} ><input {...register("remarks")} className={classes.inputbox} type="text"/></td>  
              
            </tr>
            <tr>
-             <td style={{height:'50px'}}  className={classes.table} ><input {...register("achallenges")} className={classes.inputbox} type="text"/></td>  
-             <td className={classes.table} ><input {...register("achallenges")} className={classes.inputbox} type="text"/></td>  
-             <td className={classes.table} ><input {...register("rchallenges")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register("rsourcesupport")} className={classes.inputbox} type="text"/></td> 
+             <td style={{height:'50px'}}  className={classes.table} ><input {...register1("date")} className={classes.inputbox} type="text"/></td>  
+             <td className={classes.table} ><input {...register1("time")} className={classes.inputbox} type="text"/></td>  
+             <td className={classes.table} ><input {...register1("focusOfDiscussion")} className={classes.inputbox} type="text"/></td> 
+             <td className={classes.table} ><input {...register1("remarks")} className={classes.inputbox} type="text"/></td> 
              
            </tr>
            <tr>
-             <td style={{height:'50px'}}  className={classes.table} ><input {...register("achallenges")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register("achallenges")} className={classes.inputbox} type="text"/></td>  
-             <td className={classes.table} ><input {...register("hchallenges")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register("hsourcesupport")} className={classes.inputbox} type="text"/></td>  
+             <td style={{height:'50px'}}  className={classes.table} ><input {...register2("date")} className={classes.inputbox} type="text"/></td> 
+             <td className={classes.table} ><input {...register2("time")} className={classes.inputbox} type="text"/></td>  
+             <td className={classes.table} ><input {...register2("focusOfDiscussion")} className={classes.inputbox} type="text"/></td> 
+             <td className={classes.table} ><input {...register2("remarks")} className={classes.inputbox} type="text"/></td>  
            </tr>
 
            <tr>
 
-             <td style={{height:'50px'}}  className={classes.table} ><input {...register("achallenges")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register("achallenges")} className={classes.inputbox} type="text"/></td>  
-             <td className={classes.table} ><input {...register("fchallenges")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register("fsourcesupport")} className={classes.inputbox} type="text"/></td> 
+             <td style={{height:'50px'}}  className={classes.table} ><input {...register3("date")} className={classes.inputbox} type="text"/></td> 
+             <td className={classes.table} ><input {...register3("time")} className={classes.inputbox} type="text"/></td>  
+             <td className={classes.table} ><input {...register3("focusOfDiscussion")} className={classes.inputbox} type="text"/></td> 
+             <td className={classes.table} ><input {...register3("remarks")} className={classes.inputbox} type="text"/></td> 
              
            </tr>
          </table> 
+         <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+          <button
+            className={classes.icon}
+            type="button"
+            onClick={(e) => {
+              console.log("clicking");
+              handleSubmit(onsubmit)();
+              handleSubmit1(onsubmit1)();
+              handleSubmit2(onsubmit2)();
+              handleSubmit3(onsubmit3)();
+            }}
+          >
+            <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+          </button>
+        </div>
         </form>
         </div>
         </div>

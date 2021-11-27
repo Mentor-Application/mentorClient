@@ -7,6 +7,28 @@ import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const GoalsGrid = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
+  const { register: register1, handleSubmit: handleSubmit1 } = useForm();
+  const { register: register2, handleSubmit: handleSubmit2 } = useForm();
+  const { register: register3, handleSubmit: handleSubmit3 } = useForm();
+
+  const [goalsGrid, setgoalsGrid] = useState([]);
+
+  const onsubmit = (values) => {
+    goalsGrid.push(values);
+  };
+
+  const onsubmit1 = (values) => {
+    goalsGrid.push(values);
+  };
+
+  const onsubmit2 = (values) => {
+    goalsGrid.push(values);
+  };
+
+  const onsubmit3 = (values) => {
+    goalsGrid.push(values);
+    console.log(goalsGrid);
+  };
 
   let apiService: ApiService = new ApiService();
   const submitProfile = (values) => {
@@ -38,14 +60,14 @@ const GoalsGrid = () => {
             <td className={classes.table}>Acquire (Dont have, but want)</td>
             <td className={classes.table}>
               <input
-                {...register("achallenges")}
+                {...register("goal")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("asourcesupport")}
+                {...register("planOfAction")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -56,14 +78,14 @@ const GoalsGrid = () => {
             <td className={classes.table}>Eliminate (Have but dont want)</td>
             <td className={classes.table}>
               <input
-                {...register("rchallenges")}
+                {...register1("goal")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("rsourcesupport")}
+                {...register1("planOfAction")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -74,14 +96,14 @@ const GoalsGrid = () => {
             <td className={classes.table}>Avoid (Dont have and dont want)</td>
             <td className={classes.table}>
               <input
-                {...register("hchallenges")}
+                {...register2("goal")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("hsourcesupport")}
+                {...register2("planOfAction")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -93,14 +115,14 @@ const GoalsGrid = () => {
             <td className={classes.table}>Sustain (Have and want)</td>
             <td className={classes.table}>
               <input
-                {...register("fchallenges")}
+                {...register3("goal")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("fsourcesupport")}
+                {...register3("planOfAction")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -108,7 +130,14 @@ const GoalsGrid = () => {
           </tr>
         </table>
         <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-          <button className={classes.icon} type="submit">
+          <button className={classes.icon}
+            type="button"
+            onClick={(e) => {
+              handleSubmit(onsubmit)();
+              handleSubmit1(onsubmit1)();
+              handleSubmit2(onsubmit2)();
+              handleSubmit3(onsubmit3)();
+            }}>
             <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
           </button>
         </div>

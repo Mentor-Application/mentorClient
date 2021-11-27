@@ -29,8 +29,8 @@ export const AdditionalDetails = () => {
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
                        <Btech></Btech> </div>
                     <div>
-                    <label className={classes.placement}>Career (PLacement) Information :</label>
-                    <textarea style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"20px" }}
+                    <label className={classes.placement}>Career (Placement) Information :</label>
+                    <textarea style={{ width: "80%", height: "100%",marginLeft:"30px" }}
                     className={classes.box}></textarea>
                     </div>
 
