@@ -20,6 +20,15 @@ export const StudentProfile = () => {
   let loggedInUser: User;
   let url: string;
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
+
+  const [isChecked, setIsChecked] = useState(true);
+
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
     url = `student/${loggedInUser.studentId}`;
@@ -35,19 +44,14 @@ export const StudentProfile = () => {
       const data = res;
       logedinstudent.deserialize(data, loggedinStudent);
       setIsLoarding(false);
-      console.log(loggedinStudent);
     });
   }, []);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const [isChecked, setIsChecked] = useState(true);
-
   const submitProfile = (values) => {
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    setValue("emailId", loggedInUser.email);
+
+    console.log(values);
     apiService
       .post("student/profile", values)
       .then((res) => {
@@ -314,7 +318,7 @@ export const StudentProfile = () => {
               Email ID
             </label>
             <input
-              {...register("emailId", {
+              {...register("personalEmail", {
                 required: "EmailID Required",
               })}
               style={{ width: "80%" }}
