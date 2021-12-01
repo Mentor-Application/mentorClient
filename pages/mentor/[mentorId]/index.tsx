@@ -2,13 +2,13 @@ import { Router, useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
 import classes from "../../../styles/studentMainPage.module.css";
 import { GiHamburgerMenu } from "react-icons/gi";
-import Mentees from "../../../components/Mentees";
+
 import SchoolRecord from "../../../components/SchoolRecord";
 import AddMentees from "./AddMentees";
+import Mentees from "./Mentees";
 
 export const index = () => {
-
-  const [pageRoute, setPageRoute] = useState('addmentees');
+  const [mentorRoute, setmentorRoute] = useState("mentees");
 
   const router = useRouter();
 
@@ -26,27 +26,28 @@ export const index = () => {
     setShowNav(!showNav);
   };
 
-  
- 
   let navStyle = `${classes.navbar} d-flex flex-column justify-content-center`;
-    return (
-        <div style={{ width: "100%", height: "100vh" }} className="d-flex flex-row">
+  return (
+    <div style={{ width: "100%", height: "100vh" }} className="d-flex flex-row">
       <div style={{ height: "90vh", marginTop: "3%" }} className={navCss}>
-        <div className={navStyle}> 
-          
+        <div className={navStyle}>
           <div className="d-flex flex-column align-items-center ">
-            
             <button
               type="button"
-              onClick={() => setPageRoute("mentees")}
+              onClick={() => {
+                setmentorRoute("mentees");
+                console.log(mentorRoute);
+              }}
               className={classes.navbtn}
             >
               Mentees
             </button>
             <button
               type="button"
-              onClick={() => {setPageRoute("addmentees")
-            console.log(pageRoute)}}
+              onClick={() => {
+                setmentorRoute("addmentees");
+                console.log(mentorRoute);
+              }}
               className={classes.navbtn}
             >
               Add Mentees
@@ -69,18 +70,18 @@ export const index = () => {
           <GiHamburgerMenu />
         </button>
         {(() => {
-          if (pageRoute.match("mentees")) {
-            return <Mentees></Mentees>;
-          } else if (pageRoute.match("addmentees")) {
+          if (mentorRoute.match("addmentees")) {
             return <AddMentees></AddMentees>;
-          } 
-            else {
+          } else if (mentorRoute.match("mentees")) {
+            return <Mentees></Mentees>;
+          } else {
             return <></>;
           }
         })()}
+        {}
       </div>
     </div>
-    )
-}
+  );
+};
 
-export default index
+export default index;

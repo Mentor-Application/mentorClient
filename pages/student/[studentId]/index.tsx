@@ -99,6 +99,7 @@ export const index = ({ data }) => {
               type="button"
               onClick={() => {
                 setPageRoute("profile");
+                console.log(pageRoute);
               }}
               className={profileActive ? classes.navbtnActive : classes.navbtn}
             >
@@ -108,6 +109,7 @@ export const index = ({ data }) => {
               type="button"
               onClick={() => {
                 setPageRoute("marks");
+                console.log(pageRoute);
               }}
               className={marksActive ? classes.navbtnActive : classes.navbtn}
             >
@@ -117,6 +119,7 @@ export const index = ({ data }) => {
               type="button"
               onClick={() => {
                 setPageRoute("mentormeeting");
+                console.log(pageRoute);
               }}
               className={meetActive ? classes.navbtnActive : classes.navbtn}
             >
@@ -126,6 +129,7 @@ export const index = ({ data }) => {
               type="button"
               onClick={() => {
                 setPageRoute("additionaldetails");
+                console.log(pageRoute);
               }}
               className={careerActive ? classes.navbtnActive : classes.navbtn}
             >
