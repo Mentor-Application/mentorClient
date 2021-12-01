@@ -4,32 +4,50 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-//import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from "react-bootstrap/Dropdown";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { ApiService } from "../services/api.service";
-
-// import ButtonGroup from "react-bootstrap/ButtonGroup";
-// import Select from 'react-select';
+import { Student } from "../interfaces/student";
+import { User } from "../interfaces";
 
 export const StudentProfile = () => {
+  let apiService: ApiService = new ApiService();
+  var logedinstudent: Student = new Student();
+  const [loggedinStudent, setLoggedinStudent] = useState<Student>(Object);
+  const [isLoarding, setIsLoarding] = useState(true);
+  let loggedInUser: User;
+  let url: string;
+
+  useEffect(() => {
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    url = `student/${loggedInUser.studentId}`;
+    const response = apiService
+      .get(url)
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    response.then((res) => {
+      const data = res;
+      logedinstudent.deserialize(data, loggedinStudent);
+      setIsLoarding(false);
+      console.log(loggedinStudent);
+    });
+  }, []);
+
   const {
     register,
     handleSubmit,
-    setValue,
-    getValues,
-    setError,
     formState: { errors },
   } = useForm();
-  const [isChecked, setIsChecked] = useState(true);
-  const [branch, setBranch] = useState("");
 
-  let apiService: ApiService = new ApiService();
+  const [isChecked, setIsChecked] = useState(true);
+
   const submitProfile = (values) => {
-    console.log(values);
     apiService
       .post("student/profile", values)
       .then((res) => {
@@ -39,8 +57,13 @@ export const StudentProfile = () => {
         console.log(err);
       });
   };
-  let middileLine = `${classes.vl} col-1 d-flex justify-content-center`;
+
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
+
+  if (isLoarding) {
+    return <div>Loarding...</div>;
+  }
+
   return (
     <div style={{ height: "90%" }} className={whiteBox}>
       <form
@@ -51,7 +74,7 @@ export const StudentProfile = () => {
         <div className="d-flex  flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
           <Row className="d-flex justify-content-center">
             <label style={{ marginTop: "10%" }} className={classes.label}>
-              Name
+              Name {loggedinStudent.emailId}
             </label>
             <input
               {...register("studentName", {
@@ -60,17 +83,12 @@ export const StudentProfile = () => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              placeholder={loggedinStudent.studentName}
             />
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
               <ErrorMessage errors={errors} name="studentName" />
             </span>
-
-            {/* <ErrorMessage
-              errors={errors}
-              name="singleErrorInput"
-              render={({ message }) => <p>{message}</p>}
-            /> */}
           </Row>
 
           <Row style={{ marginTop: "2%", marginLeft: "-10%" }}>
@@ -127,6 +145,7 @@ export const StudentProfile = () => {
                 }}
                 list="branches"
                 type="text"
+                placeholder={loggedinStudent.branch}
               ></input>
 
               <datalist id="branches">
@@ -158,6 +177,7 @@ export const StudentProfile = () => {
                 style={{ width: "75%", height: "42.5px", marginLeft: "10%" }}
                 className={classes.box}
                 type="text"
+                placeholder={loggedinStudent.section}
               ></input>
               <span
                 style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}
@@ -179,6 +199,7 @@ export const StudentProfile = () => {
               style={{ width: "80%" }}
               className={classes.box}
               type="date"
+              placeholder={loggedinStudent.dob}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -194,6 +215,7 @@ export const StudentProfile = () => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              placeholder={loggedinStudent.fatherMobileNumber}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -209,6 +231,7 @@ export const StudentProfile = () => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              placeholder={loggedinStudent.religion}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -224,6 +247,7 @@ export const StudentProfile = () => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              placeholder={loggedinStudent.community}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -248,6 +272,7 @@ export const StudentProfile = () => {
                 }}
                 list="mode"
                 type="text"
+                placeholder={loggedinStudent.studentType}
               ></input>
 
               <datalist id="mode">
@@ -271,6 +296,7 @@ export const StudentProfile = () => {
                 style={{ width: "65%", height: "42.5px", marginLeft: "15%" }}
                 className={classes.box}
                 type="text"
+                placeholder={loggedinStudent.busRouteNumber}
               ></input>
               <span
                 style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}
@@ -294,6 +320,7 @@ export const StudentProfile = () => {
               style={{ width: "80%" }}
               className={classes.box}
               type="email"
+              placeholder={loggedinStudent.emailId}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -309,6 +336,7 @@ export const StudentProfile = () => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              placeholder={loggedinStudent.mobileNumber}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -324,6 +352,7 @@ export const StudentProfile = () => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              placeholder={loggedinStudent.periodOfStudy}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -339,6 +368,7 @@ export const StudentProfile = () => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              placeholder={loggedinStudent.motherMobileNumber}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -354,6 +384,7 @@ export const StudentProfile = () => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              placeholder={loggedinStudent.bloodGroup}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -368,6 +399,7 @@ export const StudentProfile = () => {
               })}
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
+              placeholder={loggedinStudent.addressForCommunication}
             ></textarea>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}

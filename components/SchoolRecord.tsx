@@ -124,6 +124,8 @@ const SchoolRecord = () => {
             <td>
               <input
                 {...register("12thcutoff")}
+                {...register1("12thcutoff")}
+                {...register2("12thcutoff")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -168,9 +170,9 @@ const SchoolRecord = () => {
             type="button"
             onClick={(e) => {
               console.log("clicking");
+              handleSubmit2(onsubmit2)();
               handleSubmit(onsubmit)();
               handleSubmit1(onsubmit1)();
-              handleSubmit2(onsubmit2)();
             }}
           >
             <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />

@@ -22,6 +22,7 @@ export class ApiService {
         headers: this.options,
       });
       const data = response.data;
+
       return data;
     } catch (err) {
       {

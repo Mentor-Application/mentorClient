@@ -120,7 +120,7 @@
   height: 80%;
   background-color: gray;
 }
-.navbtn {
+.navbtnActive {
   background: #0166b2;
   color: #ffffff;
   font-weight: bold;
@@ -133,9 +133,19 @@
   font-family: inherit;
   cursor: pointer;
 }
-/* .navbtn:active{
-  background: green;
-} */
+.navbtn {
+  background: #ffffff;
+  color: #0166b2;
+  font-weight: bold;
+
+  border: 2 px solid #0166b2;
+  border-radius: 30px;
+  margin-top: 10%;
+  width: 70%;
+  height: 50%;
+  font-family: inherit;
+  cursor: pointer;
+}
 
 .dropdown {
   position: relative;

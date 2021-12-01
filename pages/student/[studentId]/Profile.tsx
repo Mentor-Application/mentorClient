@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ChallengesSupport from "../../../components/ChallengesSupport";
 import FamilyProfile from "../../../components/FamilyProfile";
 import GoalsGrid from "../../../components/GoalsGrid";
@@ -6,10 +6,8 @@ import HobbiesStrength from "../../../components/HobbiesStrength";
 import ParentGuardian from "../../../components/ParentGuardian";
 import SchoolRecord from "../../../components/SchoolRecord";
 import StudentProfile from "../../../components/StudentProfile";
-import { User } from "../../../interfaces";
-import classes from "../../../styles/studentMainPage.module.css";
 
-export const Profile = () => {
+export const Profile = ({ studentId }) => {
   return (
     <div
       style={{

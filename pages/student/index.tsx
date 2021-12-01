@@ -8,7 +8,7 @@ export const index = () => {
   let url: string;
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-    url = `student/${loggedInUser.id}`;
+    url = `student/${loggedInUser.studentId}`;
     router.push(url);
   }, []);
 
