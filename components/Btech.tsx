@@ -14,13 +14,17 @@ const Btech = () => {
         <div style={{height:"100%"}} className={classes.forms}>
             <form onSubmit={handleSubmit(submitProfile)}className="justify-content-around  d-flex flex-column ">
                 <div className={classes.discipline}>B.E/B.Tech. result (Overall) :</div>
-                <table  style={{marginTop:'3%',marginLeft:'10%'}} className={classes.table}>
-                    <tr>
-                        <th style={{width:"5%"}}className={classes.table}><input className={classes.inputbox}></input>Percentage :</th>
-                        <th style={{width:"5%"}}className={classes.table}><input className={classes.inputbox}></input>Class :</th>
-                        <th style={{width:"5%"}}className={classes.table}><input className={classes.inputbox}></input>Rank :</th>  
-                    </tr>
-                </table>
+                <div  className="row">
+                <div className="col-md-3" style={{marginTop:'1%',color:'#0166b2',fontWeight:'bold'}} >
+                    Percentage: <input className={classes.credits}></input>
+                </div>
+                <div className="col-md-5" style={{color:'#0166b2',fontWeight:'bold',}}>
+                    Class : <input className={classes.credits}></input>
+                </div>
+                <div className="col-md-4" style={{marginLeft:"0%",color:'#0166b2',fontWeight:'bold'}}>
+                    Rank : <input className={classes.credits}></input>
+                </div>
+                </div>
             </form>
         </div>
     )

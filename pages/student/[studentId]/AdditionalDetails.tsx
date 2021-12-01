@@ -29,16 +29,18 @@ export const AdditionalDetails = () => {
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
                        <Btech></Btech> </div>
                     <div>
-                    <label className={classes.placement}>Career (Placement) Information :</label>
-                    <textarea style={{ width: "80%", height: "100%",marginLeft:"30px" }}
+                    <label className={classes.placement}>Career (PLacement) Information :</label>
+                    <textarea style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"25px",outlineColor:"black" }}
                     className={classes.box}></textarea>
                     </div>
 
                     <div>
                     <label className={classes.placement}>Graduate Study :</label>
-                    <textarea style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"20px",marginTop:"20px" }}
+                    <textarea style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"25px",marginTop:"20px",outlineColor:"black" }}
                     className={classes.box}></textarea>
                     </div>
+
+                    
                     
                         
         </div>
@@ -46,5 +48,3 @@ export const AdditionalDetails = () => {
 }
 
 export default AdditionalDetails
-
-
