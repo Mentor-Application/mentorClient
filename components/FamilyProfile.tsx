@@ -26,8 +26,16 @@ const FamilyProfile = () => {
   };
 
   let apiService: ApiService = new ApiService();
-  const submitProfile = (values) => {
+  const submitFamilyProfile = (values) => {
     console.log(values);
+    apiService
+    .post("student/familyprofile",values)
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
   };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
@@ -35,7 +43,7 @@ const FamilyProfile = () => {
   return (
     <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
       <form
-        onSubmit={handleSubmit(submitProfile)}
+        onSubmit={handleSubmit(submitFamilyProfile)}
         style={{ overflowX: "auto", marginLeft: "10%" }}
       >
         <table style={{ marginTop: "10%" }} className={classes.table}>
@@ -155,7 +163,7 @@ const FamilyProfile = () => {
         </table>
         <div style={{ marginTop: "5%", marginLeft: "83%" }}>
           <button  className={classes.icon}
-            type="button"
+            type="submit"
             onClick={(e) => {
               handleSubmit(onsubmit)();
               handleSubmit1(onsubmit1)();

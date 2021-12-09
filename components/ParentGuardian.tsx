@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { ApiService } from "../services/api.service";
 
 export const ParentGuardian = () => {
   const {
@@ -22,8 +23,20 @@ export const ParentGuardian = () => {
   } = useForm();
   const [isChecked, setIsChecked] = useState(true);
   const [branch, setBranch] = useState("");
-  const submitProfile = (values) => {
-    console.log(values);
+
+  let apiService:ApiService = new ApiService();
+
+  const submitParentGuardian= (values)=> {
+    console.log(values)
+    apiService
+    .post("student/guardian",values)
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
+
   };
 
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
@@ -32,7 +45,7 @@ export const ParentGuardian = () => {
     <div style={{ height: "100%" }} className={whiteBox}>
       <form
         style={{ overflowY: "scroll" }}
-        onSubmit={handleSubmit(submitProfile)}
+        onSubmit={handleSubmit(submitParentGuardian)}
         className="row d-flex justify-content-around"
       >
         <div className="d-flex flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">

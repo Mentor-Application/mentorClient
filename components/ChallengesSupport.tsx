@@ -31,8 +31,16 @@ const ChallengesSupport = () => {
   };
 
   let apiService: ApiService = new ApiService();
-  const submitProfile = (values) => {
+  const submitChallengesSupport = (values) => {
     console.log(values);
+    apiService
+    .post("student/challenges",values)
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
   };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
@@ -40,7 +48,7 @@ const ChallengesSupport = () => {
   return (
     <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
       <form
-        onSubmit={handleSubmit(submitProfile)}
+        onSubmit={handleSubmit(submitChallengesSupport)}
         className="d-flex flex-column justify-content-around align-items-center"
       >
         <table

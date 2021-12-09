@@ -57,10 +57,16 @@ export const login = () => {
     apiService
       .post("auth/login", loginData)
       .then((res) => {
-        const { status } = res;
+        const { status,mentorId,studentId,parentId,facultyId } = res;
         if (status === "OK") {
           setLoggedInUser(res);
-          router.push("student");
+          if(studentId!=null){
+            router.push("student");
+          }
+          else if(mentorId!=null){
+            router.push("mentor");
+          }
+          
         } else {
           setIsError(false);
         }

@@ -26,23 +26,23 @@ const SchoolRecord = () => {
   };
 
   let apiService: ApiService = new ApiService();
-  const submitProfile = (values) => {
+  const submitSchoolRecord = (values) => {
     console.log(values);
-    //   apiService
-    //     .post("student/profile", values)
-    //     .then((res) => {
-    //       console.log(res);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
+      apiService
+        .post("student/schoolrecord", values)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
   return (
     <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
-      <form style={{ marginLeft: "10%", height: "80%" }}>
+      <form style={{ marginLeft: "10%", height: "80%" }} onSubmit={handleSubmit(submitSchoolRecord)}>
         <table style={{ marginTop: "10%" }} className={classes.table}>
           <tr>
             <th className={classes.tablehead}>Course</th>

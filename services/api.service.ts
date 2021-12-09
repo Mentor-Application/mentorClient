@@ -16,10 +16,9 @@ export class ApiService {
     });
   }
 
-  async get(url: string, params?: any) {
+  async get(url: string ) {
     try {
       const response = await axios.get(`${environment.api_url}/${url}`, {
-        params: params,
         headers: this.options,
       });
       const data = response.data;

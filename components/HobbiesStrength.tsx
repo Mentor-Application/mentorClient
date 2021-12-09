@@ -13,6 +13,7 @@ const HobbiesStrength = () => {
   const { register: register3, handleSubmit: handleSubmit3 } = useForm();
   
   const [hobbiesStrength, sethobbiesStrength] = useState([]);
+  const [hobbiesStrength1, sethobbiesStrength1] = useState([]);
 
   const onsubmit = (values) => {
     hobbiesStrength.push(values);
@@ -24,16 +25,28 @@ const HobbiesStrength = () => {
 
   const onsubmit2 = (values) => {
     hobbiesStrength.push(values);
+    console.log(hobbiesStrength)
   };
 
-  const onsubmit3 = (values) => {
-    hobbiesStrength.push(values);
-    console.log(hobbiesStrength);
+  const onsubmit3 = (values1) => {
+    hobbiesStrength1.push(values1);
+    console.log(hobbiesStrength1)
+    
   };
 
   let apiService: ApiService = new ApiService();
-  const submitProfile = (values) => {
-    console.log(values);
+  const submitHobbiesStrength = (values) => {
+    console.log(hobbiesStrength);
+    apiService
+    .post("student/hobbies",values)
+    
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+    
   };
 
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
@@ -41,7 +54,7 @@ const HobbiesStrength = () => {
     <div style={{ height: "90%" }} className={whiteBox}>
       <form
         style={{ overflowY: "scroll", overflowX: "hidden" }}
-        onSubmit={handleSubmit(submitProfile)}
+        onSubmit={handleSubmit(submitHobbiesStrength)}
         className=" row d-flex justify-content-center col-12"
       >
         <div
@@ -139,7 +152,7 @@ const HobbiesStrength = () => {
           style={{ marginTop: "5%", marginLeft: "100%", marginBottom: "3%" }}
         >
           <button className={classes.icon}
-            type="button"
+            type="submit"
             onClick={(e) => {
               handleSubmit(onsubmit)();
               handleSubmit1(onsubmit1)();

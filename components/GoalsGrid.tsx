@@ -33,6 +33,14 @@ const GoalsGrid = () => {
   let apiService: ApiService = new ApiService();
   const submitProfile = (values) => {
     console.log(values);
+    apiService
+    .post("student/goalsgrid",values)
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
   };
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
