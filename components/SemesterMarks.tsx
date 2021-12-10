@@ -25,7 +25,8 @@ const SemesterMarks = () => {
                 <table style={{marginTop:'0%'}} className={classes.table}>
                 <tr>
                     <th style={{width:"5%"}} className={classes.tablehead}>SI No.</th>
-                    <th style={{width:"50%"}} className={classes.tablehead}>Subject Code and Name</th>
+                    <th style={{width:"30%"}} className={classes.tablehead}>Subject Code</th>
+                    <th style={{width:"50%"}} className={classes.tablehead}>Subject Name</th>
                     <th className={classes.tablehead}>Grade</th>
                     <th className={classes.tablehead}>Grade points obtained (Credits x Score)</th>
                     <th className={classes.tablehead}>Month and Year of Passing</th>
@@ -37,11 +38,13 @@ const SemesterMarks = () => {
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
+                    <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     
                 </tr>
                 <tr>
                     <td  className={classes.tablehead}>2.</td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td> 
+                    <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
@@ -53,11 +56,13 @@ const SemesterMarks = () => {
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
+                    <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     
                 </tr>
                 <tr>
                     <td  className={classes.tablehead}>4.</td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td> 
+                    <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
@@ -69,11 +74,13 @@ const SemesterMarks = () => {
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
+                    <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     
                 </tr>
                 <tr>
                     <td  className={classes.tablehead}>6.</td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td> 
+                    <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
@@ -85,10 +92,12 @@ const SemesterMarks = () => {
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
+                    <td  className={classes.table}><input className={classes.inputbox}></input></td>
                 </tr>
                 <tr>
                     <td  className={classes.tablehead}>8.</td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td> 
+                    <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
                     <td  className={classes.table}><input className={classes.inputbox}></input></td>
