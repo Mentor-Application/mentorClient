@@ -1,0 +1,23 @@
+.addbutton{
+    background-color: #0166b2;
+    border: none;
+    margin: none;
+    color: white;
+    margin-left: 4%;
+}
+
+.forms {
+    margin-top: 8%;
+    background: #ffffff;
+    width: 90%;
+    /* border-radius: 30px; */
+    overflow-x: hidden;
+  }
+
+.labeldisplay{
+    margin-left: 4%;
+    margin-right: 7%;
+    color: #0166b2;
+    font-weight: 600;
+    
+}

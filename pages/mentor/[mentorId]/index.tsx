@@ -9,6 +9,8 @@ import Mentees from "./Mentees";
 
 export const index = () => {
   const [mentorRoute, setmentorRoute] = useState("mentees");
+  const [menteesActive, setmenteesActive] = useState(false);
+  const [addMenteesActive, setaddMenteesActive] = useState(false);
 
   const router = useRouter();
 
@@ -29,6 +31,17 @@ export const index = () => {
     setShowNav(!showNav);
   };
 
+  useEffect(() => {
+    if (mentorRoute.match("mentees")) {
+      setmenteesActive(true);
+      setaddMenteesActive(false);
+    } 
+     else if(mentorRoute.match("addmentees")) {
+      setmenteesActive(false);
+      setaddMenteesActive(true);
+    }
+  }, [mentorRoute]);
+
   let navStyle = `${classes.navbar} d-flex flex-column justify-content-center`;
   return (
     <div style={{ width: "100%", height: "100vh" }} className="d-flex flex-row">
@@ -41,7 +54,7 @@ export const index = () => {
                 setmentorRoute("mentees");
                 console.log(mentorRoute);
               }}
-              className={classes.navbtn}
+              className={menteesActive ? classes.navbtnActive : classes.navbtn}
             >
               Mentees
             </button>
@@ -51,7 +64,7 @@ export const index = () => {
                 setmentorRoute("addmentees");
                 console.log(mentorRoute);
               }}
-              className={classes.navbtn}
+              className={addMenteesActive ? classes.navbtnActive : classes.navbtn}
             >
               Add Mentees
             </button>

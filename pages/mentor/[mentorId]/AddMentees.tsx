@@ -5,11 +5,20 @@ import { useForm } from "react-hook-form";
 import { ApiService } from "../../../services/api.service";
 import axios from "axios";
 import { environment } from "../../../environments/environments";
+// import classes from "../../../styles/studentMainPage.module.css";
+import classes from "../../../styles/mentor.module.css";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 export const AddMentees = () => {
 
+  var array=[];
+  const [list, setList] = React.useState([]);
   const { register, handleSubmit} = useForm();
   const [studentList,setStudentList]=useState([]);
+  const [menteesList,setMenteesList]=useState([]);
+  const [registerNumber,setRegisterNumber]=useState('')
+  // const [day,setDay]=useState('')
   
 
    const handleSearch=async (values)=> {
@@ -28,14 +37,39 @@ export const AddMentees = () => {
       console.log(err);
     });
     
-     console.log(studentList)
+      console.log(studentList)
 
   }
 
+  function addList(items) {
+    menteesList.push(items);
+    console.log(menteesList);
+     
+  }
+
+  function handleRemove(registerNumber) {
+    const newList = menteesList.filter((item) => item.registerNumber !== registerNumber);
+
+    setMenteesList(newList);
+  }
+
+
+  function hidden(menteesList){
+    if(!menteesList.length){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+  let whiteBox = `${classes.forms} col-12 col-xl-11`;
+
   return (
-    <form onSubmit={handleSubmit(handleSearch)}>
-  <div>
-      <input type="text" placeholder="Student Name" {...register("studentname")}/>
+    <div style={{overflowY:'scroll'}}>
+    <form onSubmit={handleSubmit(handleSearch)} >
+    <div style={{marginTop:'3%'}}>
+      <input type="text" placeholder="Student Name" style={{height:'40px'}} {...register("studentname")}/>
       <input
                 {...register("branch")}
                 style={{
@@ -48,7 +82,7 @@ export const AddMentees = () => {
                 }}
                 list="branches"
                 type="text"
-                placeholder="branch"
+                placeholder="Branch"
               ></input>
 
               <datalist style={{color:'white'}} id="branches">
@@ -101,14 +135,55 @@ export const AddMentees = () => {
                   <option value="2021-2025"/>
                   <option value="2022-2026"/>
               </datalist>
-              <button style={{backgroundColor:'#0166b2',marginLeft:'5%',color:'white'}}
+              <button style={{backgroundColor:'#0166b2',marginLeft:'5%',color:'white',height:'40px',width:'40px',border:'none'}}
               type="submit"> 
               <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faSearch} />
               </button>
   </div>
   </form>
+  <div style={{ overflowX: "auto",overflowY:'scroll', height: "90%" }} className={whiteBox}>
+
+         {studentList.map((items)=>(
+            <div style={{marginTop:"2%",marginLeft:'4%',marginRight:'4%',padding:'15px',backgroundColor:'#D3D3D3'}} key={items.registerNumber}>
+              
+              <label style={{width:'73px'}} className={classes.labeldisplay} >{items.registerNumber}</label>
+              <label style={{width:'50px'}} className={classes.labeldisplay}>{items.studentName}</label>
+              <label className={classes.labeldisplay}>{items.branch}</label>
+              <label className={classes.labeldisplay}>{items.section}</label>
+              <label className={classes.labeldisplay}>{items.periodOfStudy}</label>
+              <button onClick={() => addList(items)} className={classes.addbutton} >Add</button>
+            </div>
+         )
+         )}
+
+  </div>
+  <div >
+    {
+      hidden(menteesList) ? <div style={{ overflowX: "auto", height: "40%" }} className={whiteBox}>
+
+         {menteesList.map((items)=>(
+            <div style={{marginTop:"2%",marginLeft:'4%',marginRight:'4%',padding:'15px',backgroundColor:'#D3D3D3'}} key={items.registerNumber}>
+              
+              <label style={{width:'73px'}} className={classes.labeldisplay} >{items.registerNumber}</label>
+              <label style={{width:'50px'}} className={classes.labeldisplay}>{items.studentName}</label>
+              <label className={classes.labeldisplay}>{items.branch}</label>
+              <label className={classes.labeldisplay}>{items.section}</label>
+              <label className={classes.labeldisplay}>{items.periodOfStudy}</label>
+              <button onClick={() => handleRemove(items.registerNumber)} className={classes.addbutton} ><FontAwesomeIcon style={{ fontSize: "110%" }} icon={faTimes} /></button>
+            </div>
+         )
+         )}
+      </div>:null
+    }
+  </div>
+  </div>
+  
+    
 
   )
 };
 
 export default AddMentees;
+
+
+
