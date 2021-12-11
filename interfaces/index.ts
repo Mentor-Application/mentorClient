@@ -19,3 +19,8 @@ export type loginInfo = {
   email: string;
   password: string;
 };
+export type MenteeItems ={
+  studentId:number;
+  studentName:string;
+  regNo:string
+}

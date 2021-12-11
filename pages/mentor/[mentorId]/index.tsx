@@ -20,6 +20,9 @@ export const index = () => {
       : "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 d-none d-sm-flex"
   } `;
 
+  const Names=["Srikanth","Vignesh","Vasi"];
+  const RegNos=["195001108","195001127","195001124"]
+  
   const handleClick = (e) => {
     e.preventDefault();
     console.log(showNav);

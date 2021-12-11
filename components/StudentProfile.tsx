@@ -29,23 +29,23 @@ export const StudentProfile = () => {
 
   const [isChecked, setIsChecked] = useState(true);
 
-  useEffect(() => {
-    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-    url = `student/${loggedInUser.studentId}`;
-    const response = apiService
-      .get(url)
-      .then((res) => {
-        return res;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    response.then((res) => {
-      const data = res;
-      logedinstudent.deserialize(data, loggedinStudent);
-      setIsLoarding(false);
-    });
-  }, []);
+  // useEffect(() => {
+  //   loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+  //   url = `student/${loggedInUser.studentId}`;
+  //   const response = apiService
+  //     .get(url)
+  //     .then((res) => {
+  //       return res;
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   response.then((res) => {
+  //     const data = res;
+  //     logedinstudent.deserialize(data, loggedinStudent);
+  //     setIsLoarding(false);
+  //   });
+  // }, []);
 
   const submitProfile = (values) => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
