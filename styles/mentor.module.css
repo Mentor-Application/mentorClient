@@ -3,7 +3,7 @@
     border: none;
     margin: none;
     color: white;
-    margin-left: 4%;
+    margin-left: 2%;
 }
 
 .forms {
@@ -16,8 +16,16 @@
 
 .labeldisplay{
     margin-left: 4%;
-    margin-right: 7%;
+    margin-right: 5%;
     color: #0166b2;
     font-weight: 600;
-    
+    margin-bottom: 2%;
+}
+
+.removebutton{
+    background-color: #0166b2;
+    border: none;
+    margin: none;
+    color: white;
+    margin-left: 10%;
 }

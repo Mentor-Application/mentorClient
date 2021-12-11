@@ -37,20 +37,21 @@ export const AddMentees = () => {
       console.log(err);
     });
     
-      console.log(studentList)
 
   }
 
-  function addList(items) {
+  function addList(items,registerNumber) {
     menteesList.push(items);
     console.log(menteesList);
-     
+    const newList = studentList.filter((item) => item.registerNumber !== registerNumber);
+    setStudentList(newList);
+    console.log(studentList);
   }
 
-  function handleRemove(registerNumber) {
+  function handleRemove(items,registerNumber) {
     const newList = menteesList.filter((item) => item.registerNumber !== registerNumber);
-
     setMenteesList(newList);
+    studentList.unshift(items);
   }
 
 
@@ -66,9 +67,9 @@ export const AddMentees = () => {
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
   return (
-    <div style={{overflowY:'scroll'}}>
+   <div style={{overflowY:'scroll'}}>
     <form onSubmit={handleSubmit(handleSearch)} >
-    <div style={{marginTop:'3%'}}>
+    <div style={{marginTop:'3%',marginBottom:'3%'}}>
       <input type="text" placeholder="Student Name" style={{height:'40px'}} {...register("studentname")}/>
       <input
                 {...register("branch")}
@@ -140,8 +141,7 @@ export const AddMentees = () => {
               <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faSearch} />
               </button>
   </div>
-  </form>
-  <div style={{ overflowX: "auto",overflowY:'scroll', height: "90%" }} className={whiteBox}>
+  <div style={{ overflowX: "auto",overflowY:'scroll', height: "90%",marginBottom:'10px' }} className={whiteBox}>
 
          {studentList.map((items)=>(
             <div style={{marginTop:"2%",marginLeft:'4%',marginRight:'4%',padding:'15px',backgroundColor:'#D3D3D3'}} key={items.registerNumber}>
@@ -151,7 +151,8 @@ export const AddMentees = () => {
               <label className={classes.labeldisplay}>{items.branch}</label>
               <label className={classes.labeldisplay}>{items.section}</label>
               <label className={classes.labeldisplay}>{items.periodOfStudy}</label>
-              <button onClick={() => addList(items)} className={classes.addbutton} >Add</button>
+              <button onClick={() => addList(items,items.registerNumber)} className={classes.addbutton} >Add</button>
+              <button className={classes.addbutton}> View Profile</button>
             </div>
          )
          )}
@@ -159,7 +160,7 @@ export const AddMentees = () => {
   </div>
   <div >
     {
-      hidden(menteesList) ? <div style={{ overflowX: "auto", height: "40%" }} className={whiteBox}>
+      hidden(menteesList) ? <div style={{ overflowX: "auto", height: "40%",overflowY:'scroll' }} className={whiteBox}>
 
          {menteesList.map((items)=>(
             <div style={{marginTop:"2%",marginLeft:'4%',marginRight:'4%',padding:'15px',backgroundColor:'#D3D3D3'}} key={items.registerNumber}>
@@ -169,14 +170,16 @@ export const AddMentees = () => {
               <label className={classes.labeldisplay}>{items.branch}</label>
               <label className={classes.labeldisplay}>{items.section}</label>
               <label className={classes.labeldisplay}>{items.periodOfStudy}</label>
-              <button onClick={() => handleRemove(items.registerNumber)} className={classes.addbutton} ><FontAwesomeIcon style={{ fontSize: "110%" }} icon={faTimes} /></button>
+              <button onClick={() => handleRemove(items,items.registerNumber)} className={classes.removebutton} ><FontAwesomeIcon style={{ fontSize: "110%" }} icon={faTimes} /></button>
             </div>
          )
          )}
       </div>:null
     }
   </div>
-  </div>
+  
+  </form>
+   </div>
   
     
 
