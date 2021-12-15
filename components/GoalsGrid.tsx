@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { User } from "../interfaces";
 
 const GoalsGrid = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
@@ -12,6 +13,8 @@ const GoalsGrid = () => {
   const { register: register3, handleSubmit: handleSubmit3 } = useForm();
 
   const [goalsGrid, setgoalsGrid] = useState([]);
+
+  let loggedInUser:User;
 
   const onsubmit = (values) => {
     goalsGrid.push(values);
@@ -32,9 +35,10 @@ const GoalsGrid = () => {
 
   let apiService: ApiService = new ApiService();
   const submitProfile = (values) => {
+    loggedInUser=JSON.parse(sessionStorage.getItem("user"));
     console.log(values);
     apiService
-    .post("student/goalsgrid",values)
+    .post(`student/${loggedInUser.studentId}/goalsgrid`,goalsGrid)
     .then((res)=>{
       console.log(res);
     })
@@ -139,7 +143,7 @@ const GoalsGrid = () => {
         </table>
         <div style={{ marginTop: "5%", marginLeft: "83%" }}>
           <button className={classes.icon}
-            type="button"
+            type="submit"
             onClick={(e) => {
               handleSubmit(onsubmit)();
               handleSubmit1(onsubmit1)();

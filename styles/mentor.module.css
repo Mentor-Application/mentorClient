@@ -29,3 +29,12 @@
     color: white;
     margin-left: 10%;
 }
+
+.submitbutton{
+    margin-top:2%;
+    margin-bottom:2%;
+    margin-left:80%;
+    color:#ffffff;
+    background-color: #0166b2;
+    border: none;
+}

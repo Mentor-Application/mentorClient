@@ -5,6 +5,7 @@ import { ApiService } from "../services/api.service";
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { User } from "../interfaces";
 
 const HobbiesStrength = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
@@ -14,6 +15,8 @@ const HobbiesStrength = () => {
   
   const [hobbiesStrength, sethobbiesStrength] = useState([]);
   const [hobbiesStrength1, sethobbiesStrength1] = useState([]);
+  let loggedInUser: User;
+
 
   const onsubmit = (values) => {
     hobbiesStrength.push(values);
@@ -29,16 +32,25 @@ const HobbiesStrength = () => {
   };
 
   const onsubmit3 = (values1) => {
-    hobbiesStrength1.push(values1);
-    console.log(hobbiesStrength1)
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    console.log(values1);
+    apiService
+    .post(`student/${loggedInUser.studentId}/strengthassessment`,values1)
     
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
   };
 
   let apiService: ApiService = new ApiService();
   const submitHobbiesStrength = (values) => {
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
     console.log(hobbiesStrength);
     apiService
-    .post("student/hobbies",values)
+    .post(`student/${loggedInUser.studentId}/hobbies`,hobbiesStrength)
     
     .then((res)=>{
       console.log(res);

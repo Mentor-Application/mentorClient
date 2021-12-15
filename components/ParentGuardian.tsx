@@ -11,6 +11,7 @@ import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { ApiService } from "../services/api.service";
+import { User } from "../interfaces";
 
 export const ParentGuardian = () => {
   const {
@@ -25,9 +26,13 @@ export const ParentGuardian = () => {
   const [branch, setBranch] = useState("");
 
   let apiService:ApiService = new ApiService();
+  let loggedInUser: User;
 
   const submitParentGuardian= (values)=> {
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    setValue("studentId",loggedInUser.studentId);
     console.log(values)
+    const parentvalues = Object.assign(values);
     apiService
     .post("student/guardian",values)
     .then((res)=>{
@@ -37,7 +42,21 @@ export const ParentGuardian = () => {
       console.log(err);
     });
 
+    // apiService
+    // .post("student/parent",values)
+    // .then((res)=>{
+    //   console.log(res);
+    // })
+    // .catch((err)=>{
+    //   console.log(err);
+    // });
+
   };
+
+  const submitParent = (parentvalues)=>{
+    console.log("Hello")
+    console.log(parentvalues)
+  }
 
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
 
@@ -76,7 +95,7 @@ export const ParentGuardian = () => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Address for Communication</label>
             <textarea
-              {...register("addresscomm", {
+              {...register("parentAddress", {
                 required: "Address Required",
               })}
               style={{ width: "80%", height: "90px" }}
@@ -84,14 +103,14 @@ export const ParentGuardian = () => {
             ></textarea>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
-              <ErrorMessage errors={errors} name="addresscomm" />
+              <ErrorMessage errors={errors} name="parentAddress" />
             </span>
           </Row>
 
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Email ID</label>
             <input
-              {...register("emailIde", {
+              {...register("parentEmailId", {
                 required: "Email ID Required",
               })}
               style={{ width: "80%" }}
@@ -100,7 +119,7 @@ export const ParentGuardian = () => {
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
-              <ErrorMessage errors={errors} name="emailIde" />
+              <ErrorMessage errors={errors} name="parentEmailId" />
             </span>
           </Row>
         </div>
@@ -127,7 +146,7 @@ export const ParentGuardian = () => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Address for Communication</label>
             <textarea
-              {...register("addresscom")}
+              {...register("address")}
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
             ></textarea>
@@ -156,7 +175,7 @@ export const ParentGuardian = () => {
             <div
               style={{ marginTop: "5%", marginBottom: "4%", marginLeft: "60%" }}
             >
-              <button className={classes.icon} type="submit">
+              <button className={classes.icon} type="submit" onClick={submitParent}>
                 <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
               </button>
             </div>

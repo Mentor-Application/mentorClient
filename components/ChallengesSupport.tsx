@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { User } from "../interfaces";
 
 const ChallengesSupport = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
@@ -12,6 +13,8 @@ const ChallengesSupport = () => {
   const { register: register3, handleSubmit: handleSubmit3 } = useForm();
 
   const [challengesSupport, setchallengesSupport] = useState([]);
+
+  let loggedInUser:User;
 
   const onsubmit = (values) => {
     challengesSupport.push(values);
@@ -32,9 +35,10 @@ const ChallengesSupport = () => {
 
   let apiService: ApiService = new ApiService();
   const submitChallengesSupport = (values) => {
+    loggedInUser=JSON.parse(sessionStorage.getItem("user"));
     console.log(values);
     apiService
-    .post("student/challenges",values)
+    .post(`student/${loggedInUser.studentId}/challenges`,challengesSupport)
     .then((res)=>{
       console.log(res);
     })
@@ -145,7 +149,7 @@ const ChallengesSupport = () => {
         </table>
         <div style={{ marginTop: "5%", marginLeft: "60%" }}>
           <button className={classes.icon}
-            type="button"
+            type="submit"
             onClick={(e) => {
               handleSubmit(onsubmit)();
               handleSubmit1(onsubmit1)();

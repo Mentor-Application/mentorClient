@@ -29,28 +29,28 @@ export const StudentProfile = () => {
 
   const [isChecked, setIsChecked] = useState(true);
 
-  // useEffect(() => {
-  //   loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-  //   url = `student/${loggedInUser.studentId}`;
-  //   const response = apiService
-  //     .get(url)
-  //     .then((res) => {
-  //       return res;
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   response.then((res) => {
-  //     const data = res;
-  //     logedinstudent.deserialize(data, loggedinStudent);
-  //     setIsLoarding(false);
-  //   });
-  // }, []);
+  useEffect(() => {
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    url = `student/${loggedInUser.studentId}`;
+    const response = apiService
+      .get(url)
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    response.then((res) => {
+      const data = res;
+      logedinstudent.deserialize(data, loggedinStudent);
+      setIsLoarding(false);
+    });
+  }, []);
 
   const submitProfile = (values) => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
     setValue("emailId", loggedInUser.email);
-
+    // console.log(loggedInUser.email);
     console.log(values);
     apiService
       .post("student/profile", values)
@@ -180,9 +180,14 @@ export const StudentProfile = () => {
                 })}
                 style={{ width: "75%", height: "42.5px", marginLeft: "10%" }}
                 className={classes.box}
+                list="section"
                 type="text"
                 placeholder={loggedinStudent.section}
               ></input>
+              <datalist id="section">
+                <option value="A" />
+                <option value="B" />
+              </datalist>
               <span
                 style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}
               >

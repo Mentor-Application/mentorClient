@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { Student } from "../interfaces/student";
+import { User } from "../interfaces";
 
 const SchoolRecord = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
@@ -11,8 +13,11 @@ const SchoolRecord = () => {
   const { register: register2, handleSubmit: handleSubmit2 } = useForm();
 
   const [schoolRecord, setSchoolRecord] = useState([]);
+  let loggedInUser: User;
+  let url: string;
 
   const onsubmit = (values) => {
+    
     schoolRecord.push(values);
   };
 
@@ -27,9 +32,10 @@ const SchoolRecord = () => {
 
   let apiService: ApiService = new ApiService();
   const submitSchoolRecord = (values) => {
-    console.log(values);
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    console.log("hello");
       apiService
-        .post("student/schoolrecord", values)
+        .post(`student/${loggedInUser.studentId}/schoolrecord`, schoolRecord)
         .then((res) => {
           console.log(res);
         })
@@ -61,28 +67,28 @@ const SchoolRecord = () => {
             <td className={classes.tablehead}>10th</td>
             <td className={classes.table}>
               <input
-                {...register("10thyear")}
+                {...register("yearPassedOut")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("10thschoolname")}
+                {...register("nameOfSchool")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("10thboard")}
+                {...register("board")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("10thpercentage")}
+                {...register("percentage")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -92,28 +98,28 @@ const SchoolRecord = () => {
             <td className={classes.tablehead}>12th</td>
             <td className={classes.table}>
               <input
-                {...register1("12thyear")}
+                {...register1("yearPassedOut")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register1("12thschoolname")}
+                {...register1("nameOfSchool")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register1("12thboard")}
+                {...register1("board")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register1("12thpercentage")}
+                {...register1("percentage")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -123,9 +129,9 @@ const SchoolRecord = () => {
             <td className={classes.tablehead}>12th Cutoff </td>
             <td>
               <input
-                {...register("12thcutoff")}
-                {...register1("12thcutoff")}
-                {...register2("12thcutoff")}
+                {...register("twelfthCutOff")}
+                {...register1("twelfthCutOff")}
+                {...register2("twelfthCutOff")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -136,28 +142,28 @@ const SchoolRecord = () => {
             <td className={classes.tablehead}>Diploma</td>
             <td className={classes.table}>
               <input
-                {...register2("diplomayear")}
+                {...register2("yearPassedOut")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register2("diplomaschoolname")}
+                {...register2("nameOfSchool")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register2("diplomaboard")}
+                {...register2("board")}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register2("diplomapercentage")}
+                {...register2("percentage")}
                 className={classes.inputbox}
                 type="text"
               />
@@ -167,7 +173,7 @@ const SchoolRecord = () => {
         <div style={{ marginTop: "5%", marginLeft: "83%" }}>
           <button
             className={classes.icon}
-            type="button"
+            type="submit"
             onClick={(e) => {
               console.log("clicking");
               handleSubmit2(onsubmit2)();

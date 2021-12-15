@@ -5,20 +5,26 @@ import { useForm } from "react-hook-form";
 import { ApiService } from "../../../services/api.service";
 import axios from "axios";
 import { environment } from "../../../environments/environments";
-// import classes from "../../../styles/studentMainPage.module.css";
 import classes from "../../../styles/mentor.module.css";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import Mentees from "./Mentees";
+import { Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import router, { useRouter } from 'next/router';
+import { User } from "../../../interfaces";
+
 
 export const AddMentees = () => {
 
-  var array=[];
-  const [list, setList] = React.useState([]);
+  // const [mentorRoute, setmentorRoute] = useState("mentees");
   const { register, handleSubmit} = useForm();
   const [studentList,setStudentList]=useState([]);
   const [menteesList,setMenteesList]=useState([]);
-  const [registerNumber,setRegisterNumber]=useState('')
-  // const [day,setDay]=useState('')
+  // const [registerNumber,setRegisterNumber]=useState('')
+  let apiService: ApiService = new ApiService();
+  let loggedInUser: User;
+  let url: string;
+  
   
 
    const handleSearch=async (values)=> {
@@ -63,6 +69,41 @@ export const AddMentees = () => {
       return true;
     }
   }
+ 
+  //   const Submit=async()=>{
+  //   loggedInUser=JSON.parse(sessionStorage.getItem("user"));
+  //   console.log(loggedInUser.mentorId);
+  //   console.log(menteesList);
+  //   await axios.post(`${environment.api_url}/student/mentor/${loggedInUser.mentorId}/addmentee`,{
+  //         body:{menteesList: menteesList},
+  //         headers:{"Content-Type": "application/json"},
+  //       })
+  //       .then((res)=>{
+  //         const data=res.data;
+  //         setStudentList(data)
+  //         return res;
+  //       })
+  //       .catch((err)=>{
+  //         console.log(err);
+  //       });
+  // }
+
+
+  const Submit = () => {
+    // console.log(values);
+      loggedInUser=JSON.parse(sessionStorage.getItem("user"));
+      apiService
+        .post(`student/mentor/${loggedInUser.mentorId}/addmentee`, menteesList)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        alert("Mentees List have been added");
+        window.location.reload();
+  };
+  
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
@@ -174,6 +215,9 @@ export const AddMentees = () => {
             </div>
          )
          )}
+         
+         <button onClick={Submit} className={classes.submitbutton}>Submit</button>
+         
       </div>:null
     }
   </div>
@@ -187,6 +231,3 @@ export const AddMentees = () => {
 };
 
 export default AddMentees;
-
-
-

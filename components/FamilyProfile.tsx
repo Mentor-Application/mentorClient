@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { User } from "../interfaces";
 
 const FamilyProfile = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
@@ -11,6 +12,8 @@ const FamilyProfile = () => {
   const { register: register2, handleSubmit: handleSubmit2 } = useForm();
 
   const [familyProfile, setfamilyProfile] = useState([]);
+
+  let loggedInUser: User;
 
   const onsubmit = (values) => {
     familyProfile.push(values);
@@ -27,9 +30,10 @@ const FamilyProfile = () => {
 
   let apiService: ApiService = new ApiService();
   const submitFamilyProfile = (values) => {
-    console.log(values);
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    console.log("hello");
     apiService
-    .post("student/familyprofile",values)
+    .post(`student/${loggedInUser.studentId}/familyprofile`,familyProfile)
     .then((res)=>{
       console.log(res);
     })
