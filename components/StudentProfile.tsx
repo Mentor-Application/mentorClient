@@ -31,7 +31,7 @@ export const StudentProfile = () => {
 
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-    url = `student/${loggedInUser.studentId}`;
+    url = `student/${loggedInUser.studentId}/profile`;
     const response = apiService
       .get(url)
       .then((res) => {

@@ -1,153 +1,280 @@
 import React, { useEffect, useState } from "react";
 import classes from "../../../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
-import { ApiService } from "../../../services/api.service"
-import { Dropdown, DropdownButton, Row } from 'react-bootstrap';
+import { ApiService } from "../../../services/api.service";
+import { Dropdown, DropdownButton, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { MentorMeeting } from "../../../interfaces/MenorMeeting";
 
-export const MentorMeetingDetails = () => {
+export const MentorMeetingDetails = ({ studentId }) => {
+  const [mentorMeetingDetails, setMentor] = useState<Array<MentorMeeting>>([]);
+  const [semesterName, setSemesterName] = useState("semester1");
+  let apiService: ApiService = new ApiService();
 
-  const { register, handleSubmit, setValue, getValues,formState: { errors }, } = useForm();
-  const { register: register1, handleSubmit: handleSubmit1 } = useForm();
-  const { register: register2, handleSubmit: handleSubmit2 } = useForm();
-  const { register: register3, handleSubmit: handleSubmit3 } = useForm();
-  
-  const [mentorMeetingDetails, setmentorMeetingDetails] = useState([]);
+  let whiteBox = `${classes.forms} col-12 col-xl-11`;
+  let url: string;
+  useEffect(() => {
+    url = `mentormeeting/${studentId}/${semesterName}/list`;
+    apiService
+      .get(url)
+      .then((res) => {
+        const data = res;
+        if (data.length === 0) {
+          setMentor([
+            {
+              studentId: studentId,
+              semesterName: semesterName,
+              meetingDate: "",
+              meetingTime: "",
+              focusOnDiscussion: "",
+              remarks: "",
+            },
+            {
+              studentId: studentId,
+              semesterName: semesterName,
+              meetingDate: "",
+              meetingTime: "",
+              focusOnDiscussion: "",
+              remarks: "",
+            },
+            {
+              studentId: studentId,
+              semesterName: semesterName,
+              meetingDate: "",
+              meetingTime: "",
+              focusOnDiscussion: "",
+              remarks: "",
+            },
+            {
+              studentId: studentId,
+              semesterName: semesterName,
+              meetingDate: "",
+              meetingTime: "",
+              focusOnDiscussion: "",
+              remarks: "",
+            },
+            {
+              studentId: studentId,
+              semesterName: semesterName,
+              meetingDate: "",
+              meetingTime: "",
+              focusOnDiscussion: "",
+              remarks: "",
+            },
+          ]);
+        } else {
+          setMentor(data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [semesterName]);
 
-  const onsubmit = (values) => {
-    mentorMeetingDetails.push(values);
+  const updateMarks = (e) => {
+    e.preventDefault();
+    apiService
+      .post("mentormeeting/update", MentorMeetingDetails)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   };
 
-  const onsubmit1 = (values) => {
-    mentorMeetingDetails.push(values);
-  };
-
-  const onsubmit2 = (values) => {
-    mentorMeetingDetails.push(values);
-  };
-
-  const onsubmit3 = (values) => {
-    mentorMeetingDetails.push(values);
-    console.log(mentorMeetingDetails);
-  };
-
-  
-    let apiService: ApiService = new ApiService();
-    const submitProfile = (values) => {
-      console.log(values);
-    };
-    let whiteBox = `${classes.forms} col-12 col-xl-11`;
-
-
-    return (
-
-      <div
+  return (
+    <div
       style={{
+        background: "#ffffff",
+        width: "98%",
+        height: "87%",
+        marginTop: "70px",
         overflowY: "scroll",
-        height: "100vh",
+        marginBottom: "5%",
       }}
-      className="row"
     >
-      <div
-        style={{ height: "90%" }}
-        className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12"
-      >
-        <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
+      <div>
         <Dropdown>
-            <Dropdown.Toggle id="dropwdown-custom-1"style={{
-                    color: "white",
-                    backgroundColor: "#0166b2",
-                    border: "2.5px solid #0166b2",
-                    marginLeft:"5%",
-                    fontWeight:'bold',
-                    fontSize:'100%',
-                    marginTop:"5%",
-                    borderRadius: "15px",
-                    width: "10%",
-                    height: "40px",}}>Semester</Dropdown.Toggle>
-                     <Dropdown.Menu
-                    id="dropdown-menu-align-right"
-                    style={{background:"white",color:"#0166b2"}}
-                    className="DropDown"
-                    
-                >
-                <Dropdown.Item style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester1">Semester-1</Dropdown.Item>
-                <Dropdown.Item  style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester2">Semester-2</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item  style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester3">Semester-3</Dropdown.Item>
-                <Dropdown.Item  style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester4">Semester-4</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester5">Semester-5</Dropdown.Item>
-                <Dropdown.Item style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester6">Semester-6</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester7">Semester-7</Dropdown.Item>
-                <Dropdown.Item style={{color:'#0166b2',fontWeight:'bold'}} href="#/Semester8">Semester-8</Dropdown.Item>
-                <Dropdown.Divider />
-                </Dropdown.Menu>
-                </Dropdown>
-                <div className={classes.internal} style={{color:'#0166b2',marginTop:'0%'}}>Mentor Meeting Details </div>
-      <form
-        onSubmit={handleSubmit(submitProfile)}
-        style={{ overflowX: "auto", marginLeft: "10%" }}
-      >
-           <table style={{marginTop:'10%'}} className={classes.table}>
-            <tr>
-                <th style={{width:'15%'}} className={classes.tablehead} >Date</th>
-                <th style={{width:'20%'}} className={classes.tablehead} >Time</th>
-                <th className={classes.tablehead} >Focus of Discussion</th>
-                <th className={classes.tablehead} >Remarks</th>
-            </tr>
-           <tr>
-             <td style={{height:'50px'}} className={classes.table} ><input {...register("date")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register("time")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register("focusOfDiscussion")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register("remarks")} className={classes.inputbox} type="text"/></td>  
-             
-           </tr>
-           <tr>
-             <td style={{height:'50px'}}  className={classes.table} ><input {...register1("date")} className={classes.inputbox} type="text"/></td>  
-             <td className={classes.table} ><input {...register1("time")} className={classes.inputbox} type="text"/></td>  
-             <td className={classes.table} ><input {...register1("focusOfDiscussion")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register1("remarks")} className={classes.inputbox} type="text"/></td> 
-             
-           </tr>
-           <tr>
-             <td style={{height:'50px'}}  className={classes.table} ><input {...register2("date")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register2("time")} className={classes.inputbox} type="text"/></td>  
-             <td className={classes.table} ><input {...register2("focusOfDiscussion")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register2("remarks")} className={classes.inputbox} type="text"/></td>  
-           </tr>
-
-           <tr>
-
-             <td style={{height:'50px'}}  className={classes.table} ><input {...register3("date")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register3("time")} className={classes.inputbox} type="text"/></td>  
-             <td className={classes.table} ><input {...register3("focusOfDiscussion")} className={classes.inputbox} type="text"/></td> 
-             <td className={classes.table} ><input {...register3("remarks")} className={classes.inputbox} type="text"/></td> 
-             
-           </tr>
-         </table> 
-         <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-          <button
-            className={classes.icon}
-            type="button"
-            onClick={(e) => {
-              console.log("clicking");
-              handleSubmit(onsubmit)();
-              handleSubmit1(onsubmit1)();
-              handleSubmit2(onsubmit2)();
-              handleSubmit3(onsubmit3)();
+          <Dropdown.Toggle
+            id="dropwdown-custom-1"
+            style={{
+              color: "white",
+              backgroundColor: "#0166b2",
+              border: "2.5px solid #0166b2",
+              marginLeft: "5%",
+              fontWeight: "bold",
+              fontSize: "100%",
+              marginTop: "5%",
+              borderRadius: "15px",
+              width: "10%",
+              height: "40px",
             }}
           >
-            <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
-          </button>
+            {semesterName}
+          </Dropdown.Toggle>
+          <Dropdown.Menu
+            id="dropdown-menu-align-right"
+            style={{ background: "white", color: "#0166b2" }}
+            className="DropDown"
+          >
+            <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight: "bold" }}
+              href="#/Semester1"
+              onClick={() => {
+                setSemesterName("semester1");
+              }}
+            >
+              Semester-1
+            </Dropdown.Item>
+            <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight: "bold" }}
+              href="#/Semester2"
+              onClick={() => {
+                setSemesterName("semester2");
+              }}
+            >
+              Semester-2
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight: "bold" }}
+              href="#/Semester3"
+              onClick={() => {
+                setSemesterName("semester3");
+              }}
+            >
+              Semester-3
+            </Dropdown.Item>
+            <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight: "bold" }}
+              href="#/Semester4"
+              onClick={() => {
+                setSemesterName("semester4");
+              }}
+            >
+              Semester-4
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight: "bold" }}
+              href="#/Semester5"
+              onClick={() => {
+                setSemesterName("semester5");
+              }}
+            >
+              Semester-5
+            </Dropdown.Item>
+            <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight: "bold" }}
+              href="#/Semester6"
+              onClick={() => {
+                setSemesterName("semester6");
+              }}
+            >
+              Semester-6
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight: "bold" }}
+              href="#/Semester7"
+              onClick={() => {
+                setSemesterName("semester7");
+              }}
+            >
+              Semester-7
+            </Dropdown.Item>
+            <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight: "bold" }}
+              href="#/Semester8"
+              onClick={() => {
+                setSemesterName("semester8");
+              }}
+            >
+              Semester-8
+            </Dropdown.Item>
+            <Dropdown.Divider />
+          </Dropdown.Menu>
+        </Dropdown>
+        <div
+          className={classes.internal}
+          style={{ color: "#0166b2", marginTop: "0%" }}
+        >
+          Mentor Meeting Details{" "}
         </div>
-        </form>
+        <div style={{ height: "100%" }}>
+          <form style={{ overflowX: "auto", marginLeft: "10%" }}>
+            <table style={{ marginTop: "8%" }} className={classes.table}>
+              <tr>
+                <th style={{ width: "15%" }} className={classes.tablehead}>
+                  Date
+                </th>
+                <th style={{ width: "20%" }} className={classes.tablehead}>
+                  Time
+                </th>
+                <th className={classes.tablehead}>Focus of Discussion</th>
+                <th className={classes.tablehead}>Remarks</th>
+              </tr>
+              {mentorMeetingDetails.map((items) => {
+                return (
+                  <tr>
+                    <td style={{ height: "50px" }} className={classes.table}>
+                      <input
+                        onChange={(e) => {
+                          items.meetingDate = e.target.value;
+                        }}
+                        value={items.meetingDate}
+                        className={classes.inputbox}
+                      />
+                    </td>
+                    <td className={classes.table}>
+                      <input
+                        onChange={(e) => {
+                          items.meetingTime = e.target.value;
+                        }}
+                        value={items.meetingTime}
+                        className={classes.inputbox}
+                      />
+                    </td>
+                    <td className={classes.table}>
+                      <input
+                        onChange={(e) => {
+                          items.focusOnDiscussion = e.target.value;
+                        }}
+                        value={items.focusOnDiscussion}
+                        className={classes.inputbox}
+                      />
+                    </td>
+                    <td className={classes.table}>
+                      <input
+                        onChange={(e) => {
+                          items.remarks = e.target.value;
+                        }}
+                        value={items.remarks}
+                        className={classes.inputbox}
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+            </table>
+          </form>
+          <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+            <button
+              className={classes.icon}
+              type="button"
+              onClick={(e) => {
+                console.log(mentorMeetingDetails);
+              }}
+            >
+              <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+            </button>
+          </div>
         </div>
-        </div>
-        </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default MentorMeetingDetails
+export default MentorMeetingDetails;

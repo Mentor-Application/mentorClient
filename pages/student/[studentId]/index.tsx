@@ -155,9 +155,13 @@ export const index = ({ data }) => {
           if (pageRoute.match("profile")) {
             return <Profile studentId={studentId}></Profile>;
           } else if (pageRoute.match("marks")) {
-            return <Marks></Marks>;
+            return <Marks studentId={studentId}></Marks>;
           } else if (pageRoute.match("mentormeeting")) {
-            return <MentorMeetingDetails></MentorMeetingDetails>;
+            return (
+              <MentorMeetingDetails
+                studentId={studentId}
+              ></MentorMeetingDetails>
+            );
           } else if (pageRoute.match("additionaldetails")) {
             return <AdditionalDetails></AdditionalDetails>;
           } else {
