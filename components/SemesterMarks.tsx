@@ -124,8 +124,48 @@ const SemesterMarks = ({ semesterName, studentId }) => {
               totalGradePoints: totalGradePoints,
               gpa: gpa,
             },
+            {
+              semesterName: semesterName,
+              subjectCode: "",
+              subjectName: "",
+              studentId: studentId,
+              grade: "",
+              gradePoints: "",
+              monthAndYearOfPassing: "",
+              credits: credits,
+              totalGradePoints: totalGradePoints,
+              gpa: gpa,
+            },
+            {
+              semesterName: semesterName,
+              subjectCode: "",
+              subjectName: "",
+              studentId: studentId,
+              grade: "",
+              gradePoints: "",
+              monthAndYearOfPassing: "",
+              credits: credits,
+              totalGradePoints: totalGradePoints,
+              gpa: gpa,
+            },
           ]);
         } else {
+          if (data.length < 8) {
+            while (data.length <= 8) {
+              data.push({
+                semesterName: semesterName,
+                subjectCode: "",
+                subjectName: "",
+                studentId: studentId,
+                grade: "",
+                gradePoints: "",
+                monthAndYearOfPassing: "",
+                credits: credits,
+                totalGradePoints: totalGradePoints,
+                gpa: gpa,
+              });
+            }
+          }
           setSemMarks(data);
           setCredits(data[0].credits);
           setTotalGradePoints(data[0].totalGradePoints);
@@ -197,7 +237,8 @@ const SemesterMarks = ({ semesterName, studentId }) => {
                     onChange={(e) => {
                       items.subjectCode = e.target.value;
                     }}
-                    value={items.subjectCode}
+                    key={items.subjectCode}
+                    defaultValue={items.subjectCode}
                     className={classes.inputbox}
                   ></input>
                 </td>
@@ -206,7 +247,8 @@ const SemesterMarks = ({ semesterName, studentId }) => {
                     onChange={(e) => {
                       items.subjectName = e.target.value;
                     }}
-                    value={items.subjectName}
+                    key={items.subjectName}
+                    defaultValue={items.subjectName}
                     className={classes.inputbox}
                   ></input>
                 </td>
@@ -215,7 +257,8 @@ const SemesterMarks = ({ semesterName, studentId }) => {
                     onChange={(e) => {
                       items.grade = e.target.value;
                     }}
-                    value={items.grade}
+                    key={items.grade}
+                    defaultValue={items.grade}
                     className={classes.inputbox}
                   ></input>
                 </td>
@@ -224,7 +267,8 @@ const SemesterMarks = ({ semesterName, studentId }) => {
                     onChange={(e) => {
                       items.gradePoints = e.target.value;
                     }}
-                    value={items.gradePoints}
+                    key={items.gradePoints}
+                    defaultValue={items.gradePoints}
                     className={classes.inputbox}
                   ></input>
                 </td>
@@ -233,7 +277,8 @@ const SemesterMarks = ({ semesterName, studentId }) => {
                     onChange={(e) => {
                       items.monthAndYearOfPassing = e.target.value;
                     }}
-                    value={items.monthAndYearOfPassing}
+                    key={items.monthAndYearOfPassing}
+                    defaultValue={items.monthAndYearOfPassing}
                     className={classes.inputbox}
                   ></input>
                 </td>
@@ -251,7 +296,8 @@ const SemesterMarks = ({ semesterName, studentId }) => {
               onChange={(e) => {
                 setCredits(e.target.value);
               }}
-              value={credits}
+              key={credits}
+              defaultValue={credits}
               className={classes.credits}
             ></input>
           </div>
@@ -264,7 +310,8 @@ const SemesterMarks = ({ semesterName, studentId }) => {
               onChange={(e) => {
                 setTotalGradePoints(e.target.value);
               }}
-              value={totalGradePoints}
+              key={totalGradePoints}
+              defaultValue={totalGradePoints}
               className={classes.credits}
             ></input>
           </div>
@@ -277,7 +324,8 @@ const SemesterMarks = ({ semesterName, studentId }) => {
               onChange={(e) => {
                 setgpa(e.target.value);
               }}
-              value={gpa}
+              key={gpa}
+              defaultValue={gpa}
               className={classes.credits}
             ></input>
           </div>

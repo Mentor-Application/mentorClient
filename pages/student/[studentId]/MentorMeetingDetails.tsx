@@ -64,6 +64,18 @@ export const MentorMeetingDetails = ({ studentId }) => {
             },
           ]);
         } else {
+          if (data.length < 5) {
+            while (data.length <= 5) {
+              data.push({
+                studentId: studentId,
+                semesterName: semesterName,
+                meetingDate: "",
+                meetingTime: "",
+                focusOnDiscussion: "",
+                remarks: "",
+              });
+            }
+          }
           setMentor(data);
         }
       })
@@ -75,7 +87,7 @@ export const MentorMeetingDetails = ({ studentId }) => {
   const updateMarks = (e) => {
     e.preventDefault();
     apiService
-      .post("mentormeeting/update", MentorMeetingDetails)
+      .post("mentormeeting/update", mentorMeetingDetails)
       .then((res) => {
         console.log(res);
       })
@@ -221,19 +233,23 @@ export const MentorMeetingDetails = ({ studentId }) => {
                   <tr>
                     <td style={{ height: "50px" }} className={classes.table}>
                       <input
+                        type="date"
                         onChange={(e) => {
                           items.meetingDate = e.target.value;
                         }}
-                        value={items.meetingDate}
+                        key={items.meetingDate}
+                        defaultValue={items.meetingDate}
                         className={classes.inputbox}
                       />
                     </td>
                     <td className={classes.table}>
                       <input
+                        type="time"
                         onChange={(e) => {
                           items.meetingTime = e.target.value;
                         }}
-                        value={items.meetingTime}
+                        key={items.meetingTime}
+                        defaultValue={items.meetingTime}
                         className={classes.inputbox}
                       />
                     </td>
@@ -242,7 +258,8 @@ export const MentorMeetingDetails = ({ studentId }) => {
                         onChange={(e) => {
                           items.focusOnDiscussion = e.target.value;
                         }}
-                        value={items.focusOnDiscussion}
+                        key={items.focusOnDiscussion}
+                        defaultValue={items.focusOnDiscussion}
                         className={classes.inputbox}
                       />
                     </td>
@@ -251,7 +268,8 @@ export const MentorMeetingDetails = ({ studentId }) => {
                         onChange={(e) => {
                           items.remarks = e.target.value;
                         }}
-                        value={items.remarks}
+                        key={items.remarks}
+                        defaultValue={items.remarks}
                         className={classes.inputbox}
                       />
                     </td>
@@ -266,6 +284,7 @@ export const MentorMeetingDetails = ({ studentId }) => {
               type="button"
               onClick={(e) => {
                 console.log(mentorMeetingDetails);
+                updateMarks(e);
               }}
             >
               <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />

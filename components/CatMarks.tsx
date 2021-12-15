@@ -108,9 +108,50 @@ const CatMarks = ({ semesterName, studentId }) => {
               semesterName: semesterName,
               studentId: studentId,
             },
+            {
+              markId: "",
+              subjectCode: "",
+              subjectName: "",
+              firstCatMark: null,
+              secondCatMark: null,
+              thirdCatMark: null,
+              internalMark: null,
+              attendance: attendance,
+              semesterName: semesterName,
+              studentId: studentId,
+            },
+            {
+              markId: "",
+              subjectCode: "",
+              subjectName: "",
+              firstCatMark: null,
+              secondCatMark: null,
+              thirdCatMark: null,
+              internalMark: null,
+              attendance: attendance,
+              semesterName: semesterName,
+              studentId: studentId,
+            },
           ]);
         } else {
+          if (data.length < 8) {
+            while (data.length <= 8) {
+              data.push({
+                markId: "",
+                subjectCode: "",
+                subjectName: "",
+                firstCatMark: null,
+                secondCatMark: null,
+                thirdCatMark: null,
+                internalMark: null,
+                attendance: attendance,
+                semesterName: semesterName,
+                studentId: studentId,
+              });
+            }
+          }
           setcatMarks(data);
+          console.log("cat", catMarks);
           setAttendance(data[0].attendance);
         }
       })
@@ -169,64 +210,71 @@ const CatMarks = ({ semesterName, studentId }) => {
                 <td className={classes.tablehead}>{index + 1}</td>
                 <td className={classes.table}>
                   <input
+                    key={items.subjectCode}
                     disabled={canEdit}
                     onChange={(e) => {
                       items.subjectCode = e.target.value;
                     }}
                     className={classes.inputbox}
-                    value={items.subjectCode}
+                    defaultValue={items.subjectCode}
                   ></input>
                 </td>
                 <td className={classes.table}>
                   <input
+                    key={items.subjectName}
                     disabled={canEdit}
                     onChange={(e) => {
                       items.subjectName = e.target.value;
                     }}
                     className={classes.inputbox}
-                    value={items.subjectName}
+                    defaultValue={items.subjectName}
                   ></input>
                 </td>
                 <td className={classes.table}>
                   <input
+                    type="number"
+                    key={items.firstCatMark}
                     disabled={canEdit}
                     onChange={(e) => {
                       items.firstCatMark = parseInt(e.target.value);
                     }}
-                    value={items.firstCatMark || ""}
+                    defaultValue={items.firstCatMark || ""}
                     className={classes.inputbox}
                   ></input>
                 </td>
                 <td className={classes.table}>
                   <input
+                    key={items.secondCatMark}
                     disabled={canEdit}
                     type="number"
                     onChange={(e) => {
                       items.secondCatMark = parseInt(e.target.value);
                     }}
-                    value={items.secondCatMark || ""}
+                    defaultValue={items.secondCatMark || ""}
                     className={classes.inputbox}
                   ></input>
                 </td>
                 <td className={classes.table}>
                   <input
+                    key={items.thirdCatMark}
                     disabled={canEdit}
                     type="number"
                     onChange={(e) => {
                       items.thirdCatMark = parseInt(e.target.value);
                     }}
-                    value={items.thirdCatMark || ""}
+                    defaultValue={items.thirdCatMark || ""}
                     className={classes.inputbox}
                   ></input>
                 </td>
                 <td className={classes.table}>
                   <input
+                    key={items.internalMark}
                     disabled={canEdit}
                     type="number"
                     onChange={(e) => {
                       items.internalMark = parseInt(e.target.value);
                     }}
-                    value={items.internalMark || ""}
+                    defaultValue={items.internalMark || ""}
                     className={classes.inputbox}
                   ></input>
                 </td>
@@ -238,12 +286,13 @@ const CatMarks = ({ semesterName, studentId }) => {
             <td className={classes.tablehead}>Attendance</td>
             <td>
               <input
+                key={attendance}
                 disabled={canEdit}
                 type="number"
                 onChange={(e) => {
                   setAttendance(parseInt(e.target.value));
                 }}
-                value={attendance || ""}
+                defaultValue={attendance || ""}
                 className={classes.inputbox}
               ></input>
             </td>
