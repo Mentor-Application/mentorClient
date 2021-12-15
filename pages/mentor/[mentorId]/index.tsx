@@ -2,7 +2,7 @@ import { Router, useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
 import classes from "../../../styles/studentMainPage.module.css";
 import { GiHamburgerMenu } from "react-icons/gi";
-
+import { MenteeCardItems } from "../../../utils/sample-data";
 import SchoolRecord from "../../../components/SchoolRecord";
 import AddMentees from "./AddMentees";
 import Mentees from "./Mentees";
@@ -22,8 +22,8 @@ export const index = () => {
       : "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 d-none d-sm-flex"
   } `;
 
-  const Names=["Srikanth","Vignesh","Vasi"];
-  const RegNos=["195001108","195001127","195001124"]
+  // const Names=["Srikanth","Vignesh","Vasi"];
+  // const RegNos=["195001108","195001127","195001124"]
   
   const handleClick = (e) => {
     e.preventDefault();
@@ -68,6 +68,7 @@ export const index = () => {
             >
               Add Mentees
             </button>
+
           </div>
         </div>
       </div>

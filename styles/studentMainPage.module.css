@@ -227,6 +227,26 @@
 .credits:focus {
   outline: none !important;
 }
-#Ment{
+.Ment{
   height:20px;
+  width: 100px;
+  background-color: black;
+}
+.Editbtn{
+  margin-left:"20px";
+  margin-top:"20px";
+  color:"#ffffff";
+  background-color:"#0166b2";
+  font-weight:"bold";
+  justify-items:'center';
+}
+.Clearbtn{
+  background-color: #0166b2;
+  color: #ffffff;
+  margin-top: 20px;
+  margin-right: 30px;
+  position: relative;
+  margin-left: 10%;
+  font-weight: bold;
+  justify-content: center;
 }
