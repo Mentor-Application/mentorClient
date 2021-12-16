@@ -1,9 +1,9 @@
 export interface SchoolRecord {
-  schoolRecordId: String;
-  course: String;
-  yearPassedOut: String;
-  nameOfSchool: String;
-  board: String;
-  percentage: String;
-  twelfthCutOff: String;
+  schoolRecordId:string;
+  course:string;
+  yearPassedOut:string;
+  nameOfSchool:string;
+  board:string;
+  percentage:string;
+  twelfthCutOff:string;
 }

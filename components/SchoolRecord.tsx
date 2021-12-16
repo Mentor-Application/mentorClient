@@ -6,49 +6,104 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { Student } from "../interfaces/student";
 import { User } from "../interfaces";
+import { SchoolRecord } from "../interfaces/SchoolRecord";
 
-const SchoolRecord = () => {
-  const { register, handleSubmit, setValue, getValues } = useForm();
-  const { register: register1, handleSubmit: handleSubmit1 } = useForm();
-  const { register: register2, handleSubmit: handleSubmit2 } = useForm();
+const SchoolRecord = ({studentId}) => {
 
-  const [schoolRecord, setSchoolRecord] = useState([]);
-  let loggedInUser: User;
+  const [canEdit, setCanEdit] = useState(false);
+  const [twelfthCutOff, setTwelfthCutOff] = useState(String);
+  const [schoolRecord, setSchoolRecord] = useState<Array<SchoolRecord>>([]);
+
   let url: string;
 
-  const onsubmit = (values) => {
-    
-    schoolRecord.push(values);
-  };
+  useEffect(() => {
+    url = `student/list/schoolrecord/${studentId}`;
 
-  const onsubmit1 = (values) => {
-    schoolRecord.push(values);
-  };
+    apiService
+      .get(url)
+      .then((res) => {
+        const data = res;
+        if (data.length === 0) {
+          setTwelfthCutOff(null);
+          setSchoolRecord([
+            {
+              schoolRecordId: "",
+              course: "",
+              yearPassedOut: "",
+              nameOfSchool: null,
+              board: null,
+              percentage: null,
+              twelfthCutOff: twelfthCutOff,
+            },
+            {
+              schoolRecordId: "",
+              course: "",
+              yearPassedOut: "",
+              nameOfSchool: null,
+              board: null,
+              percentage: null,
+              twelfthCutOff: twelfthCutOff,
+            },
+            {
+              schoolRecordId: "",
+              course: "",
+              yearPassedOut: "",
+              nameOfSchool: null,
+              board: null,
+              percentage: null,
+              twelfthCutOff: twelfthCutOff,
+            },
+            
+          ]);
+        } else {
+          if (data.length < 2) {
+            while (data.length <= 2) {
+              data.push({
+                schoolRecordId: "",
+                course: "",
+                yearPassedOut: "",
+                nameOfSchool: null,
+                board: null,
+                percentage: null,
+                twelfthCutOff: twelfthCutOff,
+              });
+            }
+          }
+          setSchoolRecord(data);
+          
+          setTwelfthCutOff(data[0].twelfthCutOff);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  const onsubmit2 = (values) => {
-    schoolRecord.push(values);
-    console.log(schoolRecord);
-  };
+  
 
   let apiService: ApiService = new ApiService();
-  const submitSchoolRecord = (values) => {
-    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-    console.log("hello");
-      apiService
-        .post(`student/${loggedInUser.studentId}/schoolrecord`, schoolRecord)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+  const updateSchoolRecord = (e) => {
+    e.preventDefault();
+    setCanEdit(true);
+    schoolRecord.forEach((items) => {
+      items.twelfthCutOff = twelfthCutOff;
+    });
+    console.log("SchoolRecord", schoolRecord);
+    apiService
+      .post(`student/${studentId}/schoolrecord`, schoolRecord)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
   return (
     <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
-      <form style={{ marginLeft: "10%", height: "80%" }} onSubmit={handleSubmit(submitSchoolRecord)}>
+      <form style={{ marginLeft: "10%", height: "80%" }} >
         <table style={{ marginTop: "10%" }} className={classes.table}>
           <tr>
             <th className={classes.tablehead}>Course</th>
@@ -63,128 +118,107 @@ const SchoolRecord = () => {
             </th>
             <th className={classes.tablehead}>Percentage</th>
           </tr>
+      {schoolRecord.map((items, index) => {
+          return (
           <tr>
-            <td className={classes.tablehead}>10th</td>
+            <td className={classes.tablehead}>
+              {(()=>{
+                  if(index+1===1){
+                    return "11th"
+                  }
+                  else if(index+1===2){
+                    return "12th"
+                  }
+                  else{
+                    return "Diploma"
+                  }
+              })()}
+            </td>
             <td className={classes.table}>
               <input
-                {...register("yearPassedOut")}
+                 key={items.yearPassedOut}
+                 disabled={canEdit}
+                 onChange={(e) => {
+                  items.yearPassedOut = e.target.value;
+                }}
+                defaultValue={items.yearPassedOut}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("nameOfSchool")}
+                 key={items.nameOfSchool}
+                 disabled={canEdit}
+                 onChange={(e) => {
+                  items.nameOfSchool = e.target.value;
+                  
+                }}
+                defaultValue={items.nameOfSchool}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("board")}
-                className={classes.inputbox}
-                type="text"
+                key={items.board}
+                disabled={canEdit}
+                onChange={(e) => {
+                 items.board = e.target.value;
+                 
+               }}
+               defaultValue={items.board}
+               className={classes.inputbox}
+               type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("percentage")}
-                className={classes.inputbox}
-                type="text"
+                key={items.percentage}
+                disabled={canEdit}
+                onChange={(e) => {
+                 items.percentage = e.target.value;
+                 
+               }}
+               defaultValue={items.percentage}
+               className={classes.inputbox}
+               type="text"
               />
             </td>
           </tr>
-          <tr>
-            <td className={classes.tablehead}>12th</td>
-            <td className={classes.table}>
-              <input
-                {...register1("yearPassedOut")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register1("nameOfSchool")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register1("board")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register1("percentage")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-          </tr>
+           );
+          })}
           <tr>
             <td className={classes.tablehead}>12th Cutoff </td>
             <td>
               <input
-                {...register("twelfthCutOff")}
-                {...register1("twelfthCutOff")}
-                {...register2("twelfthCutOff")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-          </tr>
-
-          <tr>
-            <td className={classes.tablehead}>Diploma</td>
-            <td className={classes.table}>
-              <input
-                {...register2("yearPassedOut")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register2("nameOfSchool")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register2("board")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register2("percentage")}
-                className={classes.inputbox}
-                type="text"
+               key={twelfthCutOff}
+               disabled={canEdit}
+               type="text"
+               onChange={(e) => {
+                 setTwelfthCutOff(e.target.value);
+               }}
+               defaultValue={twelfthCutOff || ""}
+               className={classes.inputbox}
               />
             </td>
           </tr>
         </table>
+        </form>
+        
         <div style={{ marginTop: "5%", marginLeft: "83%" }}>
           <button
             className={classes.icon}
-            type="submit"
+            type="button"
             onClick={(e) => {
-              console.log("clicking");
-              handleSubmit2(onsubmit2)();
-              handleSubmit(onsubmit)();
-              handleSubmit1(onsubmit1)();
+              console.log(schoolRecord);
+              updateSchoolRecord(e);
             }}
           >
             <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
           </button>
         </div>
-      </form>
+      
     </div>
   );
 };

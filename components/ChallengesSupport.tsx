@@ -5,40 +5,77 @@ import { ApiService } from "../services/api.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { User } from "../interfaces";
+import { Challenges } from "../interfaces/Challenges";
 
-const ChallengesSupport = () => {
-  const { register, handleSubmit, setValue, getValues } = useForm();
-  const { register: register1, handleSubmit: handleSubmit1 } = useForm();
-  const { register: register2, handleSubmit: handleSubmit2 } = useForm();
-  const { register: register3, handleSubmit: handleSubmit3 } = useForm();
+const ChallengesSupport = ({studentId}) => {
 
-  const [challengesSupport, setchallengesSupport] = useState([]);
+  const [canEdit, setCanEdit] = useState(false);
+  const [challengesSupport, setChallengesSupport] = useState<Array<Challenges>>([]);
 
-  let loggedInUser:User;
+  let url: string;
 
-  const onsubmit = (values) => {
-    challengesSupport.push(values);
-  };
+  useEffect(() => {
+    url = `student/list/challenges/${studentId}`;
 
-  const onsubmit1 = (values) => {
-    challengesSupport.push(values);
-  };
-
-  const onsubmit2 = (values) => {
-    challengesSupport.push(values);
-  };
-
-  const onsubmit3 = (values) => {
-    challengesSupport.push(values);
-    console.log(challengesSupport);
-  };
+    apiService
+      .get(url)
+      .then((res) => {
+        const data = res;
+        if (data.length === 0) {
+          setChallengesSupport([
+            {
+              challengeId: "",
+              domain: "",
+              challenges: "",
+              sourceOfSupport: "",
+            },
+            {
+              challengeId: "",
+              domain: "",
+              challenges: "",
+              sourceOfSupport: "",
+            },
+            {
+              challengeId: "",
+              domain: "",
+              challenges: "",
+              sourceOfSupport: "",
+            },
+            {
+              challengeId: "",
+              domain: "",
+              challenges: "",
+              sourceOfSupport: "",
+            },
+            
+          ]);
+        } else {
+          if (data.length < 3) {
+            while (data.length <= 3) {
+              data.push({
+                challengeId: "",
+              domain: "",
+              challenges: "",
+              sourceOfSupport: "",
+              });
+            }
+          }
+          setChallengesSupport(data);
+  
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  
 
   let apiService: ApiService = new ApiService();
-  const submitChallengesSupport = (values) => {
-    loggedInUser=JSON.parse(sessionStorage.getItem("user"));
-    console.log(values);
+  const updateChallengesSupport = (e) => {
+    e.preventDefault();
+    setCanEdit(true);
     apiService
-    .post(`student/${loggedInUser.studentId}/challenges`,challengesSupport)
+    .post(`student/${studentId}/challenges`,challengesSupport)
     .then((res)=>{
       console.log(res);
     })
@@ -52,7 +89,6 @@ const ChallengesSupport = () => {
   return (
     <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
       <form
-        onSubmit={handleSubmit(submitChallengesSupport)}
         className="d-flex flex-column justify-content-around align-items-center"
       >
         <table
@@ -73,88 +109,62 @@ const ChallengesSupport = () => {
               Sources of Support
             </th>
           </tr>
+          {challengesSupport.map((items, index) => {
+          return (
+            
           <tr>
-            <td className={classes.tablehead}>1.</td>
-            <td className={classes.table}>Academic</td>
+            <td className={classes.tablehead}>{index+1}</td>
+            <td className={classes.table}>
+            {(()=>{
+                  if(index+1===1){
+                    return "Academic"
+                  }
+                  else if(index+1===2){
+                    return "Relationship"
+                  }
+                  else if(index+1===3){
+                    return "Health"
+                  }
+                  else{
+                    return "Financial"
+                  }
+              })()}
+            </td>
             <td className={classes.table}>
               <input
-                {...register("challenges")}
+                 key={items.challenges}
+                 disabled={canEdit}
+                 onChange={(e) => {
+                  items.challenges == e.target.value;
+                }}
+                defaultValue={items.challenges}
                 className={classes.inputbox}
                 type="text"
               />
             </td>
             <td className={classes.table}>
               <input
-                {...register("sourceOfSupport")}
-                className={classes.inputbox}
-                type="text"
+                key={items.sourceOfSupport}
+                disabled={canEdit}
+                onChange={(e) => {
+                 items.sourceOfSupport == e.target.value;
+               }}
+               defaultValue={items.sourceOfSupport}
+               className={classes.inputbox}
+               type="text"
               />
             </td>
           </tr>
-          <tr>
-            <td className={classes.tablehead}>2.</td>
-            <td className={classes.table}>Relationship</td>
-            <td className={classes.table}>
-              <input
-                {...register1("challenges")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register1("sourceOfSupport")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className={classes.tablehead}>3.</td>
-            <td className={classes.table}>Health</td>
-            <td className={classes.table}>
-              <input
-                {...register2("challenges")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register2("sourceOfSupport")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-          </tr>
-
-          <tr>
-            <td className={classes.tablehead}>4.</td>
-            <td className={classes.table}>Financial</td>
-            <td className={classes.table}>
-              <input
-                {...register3("challenges")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register3("sourceOfSupport")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-          </tr>
+          
+          );
+        })}
         </table>
         <div style={{ marginTop: "5%", marginLeft: "60%" }}>
           <button className={classes.icon}
-            type="submit"
+            type="button"
             onClick={(e) => {
-              handleSubmit(onsubmit)();
-              handleSubmit1(onsubmit1)();
-              handleSubmit2(onsubmit2)();
-              handleSubmit3(onsubmit3)();
+              console.log(challengesSupport);
+              updateChallengesSupport(e);
             }}>
             <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
           </button>

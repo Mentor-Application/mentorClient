@@ -4,36 +4,80 @@ import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { User } from "../interfaces";
+import { FamilyProfile } from "../interfaces/FamilyProfile";
+import SchoolRecord from "./SchoolRecord";
 
-const FamilyProfile = () => {
-  const { register, handleSubmit, setValue, getValues } = useForm();
-  const { register: register1, handleSubmit: handleSubmit1 } = useForm();
-  const { register: register2, handleSubmit: handleSubmit2 } = useForm();
+const FamilyProfile = ({studentId}) => {
 
-  const [familyProfile, setfamilyProfile] = useState([]);
+  const [canEdit, setCanEdit] = useState(false);
+  const [familyProfile, setFamilyProfile] = useState<Array<FamilyProfile>>([]);
 
-  let loggedInUser: User;
+  let url: string;
 
-  const onsubmit = (values) => {
-    familyProfile.push(values);
-  };
+  useEffect(() => {
+    url = `student/list/familyProfile/${studentId}`;
 
-  const onsubmit1 = (values) => {
-    familyProfile.push(values);
-  };
+    apiService
+      .get(url)
+      .then((res) => {
+        const data = res;
+        if (data.length === 0) {
+          setFamilyProfile([
+            {
+              familyProfileId: "",
+              relationShip: "",
+              age: null,
+              educationalQualification: "",
+              occupation: "",
+              annualIncome: null,
+            },
+            {
+              familyProfileId: "",
+              relationShip: "",
+              age: null,
+              educationalQualification: "",
+              occupation: "",
+              annualIncome: null,
+            },
+            {
+              familyProfileId: "",
+              relationShip: "",
+              age: null,
+              educationalQualification: "",
+              occupation: "",
+              annualIncome: null,
+            },
+            
+          ]);
+        } else {
+          if (data.length < 2) {
+            while (data.length <= 2) {
+              data.push({
+                familyProfileId: "",
+                relationShip: "",
+                age: null,
+                educationalQualification: "",
+                occupation: "",
+                annualIncome: null,
+              });
+            }
+          }
+          setFamilyProfile(data);
+  
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  const onsubmit2 = (values) => {
-    familyProfile.push(values);
-    console.log(familyProfile);
-  };
 
   let apiService: ApiService = new ApiService();
-  const submitFamilyProfile = (values) => {
-    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-    console.log("hello");
+  const updateFamilyProfile = (e) => {
+    e.preventDefault();
+    setCanEdit(true);
     apiService
-    .post(`student/${loggedInUser.studentId}/familyprofile`,familyProfile)
+    .post(`student/${studentId}/familyprofile`,familyProfile)
     .then((res)=>{
       console.log(res);
     })
@@ -47,7 +91,6 @@ const FamilyProfile = () => {
   return (
     <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
       <form
-        onSubmit={handleSubmit(submitFamilyProfile)}
         style={{ overflowX: "auto", marginLeft: "10%" }}
       >
         <table style={{ marginTop: "10%" }} className={classes.table}>
@@ -67,116 +110,91 @@ const FamilyProfile = () => {
             </th>
             <th className={classes.tablehead}>Annual Income(rs)</th>
           </tr>
+      {familyProfile.map((items, index) => {
+          return (
           <tr>
-            <td className={classes.tablehead}>1</td>
-            <td className={classes.table}>Father</td>
+            <td className={classes.tablehead}>{index+1}</td>
+            <td className={classes.table}>
+            {(()=>{
+                  if(index+1===1){
+                    return "Father"
+                  }
+                  else if(index+1===2){
+                    return "Mother"
+                  }
+                  else{
+                    return "Sibling(s)"
+                  }
+              })()}
+            </td>
+           
             <td className={classes.table}>
               <input
-                {...register("age")}
-                className={classes.inputbox}
-                type="text"
-              />
+                key={items.age}
+                disabled={canEdit}
+                onChange={(e) => {
+                 items.age = parseInt(e.target.value);
+               }}
+               defaultValue={items.age}
+               className={classes.inputbox}
+               type="text"
+             />
+              
             </td>
             <td className={classes.table}>
               <input
-                {...register("educationalQualification")}
-                className={classes.inputbox}
-                type="text"
+               key={items.educationalQualification}
+               disabled={canEdit}
+               onChange={(e) => {
+                items.educationalQualification = e.target.value;
+              }}
+              defaultValue={items.educationalQualification}
+              className={classes.inputbox}
+              type="text"
               />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register("occupation")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register("annualIncome")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className={classes.tablehead}>2</td>
-            <td className={classes.table}>Mother</td>
-            <td className={classes.table}>
-              <input
-                {...register1("age")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register1("educationalQualification")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register1("occupation")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register1("annualIncome")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-          </tr>
 
-          <tr>
-            <td className={classes.tablehead}>3</td>
-            <td className={classes.table}>Sibling(s)</td>
-            <td className={classes.table}>
-              <input
-                {...register2("age")}
-                className={classes.inputbox}
-                type="text"
-              />
             </td>
             <td className={classes.table}>
               <input
-                {...register2("educationalQualification")}
-                className={classes.inputbox}
-                type="text"
-              />
+                key={items.occupation}
+                disabled={canEdit}
+                onChange={(e) => {
+                 items.occupation = e.target.value;
+               }}
+               defaultValue={items.occupation}
+               className={classes.inputbox}
+               type="text"
+             />
             </td>
             <td className={classes.table}>
               <input
-                {...register2("occupation")}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                {...register2("annualIncome")}
-                className={classes.inputbox}
-                type="text"
-              />
+                key={items.annualIncome}
+                disabled={canEdit}
+                onChange={(e) => {
+                 items.annualIncome = parseInt(e.target.value);
+               }}
+               defaultValue={items.annualIncome}
+               className={classes.inputbox}
+               type="text"
+             />
+
             </td>
           </tr>
+           );
+          })}
         </table>
-        <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+       
+      </form>
+      <div style={{ marginTop: "5%", marginLeft: "83%" }}>
           <button  className={classes.icon}
-            type="submit"
+            type="button"
             onClick={(e) => {
-              handleSubmit(onsubmit)();
-              handleSubmit1(onsubmit1)();
-              handleSubmit2(onsubmit2)();
+              console.log(familyProfile);
+              updateFamilyProfile(e);
             }}>
             <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
           </button>
         </div>
-      </form>
     </div>
   );
 };

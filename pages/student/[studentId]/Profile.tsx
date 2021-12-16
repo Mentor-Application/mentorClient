@@ -32,13 +32,13 @@ export const Profile = ({ studentId }) => {
         style={{ height: "70%" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <SchoolRecord></SchoolRecord>
+        <SchoolRecord studentId={studentId}></SchoolRecord>
       </div>
       <div
         style={{ height: "60%" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <FamilyProfile></FamilyProfile>
+        <FamilyProfile studentId={studentId}></FamilyProfile>
       </div>
       <div
         style={{ height: "80%" }}
@@ -50,13 +50,13 @@ export const Profile = ({ studentId }) => {
         style={{ height: "70%" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <GoalsGrid></GoalsGrid>
+        <GoalsGrid studentId={studentId}></GoalsGrid>
       </div>
       <div
         style={{ height: "70%" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <ChallengesSupport></ChallengesSupport>
+        <ChallengesSupport studentId={studentId}></ChallengesSupport>
       </div>
     </div>
   );
