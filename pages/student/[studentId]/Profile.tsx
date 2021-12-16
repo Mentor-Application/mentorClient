@@ -7,7 +7,7 @@ import ParentGuardian from "../../../components/ParentGuardian";
 import SchoolRecord from "../../../components/SchoolRecord";
 import StudentProfile from "../../../components/StudentProfile";
 
-export const Profile = ({ studentId }) => {
+export const Profile = ({ studentId, canEdit }) => {
   return (
     <div
       style={{
@@ -20,43 +20,61 @@ export const Profile = ({ studentId }) => {
         style={{ height: "115%", overflow: "hidden" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <StudentProfile></StudentProfile>
+        <StudentProfile
+          canEditProp={canEdit}
+          studentId={studentId}
+        ></StudentProfile>
       </div>
       <div
         style={{ height: "80%" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <ParentGuardian></ParentGuardian>
+        <ParentGuardian
+          canEditProp={canEdit}
+          studentId={studentId}
+        ></ParentGuardian>
       </div>
       <div
         style={{ height: "70%" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <SchoolRecord studentId={studentId}></SchoolRecord>
+        <SchoolRecord
+          canEditProp={canEdit}
+          studentId={studentId}
+        ></SchoolRecord>
       </div>
       <div
         style={{ height: "60%" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <FamilyProfile studentId={studentId}></FamilyProfile>
+        <FamilyProfile
+          canEditProp={canEdit}
+          studentId={studentId}
+        ></FamilyProfile>
       </div>
       <div
         style={{ height: "80%" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <HobbiesStrength></HobbiesStrength>
+        <HobbiesStrength
+          canEditProp={canEdit}
+          studentId={studentId}
+        ></HobbiesStrength>
       </div>
       <div
         style={{ height: "70%" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <GoalsGrid studentId={studentId}></GoalsGrid>
+        <GoalsGrid canEditProp={canEdit} studentId={studentId}></GoalsGrid>
       </div>
       <div
         style={{ height: "70%" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <ChallengesSupport studentId={studentId}></ChallengesSupport>
+        <ChallengesSupport
+          canEditProp={canEdit}
+          studentId={studentId}
+        ></ChallengesSupport>
       </div>
     </div>
   );

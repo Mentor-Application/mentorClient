@@ -2,16 +2,22 @@ import { Router, useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
 import classes from "../../../styles/studentMainPage.module.css";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { MenteeCardItems } from "../../../utils/sample-data";
-import SchoolRecord from "../../../components/SchoolRecord";
+import { Profile } from "../../student/[studentId]/Profile";
 import AddMentees from "./AddMentees";
 import Mentees from "./Mentees";
+import { viewProfile } from "../../../interfaces";
+import Marks from "../../student/[studentId]/Marks";
 
 export const index = () => {
   const [mentorRoute, setmentorRoute] = useState("mentees");
   const [menteesActive, setmenteesActive] = useState(false);
   const [addMenteesActive, setaddMenteesActive] = useState(false);
-
+  const [profileActive, setprofileActive] = useState(false);
+  const [marksActive, setmarksActive] = useState(false);
+  const [meetActive, setmeetActive] = useState(false);
+  const [careerActive, setcareerActive] = useState(false);
+  const [navHidden, setNavHidden] = useState(true);
+  const [childProp, setChildProp] = useState<viewProfile>(Object);
   const router = useRouter();
 
   //const studentId = router.query.studentId;
@@ -22,23 +28,56 @@ export const index = () => {
       : "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 d-none d-sm-flex"
   } `;
 
-  // const Names=["Srikanth","Vignesh","Vasi"];
-  // const RegNos=["195001108","195001127","195001124"]
-  
-  const handleClick = (e) => {
-    e.preventDefault();
-    console.log(showNav);
-    setShowNav(!showNav);
+  const getChildProp = (studentId, canEdit, route) => {
+    childProp.studentId = studentId;
+    childProp.canEdit = canEdit;
+    setNavHidden(false);
+    setmentorRoute(route);
   };
 
   useEffect(() => {
     if (mentorRoute.match("mentees")) {
       setmenteesActive(true);
       setaddMenteesActive(false);
-    } 
-     else if(mentorRoute.match("addmentees")) {
+      setprofileActive(false);
+      setmarksActive(false);
+      setcareerActive(false);
+      setmeetActive(false);
+    } else if (mentorRoute.match("addmentees")) {
       setmenteesActive(false);
       setaddMenteesActive(true);
+      setprofileActive(false);
+      setmarksActive(false);
+      setcareerActive(false);
+      setmeetActive(false);
+    } else if (mentorRoute.match("profile")) {
+      setmenteesActive(false);
+      setaddMenteesActive(false);
+      setprofileActive(true);
+      setmarksActive(false);
+      setcareerActive(false);
+      setmeetActive(false);
+    } else if (mentorRoute.match("marks")) {
+      setmenteesActive(false);
+      setaddMenteesActive(false);
+      setprofileActive(false);
+      setmarksActive(true);
+      setcareerActive(false);
+      setmeetActive(false);
+    } else if (mentorRoute.match("mentormeeting")) {
+      setmenteesActive(false);
+      setaddMenteesActive(false);
+      setprofileActive(false);
+      setmarksActive(false);
+      setcareerActive(false);
+      setmeetActive(true);
+    } else {
+      setmenteesActive(false);
+      setaddMenteesActive(false);
+      setprofileActive(false);
+      setmarksActive(false);
+      setcareerActive(true);
+      setmeetActive(false);
     }
   }, [mentorRoute]);
 
@@ -64,11 +103,58 @@ export const index = () => {
                 setmentorRoute("addmentees");
                 console.log(mentorRoute);
               }}
-              className={addMenteesActive ? classes.navbtnActive : classes.navbtn}
+              className={
+                addMenteesActive ? classes.navbtnActive : classes.navbtn
+              }
             >
               Add Mentees
             </button>
-
+          </div>
+          <div className="d-flex flex-column align-items-center ">
+            <button
+              hidden={navHidden}
+              type="button"
+              onClick={() => {
+                setmentorRoute("profile");
+                console.log(mentorRoute);
+              }}
+              className={profileActive ? classes.navbtnActive : classes.navbtn}
+            >
+              Your Profile
+            </button>
+            <button
+              hidden={navHidden}
+              type="button"
+              onClick={() => {
+                setmentorRoute("marks");
+                console.log(mentorRoute);
+              }}
+              className={marksActive ? classes.navbtnActive : classes.navbtn}
+            >
+              Marks
+            </button>
+            <button
+              hidden={navHidden}
+              type="button"
+              onClick={() => {
+                setmentorRoute("mentormeeting");
+                console.log(mentorRoute);
+              }}
+              className={meetActive ? classes.navbtnActive : classes.navbtn}
+            >
+              Meeting details
+            </button>
+            <button
+              hidden={navHidden}
+              type="button"
+              onClick={() => {
+                setmentorRoute("additionaldetails");
+                console.log(mentorRoute);
+              }}
+              className={careerActive ? classes.navbtnActive : classes.navbtn}
+            >
+              Career Information
+            </button>
           </div>
         </div>
       </div>
@@ -88,9 +174,18 @@ export const index = () => {
         </button>
         {(() => {
           if (mentorRoute.match("addmentees")) {
-            return <AddMentees></AddMentees>;
+            return <AddMentees sendProp={getChildProp}></AddMentees>;
           } else if (mentorRoute.match("mentees")) {
             return <Mentees></Mentees>;
+          } else if (mentorRoute.match("profile")) {
+            return (
+              <Profile
+                canEdit={childProp.canEdit}
+                studentId={childProp.studentId}
+              ></Profile>
+            );
+          } else if (mentorRoute.match("marks")) {
+            return <Marks studentId={childProp.studentId}></Marks>;
           } else {
             return <></>;
           }

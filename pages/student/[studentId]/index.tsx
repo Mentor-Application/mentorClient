@@ -153,7 +153,7 @@ export const index = ({ data }) => {
         </button>
         {(() => {
           if (pageRoute.match("profile")) {
-            return <Profile studentId={studentId}></Profile>;
+            return <Profile studentId={studentId} canEdit={false}></Profile>;
           } else if (pageRoute.match("marks")) {
             return <Marks studentId={studentId}></Marks>;
           } else if (pageRoute.match("mentormeeting")) {

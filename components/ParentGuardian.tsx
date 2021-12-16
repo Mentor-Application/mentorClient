@@ -13,7 +13,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { ApiService } from "../services/api.service";
 import { User } from "../interfaces";
 
-export const ParentGuardian = () => {
+export const ParentGuardian = ({ studentId, canEditProp }) => {
   const {
     register,
     handleSubmit,
@@ -24,23 +24,23 @@ export const ParentGuardian = () => {
   } = useForm();
   const [isChecked, setIsChecked] = useState(true);
   const [branch, setBranch] = useState("");
+  const [canEdit, setCanEdit] = useState(false);
 
-  let apiService:ApiService = new ApiService();
+  let apiService: ApiService = new ApiService();
   let loggedInUser: User;
 
-  const submitParentGuardian= (values)=> {
-    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-    setValue("studentId",loggedInUser.studentId);
-    console.log(values)
+  const submitParentGuardian = (values) => {
+    setValue("studentId", studentId);
+    console.log(values);
     const parentvalues = Object.assign(values);
     apiService
-    .post("student/guardian",values)
-    .then((res)=>{
-      console.log(res);
-    })
-    .catch((err)=>{
-      console.log(err);
-    });
+      .post("student/guardian", values)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // apiService
     // .post("student/parent",values)
@@ -50,13 +50,12 @@ export const ParentGuardian = () => {
     // .catch((err)=>{
     //   console.log(err);
     // });
-
   };
 
-  const submitParent = (parentvalues)=>{
-    console.log("Hello")
-    console.log(parentvalues)
-  }
+  const submitParent = (parentvalues) => {
+    console.log("Hello");
+    console.log(parentvalues);
+  };
 
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
 
@@ -175,7 +174,11 @@ export const ParentGuardian = () => {
             <div
               style={{ marginTop: "5%", marginBottom: "4%", marginLeft: "60%" }}
             >
-              <button className={classes.icon} type="submit" onClick={submitParent}>
+              <button
+                className={classes.icon}
+                type="submit"
+                onClick={submitParent}
+              >
                 <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
               </button>
             </div>

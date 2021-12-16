@@ -7,8 +7,7 @@ import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FamilyProfile } from "../interfaces/FamilyProfile";
 import SchoolRecord from "./SchoolRecord";
 
-const FamilyProfile = ({studentId}) => {
-
+const FamilyProfile = ({ studentId, canEditProp }) => {
   const [canEdit, setCanEdit] = useState(false);
   const [familyProfile, setFamilyProfile] = useState<Array<FamilyProfile>>([]);
 
@@ -16,7 +15,7 @@ const FamilyProfile = ({studentId}) => {
 
   useEffect(() => {
     url = `student/list/familyProfile/${studentId}`;
-
+    setCanEdit(canEditProp);
     apiService
       .get(url)
       .then((res) => {
@@ -47,7 +46,6 @@ const FamilyProfile = ({studentId}) => {
               occupation: "",
               annualIncome: null,
             },
-            
           ]);
         } else {
           if (data.length < 2) {
@@ -63,7 +61,6 @@ const FamilyProfile = ({studentId}) => {
             }
           }
           setFamilyProfile(data);
-  
         }
       })
       .catch((err) => {
@@ -71,28 +68,25 @@ const FamilyProfile = ({studentId}) => {
       });
   }, []);
 
-
   let apiService: ApiService = new ApiService();
   const updateFamilyProfile = (e) => {
     e.preventDefault();
     setCanEdit(true);
     apiService
-    .post(`student/${studentId}/familyprofile`,familyProfile)
-    .then((res)=>{
-      console.log(res);
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
+      .post(`student/${studentId}/familyprofile`, familyProfile)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
   return (
     <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
-      <form
-        style={{ overflowX: "auto", marginLeft: "10%" }}
-      >
+      <form style={{ overflowX: "auto", marginLeft: "10%" }}>
         <table style={{ marginTop: "10%" }} className={classes.table}>
           <tr>
             <th style={{ width: "5%" }} className={classes.tablehead}>
@@ -110,91 +104,87 @@ const FamilyProfile = ({studentId}) => {
             </th>
             <th className={classes.tablehead}>Annual Income(rs)</th>
           </tr>
-      {familyProfile.map((items, index) => {
-          return (
-          <tr>
-            <td className={classes.tablehead}>{index+1}</td>
-            <td className={classes.table}>
-            {(()=>{
-                  if(index+1===1){
-                    return "Father"
-                  }
-                  else if(index+1===2){
-                    return "Mother"
-                  }
-                  else{
-                    return "Sibling(s)"
-                  }
-              })()}
-            </td>
-           
-            <td className={classes.table}>
-              <input
-                key={items.age}
-                disabled={canEdit}
-                onChange={(e) => {
-                 items.age = parseInt(e.target.value);
-               }}
-               defaultValue={items.age}
-               className={classes.inputbox}
-               type="text"
-             />
-              
-            </td>
-            <td className={classes.table}>
-              <input
-               key={items.educationalQualification}
-               disabled={canEdit}
-               onChange={(e) => {
-                items.educationalQualification = e.target.value;
-              }}
-              defaultValue={items.educationalQualification}
-              className={classes.inputbox}
-              type="text"
-              />
+          {familyProfile.map((items, index) => {
+            return (
+              <tr>
+                <td className={classes.tablehead}>{index + 1}</td>
+                <td className={classes.table}>
+                  {(() => {
+                    if (index + 1 === 1) {
+                      return "Father";
+                    } else if (index + 1 === 2) {
+                      return "Mother";
+                    } else {
+                      return "Sibling(s)";
+                    }
+                  })()}
+                </td>
 
-            </td>
-            <td className={classes.table}>
-              <input
-                key={items.occupation}
-                disabled={canEdit}
-                onChange={(e) => {
-                 items.occupation = e.target.value;
-               }}
-               defaultValue={items.occupation}
-               className={classes.inputbox}
-               type="text"
-             />
-            </td>
-            <td className={classes.table}>
-              <input
-                key={items.annualIncome}
-                disabled={canEdit}
-                onChange={(e) => {
-                 items.annualIncome = parseInt(e.target.value);
-               }}
-               defaultValue={items.annualIncome}
-               className={classes.inputbox}
-               type="text"
-             />
-
-            </td>
-          </tr>
-           );
+                <td className={classes.table}>
+                  <input
+                    key={items.age}
+                    disabled={canEdit}
+                    onChange={(e) => {
+                      items.age = parseInt(e.target.value);
+                    }}
+                    defaultValue={items.age}
+                    className={classes.inputbox}
+                    type="text"
+                  />
+                </td>
+                <td className={classes.table}>
+                  <input
+                    key={items.educationalQualification}
+                    disabled={canEdit}
+                    onChange={(e) => {
+                      items.educationalQualification = e.target.value;
+                    }}
+                    defaultValue={items.educationalQualification}
+                    className={classes.inputbox}
+                    type="text"
+                  />
+                </td>
+                <td className={classes.table}>
+                  <input
+                    key={items.occupation}
+                    disabled={canEdit}
+                    onChange={(e) => {
+                      items.occupation = e.target.value;
+                    }}
+                    defaultValue={items.occupation}
+                    className={classes.inputbox}
+                    type="text"
+                  />
+                </td>
+                <td className={classes.table}>
+                  <input
+                    key={items.annualIncome}
+                    disabled={canEdit}
+                    onChange={(e) => {
+                      items.annualIncome = parseInt(e.target.value);
+                    }}
+                    defaultValue={items.annualIncome}
+                    className={classes.inputbox}
+                    type="text"
+                  />
+                </td>
+              </tr>
+            );
           })}
         </table>
-       
       </form>
       <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-          <button  className={classes.icon}
-            type="button"
-            onClick={(e) => {
-              console.log(familyProfile);
-              updateFamilyProfile(e);
-            }}>
-            <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
-          </button>
-        </div>
+        <button
+          className={classes.icon}
+          type="button"
+          onClick={(e) => {
+            console.log(familyProfile);
+            updateFamilyProfile(e);
+          }}
+        >
+          <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+        </button>
+      </div>
     </div>
   );
 };

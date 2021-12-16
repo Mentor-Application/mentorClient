@@ -12,11 +12,12 @@ import { ApiService } from "../services/api.service";
 import { Student } from "../interfaces/student";
 import { User } from "../interfaces";
 
-export const StudentProfile = () => {
+export const StudentProfile = ({ studentId, canEditProp }) => {
   let apiService: ApiService = new ApiService();
   var logedinstudent: Student = new Student();
   const [loggedinStudent, setLoggedinStudent] = useState<Student>(Object);
   const [isLoarding, setIsLoarding] = useState(true);
+  const [canEdit, setCanEdit] = useState(false);
   let loggedInUser: User;
   let url: string;
 
@@ -30,8 +31,8 @@ export const StudentProfile = () => {
   const [isChecked, setIsChecked] = useState(true);
 
   useEffect(() => {
-    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-    url = `student/${loggedInUser.studentId}/profile`;
+    setCanEdit(canEditProp);
+    url = `student/${studentId}/profile`;
     const response = apiService
       .get(url)
       .then((res) => {
@@ -48,8 +49,7 @@ export const StudentProfile = () => {
   }, []);
 
   const submitProfile = (values) => {
-    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-    setValue("emailId", loggedInUser.email);
+    setValue("studentId", studentId);
     // console.log(loggedInUser.email);
     console.log(values);
     apiService

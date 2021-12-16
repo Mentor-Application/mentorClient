@@ -8,8 +8,7 @@ import { Student } from "../interfaces/student";
 import { User } from "../interfaces";
 import { SchoolRecord } from "../interfaces/SchoolRecord";
 
-const SchoolRecord = ({studentId}) => {
-
+const SchoolRecord = ({ studentId, canEditProp }) => {
   const [canEdit, setCanEdit] = useState(false);
   const [twelfthCutOff, setTwelfthCutOff] = useState(String);
   const [schoolRecord, setSchoolRecord] = useState<Array<SchoolRecord>>([]);
@@ -18,7 +17,7 @@ const SchoolRecord = ({studentId}) => {
 
   useEffect(() => {
     url = `student/list/schoolrecord/${studentId}`;
-
+    setCanEdit(canEditProp);
     apiService
       .get(url)
       .then((res) => {
@@ -53,7 +52,6 @@ const SchoolRecord = ({studentId}) => {
               percentage: null,
               twelfthCutOff: twelfthCutOff,
             },
-            
           ]);
         } else {
           if (data.length < 2) {
@@ -70,7 +68,7 @@ const SchoolRecord = ({studentId}) => {
             }
           }
           setSchoolRecord(data);
-          
+
           setTwelfthCutOff(data[0].twelfthCutOff);
         }
       })
@@ -78,8 +76,6 @@ const SchoolRecord = ({studentId}) => {
         console.log(err);
       });
   }, []);
-
-  
 
   let apiService: ApiService = new ApiService();
   const updateSchoolRecord = (e) => {
@@ -103,7 +99,7 @@ const SchoolRecord = ({studentId}) => {
 
   return (
     <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
-      <form style={{ marginLeft: "10%", height: "80%" }} >
+      <form style={{ marginLeft: "10%", height: "80%" }}>
         <table style={{ marginTop: "10%" }} className={classes.table}>
           <tr>
             <th className={classes.tablehead}>Course</th>
@@ -118,107 +114,101 @@ const SchoolRecord = ({studentId}) => {
             </th>
             <th className={classes.tablehead}>Percentage</th>
           </tr>
-      {schoolRecord.map((items, index) => {
-          return (
-          <tr>
-            <td className={classes.tablehead}>
-              {(()=>{
-                  if(index+1===1){
-                    return "11th"
-                  }
-                  else if(index+1===2){
-                    return "12th"
-                  }
-                  else{
-                    return "Diploma"
-                  }
-              })()}
-            </td>
-            <td className={classes.table}>
-              <input
-                 key={items.yearPassedOut}
-                 disabled={canEdit}
-                 onChange={(e) => {
-                  items.yearPassedOut = e.target.value;
-                }}
-                defaultValue={items.yearPassedOut}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                 key={items.nameOfSchool}
-                 disabled={canEdit}
-                 onChange={(e) => {
-                  items.nameOfSchool = e.target.value;
-                  
-                }}
-                defaultValue={items.nameOfSchool}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                key={items.board}
-                disabled={canEdit}
-                onChange={(e) => {
-                 items.board = e.target.value;
-                 
-               }}
-               defaultValue={items.board}
-               className={classes.inputbox}
-               type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                key={items.percentage}
-                disabled={canEdit}
-                onChange={(e) => {
-                 items.percentage = e.target.value;
-                 
-               }}
-               defaultValue={items.percentage}
-               className={classes.inputbox}
-               type="text"
-              />
-            </td>
-          </tr>
-           );
+          {schoolRecord.map((items, index) => {
+            return (
+              <tr>
+                <td className={classes.tablehead}>
+                  {(() => {
+                    if (index + 1 === 1) {
+                      return "11th";
+                    } else if (index + 1 === 2) {
+                      return "12th";
+                    } else {
+                      return "Diploma";
+                    }
+                  })()}
+                </td>
+                <td className={classes.table}>
+                  <input
+                    key={items.yearPassedOut}
+                    disabled={canEdit}
+                    onChange={(e) => {
+                      items.yearPassedOut = e.target.value;
+                    }}
+                    defaultValue={items.yearPassedOut}
+                    className={classes.inputbox}
+                    type="text"
+                  />
+                </td>
+                <td className={classes.table}>
+                  <input
+                    key={items.nameOfSchool}
+                    disabled={canEdit}
+                    onChange={(e) => {
+                      items.nameOfSchool = e.target.value;
+                    }}
+                    defaultValue={items.nameOfSchool}
+                    className={classes.inputbox}
+                    type="text"
+                  />
+                </td>
+                <td className={classes.table}>
+                  <input
+                    key={items.board}
+                    disabled={canEdit}
+                    onChange={(e) => {
+                      items.board = e.target.value;
+                    }}
+                    defaultValue={items.board}
+                    className={classes.inputbox}
+                    type="text"
+                  />
+                </td>
+                <td className={classes.table}>
+                  <input
+                    key={items.percentage}
+                    disabled={canEdit}
+                    onChange={(e) => {
+                      items.percentage = e.target.value;
+                    }}
+                    defaultValue={items.percentage}
+                    className={classes.inputbox}
+                    type="text"
+                  />
+                </td>
+              </tr>
+            );
           })}
           <tr>
             <td className={classes.tablehead}>12th Cutoff </td>
             <td>
               <input
-               key={twelfthCutOff}
-               disabled={canEdit}
-               type="text"
-               onChange={(e) => {
-                 setTwelfthCutOff(e.target.value);
-               }}
-               defaultValue={twelfthCutOff || ""}
-               className={classes.inputbox}
+                key={twelfthCutOff}
+                disabled={canEdit}
+                type="text"
+                onChange={(e) => {
+                  setTwelfthCutOff(e.target.value);
+                }}
+                defaultValue={twelfthCutOff || ""}
+                className={classes.inputbox}
               />
             </td>
           </tr>
         </table>
-        </form>
-        
-        <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-          <button
-            className={classes.icon}
-            type="button"
-            onClick={(e) => {
-              console.log(schoolRecord);
-              updateSchoolRecord(e);
-            }}
-          >
-            <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
-          </button>
-        </div>
-      
+      </form>
+
+      <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+        <button
+          className={classes.icon}
+          type="button"
+          onClick={(e) => {
+            console.log(schoolRecord);
+            updateSchoolRecord(e);
+          }}
+        >
+          <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+        </button>
+      </div>
     </div>
   );
 };

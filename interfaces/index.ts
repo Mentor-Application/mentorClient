@@ -19,8 +19,13 @@ export type loginInfo = {
   email: string;
   password: string;
 };
-export type MenteeItems ={
-  studentId:number;
-  studentName:string;
-  regNo:string
-}
+export type MenteeItems = {
+  studentId: number;
+  studentName: string;
+  regNo: string;
+};
+
+export type viewProfile = {
+  studentId: string;
+  canEdit: boolean;
+};

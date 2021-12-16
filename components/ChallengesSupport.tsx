@@ -7,16 +7,17 @@ import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { User } from "../interfaces";
 import { Challenges } from "../interfaces/Challenges";
 
-const ChallengesSupport = ({studentId}) => {
-
+const ChallengesSupport = ({ studentId, canEditProp }) => {
   const [canEdit, setCanEdit] = useState(false);
-  const [challengesSupport, setChallengesSupport] = useState<Array<Challenges>>([]);
+  const [challengesSupport, setChallengesSupport] = useState<Array<Challenges>>(
+    []
+  );
 
   let url: string;
 
   useEffect(() => {
     url = `student/list/challenges/${studentId}`;
-
+    setCanEdit(canEditProp);
     apiService
       .get(url)
       .then((res) => {
@@ -47,50 +48,45 @@ const ChallengesSupport = ({studentId}) => {
               challenges: "",
               sourceOfSupport: "",
             },
-            
           ]);
         } else {
           if (data.length < 3) {
             while (data.length <= 3) {
               data.push({
                 challengeId: "",
-              domain: "",
-              challenges: "",
-              sourceOfSupport: "",
+                domain: "",
+                challenges: "",
+                sourceOfSupport: "",
               });
             }
           }
           setChallengesSupport(data);
-  
         }
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-  
 
   let apiService: ApiService = new ApiService();
   const updateChallengesSupport = (e) => {
     e.preventDefault();
     setCanEdit(true);
     apiService
-    .post(`student/${studentId}/challenges`,challengesSupport)
-    .then((res)=>{
-      console.log(res);
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
+      .post(`student/${studentId}/challenges`, challengesSupport)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
   return (
     <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
-      <form
-        className="d-flex flex-column justify-content-around align-items-center"
-      >
+      <form className="d-flex flex-column justify-content-around align-items-center">
         <table
           style={{ marginTop: "10%", marginLeft: "10%" }}
           className={classes.table}
@@ -110,62 +106,59 @@ const ChallengesSupport = ({studentId}) => {
             </th>
           </tr>
           {challengesSupport.map((items, index) => {
-          return (
-            
-          <tr>
-            <td className={classes.tablehead}>{index+1}</td>
-            <td className={classes.table}>
-            {(()=>{
-                  if(index+1===1){
-                    return "Academic"
-                  }
-                  else if(index+1===2){
-                    return "Relationship"
-                  }
-                  else if(index+1===3){
-                    return "Health"
-                  }
-                  else{
-                    return "Financial"
-                  }
-              })()}
-            </td>
-            <td className={classes.table}>
-              <input
-                 key={items.challenges}
-                 disabled={canEdit}
-                 onChange={(e) => {
-                  items.challenges == e.target.value;
-                }}
-                defaultValue={items.challenges}
-                className={classes.inputbox}
-                type="text"
-              />
-            </td>
-            <td className={classes.table}>
-              <input
-                key={items.sourceOfSupport}
-                disabled={canEdit}
-                onChange={(e) => {
-                 items.sourceOfSupport == e.target.value;
-               }}
-               defaultValue={items.sourceOfSupport}
-               className={classes.inputbox}
-               type="text"
-              />
-            </td>
-          </tr>
-          
-          );
-        })}
+            return (
+              <tr>
+                <td className={classes.tablehead}>{index + 1}</td>
+                <td className={classes.table}>
+                  {(() => {
+                    if (index + 1 === 1) {
+                      return "Academic";
+                    } else if (index + 1 === 2) {
+                      return "Relationship";
+                    } else if (index + 1 === 3) {
+                      return "Health";
+                    } else {
+                      return "Financial";
+                    }
+                  })()}
+                </td>
+                <td className={classes.table}>
+                  <input
+                    key={items.challenges}
+                    disabled={canEdit}
+                    onChange={(e) => {
+                      items.challenges == e.target.value;
+                    }}
+                    defaultValue={items.challenges}
+                    className={classes.inputbox}
+                    type="text"
+                  />
+                </td>
+                <td className={classes.table}>
+                  <input
+                    key={items.sourceOfSupport}
+                    disabled={canEdit}
+                    onChange={(e) => {
+                      items.sourceOfSupport == e.target.value;
+                    }}
+                    defaultValue={items.sourceOfSupport}
+                    className={classes.inputbox}
+                    type="text"
+                  />
+                </td>
+              </tr>
+            );
+          })}
         </table>
         <div style={{ marginTop: "5%", marginLeft: "60%" }}>
-          <button className={classes.icon}
+          <button
+            className={classes.icon}
             type="button"
             onClick={(e) => {
               console.log(challengesSupport);
               updateChallengesSupport(e);
-            }}>
+            }}
+          >
             <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
           </button>
         </div>

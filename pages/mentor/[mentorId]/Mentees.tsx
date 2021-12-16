@@ -83,7 +83,7 @@ export const Mentees = () => {
       >
         Clear Mentees
       </button>
-      {MenteeCardItems.map((items) => (
+      {/* {MenteeCardItems.map((items) => (
         <div>
           <div
             style={{
@@ -102,8 +102,8 @@ export const Mentees = () => {
           >
             <Image width={15} height={115} src={prof}></Image>
 
-            {/* <div>{ a ? <button  style={{top:"0px",right:"0px",}}onClick={()=>handleremoveMentees(items,items.regNo)}><FontAwesomeIcon  style={{marginTop:" 5%",marginLeft:"20px",color:"#0166b2"}}icon={faUserTimes} /></button>:null}
-            </div> */}
+            <div>{ a ? <button  style={{top:"0px",right:"0px",}}onClick={()=>handleremoveMentees(items,items.regNo)}><FontAwesomeIcon  style={{marginTop:" 5%",marginLeft:"20px",color:"#0166b2"}}icon={faUserTimes} /></button>:null}
+            </div>
 
             <div
               style={{
@@ -116,7 +116,7 @@ export const Mentees = () => {
             </div>
           </div>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };
