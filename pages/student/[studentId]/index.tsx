@@ -11,6 +11,7 @@ import Image from "next/image";
 import prof from "../../../public/grey.jpg";
 
 import { Student } from "../../../interfaces/student";
+import { User } from "../../../interfaces";
 
 export interface studentProfileProp {
   studentProfile: Student;
@@ -18,13 +19,15 @@ export interface studentProfileProp {
 
 export const index = ({ data }) => {
   const router = useRouter();
-  const studentId = router.query.studentId;
+  //const studentId = router.query.studentId;
+  const [studentId, setStudentId] = useState("");
   const [showNav, setShowNav] = useState(false);
   const [profileActive, setprofileActive] = useState(false);
   const [marksActive, setmarksActive] = useState(false);
   const [meetActive, setmeetActive] = useState(false);
   const [careerActive, setcareerActive] = useState(false);
   const [pageRoute, setPageRoute] = useState("profile");
+  let loggedInUser: User;
 
   let navCss = `${
     showNav
@@ -32,11 +35,17 @@ export const index = ({ data }) => {
       : "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 d-none d-sm-flex"
   } `;
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    console.log(showNav);
-    setShowNav(!showNav);
-  };
+  useEffect(() => {
+    if (!router.isReady) return;
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    setStudentId(loggedInUser.studentId);
+  }, [router.isReady]);
+
+  useEffect(() => {
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    console.log(loggedInUser.studentId);
+    setStudentId(loggedInUser.studentId);
+  }, []);
 
   useEffect(() => {
     if (pageRoute.match("profile")) {
@@ -152,17 +161,24 @@ export const index = ({ data }) => {
           <GiHamburgerMenu />
         </button>
         {(() => {
-          if (pageRoute.match("profile")) {
+          if (pageRoute.match("profile") && studentId.length !== 0) {
             return <Profile studentId={studentId} canEdit={false}></Profile>;
-          } else if (pageRoute.match("marks")) {
-            return <Marks studentId={studentId}></Marks>;
-          } else if (pageRoute.match("mentormeeting")) {
+          } else if (pageRoute.match("marks") && studentId.length !== 0) {
+            return <Marks canEdit={false} studentId={studentId}></Marks>;
+          } else if (
+            pageRoute.match("mentormeeting") &&
+            studentId.length !== 0
+          ) {
             return (
               <MentorMeetingDetails
+                canEditProp={false}
                 studentId={studentId}
               ></MentorMeetingDetails>
             );
-          } else if (pageRoute.match("additionaldetails")) {
+          } else if (
+            pageRoute.match("additionaldetails") &&
+            studentId.length !== 0
+          ) {
             return <AdditionalDetails></AdditionalDetails>;
           } else {
             return <></>;

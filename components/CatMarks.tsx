@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { CatMark } from "../interfaces/CatMark";
 
-const CatMarks = ({ semesterName, studentId }) => {
+const CatMarks = ({ semesterName, studentId, canEditProp }) => {
   let apiService: ApiService = new ApiService();
   const [canEdit, setCanEdit] = useState(false);
   const [attendance, setAttendance] = useState(Number);
@@ -16,7 +16,7 @@ const CatMarks = ({ semesterName, studentId }) => {
 
   useEffect(() => {
     url = `marks/${studentId}/${semesterName}/list`;
-
+    setCanEdit(canEditProp);
     apiService
       .get(url)
       .then((res) => {

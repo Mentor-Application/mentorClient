@@ -10,14 +10,16 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { EndSem } from "../interfaces/EndSem";
 import MentorMeetingDetails from "../pages/student/[studentId]/MentorMeetingDetails";
 
-const SemesterMarks = ({ semesterName, studentId }) => {
+const SemesterMarks = ({ semesterName, studentId, canEditProp }) => {
   const [SemMarks, setSemMarks] = useState<Array<EndSem>>([]);
   const [credits, setCredits] = useState(String);
   const [totalGradePoints, setTotalGradePoints] = useState("");
   const [gpa, setgpa] = useState("");
+  const [canEdit, setCanEdit] = useState(false);
   let apiService: ApiService = new ApiService();
   let url: string;
   useEffect(() => {
+    setCanEdit(canEditProp);
     url = `endsemester/${studentId}/${semesterName}/list`;
     apiService
       .get(url)
@@ -234,6 +236,7 @@ const SemesterMarks = ({ semesterName, studentId }) => {
                 <td className={classes.tablehead}>{index + 1}</td>
                 <td className={classes.table}>
                   <input
+                    disabled={canEdit}
                     onChange={(e) => {
                       items.subjectCode = e.target.value;
                     }}
@@ -244,6 +247,7 @@ const SemesterMarks = ({ semesterName, studentId }) => {
                 </td>
                 <td className={classes.table}>
                   <input
+                    disabled={canEdit}
                     onChange={(e) => {
                       items.subjectName = e.target.value;
                     }}
@@ -254,6 +258,7 @@ const SemesterMarks = ({ semesterName, studentId }) => {
                 </td>
                 <td className={classes.table}>
                   <input
+                    disabled={canEdit}
                     onChange={(e) => {
                       items.grade = e.target.value;
                     }}
@@ -264,6 +269,7 @@ const SemesterMarks = ({ semesterName, studentId }) => {
                 </td>
                 <td className={classes.table}>
                   <input
+                    disabled={canEdit}
                     onChange={(e) => {
                       items.gradePoints = e.target.value;
                     }}
@@ -274,6 +280,7 @@ const SemesterMarks = ({ semesterName, studentId }) => {
                 </td>
                 <td className={classes.table}>
                   <input
+                    disabled={canEdit}
                     onChange={(e) => {
                       items.monthAndYearOfPassing = e.target.value;
                     }}

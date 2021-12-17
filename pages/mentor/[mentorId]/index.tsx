@@ -7,6 +7,8 @@ import AddMentees from "./AddMentees";
 import Mentees from "./Mentees";
 import { viewProfile } from "../../../interfaces";
 import Marks from "../../student/[studentId]/Marks";
+import MentorMeetingDetails from "../../student/[studentId]/MentorMeetingDetails";
+import AdditionalDetails from "../../student/[studentId]/AdditionalDetails";
 
 export const index = () => {
   const [mentorRoute, setmentorRoute] = useState("mentees");
@@ -185,7 +187,21 @@ export const index = () => {
               ></Profile>
             );
           } else if (mentorRoute.match("marks")) {
-            return <Marks studentId={childProp.studentId}></Marks>;
+            return (
+              <Marks
+                canEdit={childProp.canEdit}
+                studentId={childProp.studentId}
+              ></Marks>
+            );
+          } else if (mentorRoute.match("mentormeeting")) {
+            return (
+              <MentorMeetingDetails
+                canEditProp={childProp.canEdit}
+                studentId={childProp.studentId}
+              ></MentorMeetingDetails>
+            );
+          } else if (mentorRoute.match("additionaldetails")) {
+            return <AdditionalDetails></AdditionalDetails>;
           } else {
             return <></>;
           }

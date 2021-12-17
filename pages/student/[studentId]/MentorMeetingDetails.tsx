@@ -7,14 +7,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { MentorMeeting } from "../../../interfaces/MenorMeeting";
 
-export const MentorMeetingDetails = ({ studentId }) => {
+export const MentorMeetingDetails = ({ studentId, canEditProp }) => {
   const [mentorMeetingDetails, setMentor] = useState<Array<MentorMeeting>>([]);
   const [semesterName, setSemesterName] = useState("semester1");
   let apiService: ApiService = new ApiService();
-
+  const [canEdit, setCanEdit] = useState(false);
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
   let url: string;
   useEffect(() => {
+    setCanEdit(canEditProp);
     url = `mentormeeting/${studentId}/${semesterName}/list`;
     apiService
       .get(url)
@@ -233,6 +234,7 @@ export const MentorMeetingDetails = ({ studentId }) => {
                   <tr>
                     <td style={{ height: "50px" }} className={classes.table}>
                       <input
+                        disabled={canEdit}
                         type="date"
                         onChange={(e) => {
                           items.meetingDate = e.target.value;
@@ -244,6 +246,7 @@ export const MentorMeetingDetails = ({ studentId }) => {
                     </td>
                     <td className={classes.table}>
                       <input
+                        disabled={canEdit}
                         type="time"
                         onChange={(e) => {
                           items.meetingTime = e.target.value;
@@ -255,6 +258,7 @@ export const MentorMeetingDetails = ({ studentId }) => {
                     </td>
                     <td className={classes.table}>
                       <input
+                        disabled={canEdit}
                         onChange={(e) => {
                           items.focusOnDiscussion = e.target.value;
                         }}
@@ -265,6 +269,7 @@ export const MentorMeetingDetails = ({ studentId }) => {
                     </td>
                     <td className={classes.table}>
                       <input
+                        disabled={canEdit}
                         onChange={(e) => {
                           items.remarks = e.target.value;
                         }}

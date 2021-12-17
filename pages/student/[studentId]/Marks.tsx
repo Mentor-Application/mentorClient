@@ -7,7 +7,7 @@ import CatMarks from "../../../components/CatMarks";
 import { Dropdown, DropdownButton, Row } from "react-bootstrap";
 import SemesterMarks from "../../../components/SemesterMarks";
 
-export const Marks = ({ studentId }) => {
+export const Marks = ({ studentId, canEdit }) => {
   const [semesterName, setSemesterName] = useState("semester1");
 
   return (
@@ -123,6 +123,7 @@ export const Marks = ({ studentId }) => {
           <CatMarks
             semesterName={semesterName}
             studentId={studentId}
+            canEditProp={canEdit}
           ></CatMarks>
         </div>
 
@@ -131,6 +132,7 @@ export const Marks = ({ studentId }) => {
           className="d-flex justify-content-center  col-lg-12 col-md-11 col-xl-12"
         >
           <SemesterMarks
+            canEditProp={canEdit}
             semesterName={semesterName}
             studentId={studentId}
           ></SemesterMarks>

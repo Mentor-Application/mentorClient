@@ -129,7 +129,7 @@ const FamilyProfile = ({ studentId, canEditProp }) => {
                     }}
                     defaultValue={items.age}
                     className={classes.inputbox}
-                    type="text"
+                    type="number"
                   />
                 </td>
                 <td className={classes.table}>

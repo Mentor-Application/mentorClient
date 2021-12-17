@@ -18,6 +18,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
   const [loggedinStudent, setLoggedinStudent] = useState<Student>(Object);
   const [isLoarding, setIsLoarding] = useState(true);
   const [canEdit, setCanEdit] = useState(false);
+
   let loggedInUser: User;
   let url: string;
 
@@ -44,12 +45,14 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
     response.then((res) => {
       const data = res;
       logedinstudent.deserialize(data, loggedinStudent);
+
       setIsLoarding(false);
     });
   }, []);
 
   const submitProfile = (values) => {
     setValue("studentId", studentId);
+    setLoggedinStudent(values);
     // console.log(loggedInUser.email);
     console.log(values);
     apiService
@@ -81,13 +84,15 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
               Name {loggedinStudent.emailId}
             </label>
             <input
+              disabled={canEdit}
               {...register("studentName", {
                 required: "Student Name Required",
               })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              placeholder={loggedinStudent.studentName}
+              key={loggedinStudent.studentName}
+              defaultValue={loggedinStudent.studentName}
             />
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -99,6 +104,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
             <div className="radio d-flex">
               <label className={classes.label}>
                 <input
+                  disabled={canEdit}
                   checked={isChecked}
                   {...register("gender")}
                   onChange={() => {
@@ -113,6 +119,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
 
               <label style={{ marginLeft: "35%" }} className={classes.label}>
                 <input
+                  disabled={canEdit}
                   {...register("gender")}
                   onChange={() => {
                     setIsChecked(!isChecked);
@@ -138,6 +145,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
                 {...register("branch", {
                   required: "Branch Required",
                 })}
+                disabled={canEdit}
                 style={{
                   color: "#0166b2",
                   backgroundColor: "white",
@@ -149,7 +157,8 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
                 }}
                 list="branches"
                 type="text"
-                placeholder={loggedinStudent.branch}
+                key={loggedinStudent.branch}
+                defaultValue={loggedinStudent.branch}
               ></input>
 
               <datalist id="branches">
@@ -178,11 +187,12 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
                 {...register("section", {
                   required: "Section Required",
                 })}
+                disabled={canEdit}
                 style={{ width: "75%", height: "42.5px", marginLeft: "10%" }}
                 className={classes.box}
                 list="section"
                 type="text"
-                placeholder={loggedinStudent.section}
+                defaultValue={loggedinStudent.section}
               ></input>
               <datalist id="section">
                 <option value="A" />
@@ -202,13 +212,14 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
           >
             <label className={classes.label}>Date of Birth </label>
             <input
+              disabled={canEdit}
               {...register("dob", {
                 required: "Date Required",
               })}
               style={{ width: "80%" }}
               className={classes.box}
               type="date"
-              placeholder={loggedinStudent.dob}
+              defaultValue={loggedinStudent.dob}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -218,13 +229,14 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Father's Mobile Number</label>
             <input
+              disabled={canEdit}
               {...register("fatherMobileNumber", {
                 required: "MobileNumber Required",
               })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              placeholder={loggedinStudent.fatherMobileNumber}
+              defaultValue={loggedinStudent.fatherMobileNumber}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -234,13 +246,14 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Religion</label>
             <input
+              disabled={canEdit}
               {...register("religion", {
                 required: "Religion Required",
               })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              placeholder={loggedinStudent.religion}
+              defaultValue={loggedinStudent.religion}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -250,13 +263,14 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Community</label>
             <input
+              disabled={canEdit}
               {...register("community", {
                 required: "Community Required",
               })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              placeholder={loggedinStudent.community}
+              defaultValue={loggedinStudent.community}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -267,6 +281,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
             <Col>
               <label className={classes.label}>Hosteller/Day Scholar</label>
               <input
+                disabled={canEdit}
                 {...register("mode", {
                   required: "Mode Required",
                 })}
@@ -281,7 +296,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
                 }}
                 list="mode"
                 type="text"
-                placeholder={loggedinStudent.studentType}
+                defaultValue={loggedinStudent.studentType}
               ></input>
 
               <datalist id="mode">
@@ -299,13 +314,14 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
             <Col>
               <label className={classes.label}>Room No./Hostel No.</label>
               <input
+                disabled={canEdit}
                 {...register("busRouteNumber", {
                   required: "Number Required",
                 })}
                 style={{ width: "65%", height: "42.5px", marginLeft: "15%" }}
                 className={classes.box}
                 type="text"
-                placeholder={loggedinStudent.busRouteNumber}
+                defaultValue={loggedinStudent.busRouteNumber}
               ></input>
               <span
                 style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}
@@ -323,13 +339,14 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
               Email ID
             </label>
             <input
+              disabled={canEdit}
               {...register("personalEmail", {
                 required: "EmailID Required",
               })}
               style={{ width: "80%" }}
               className={classes.box}
               type="email"
-              placeholder={loggedinStudent.emailId}
+              defaultValue={loggedinStudent.emailId}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -339,13 +356,14 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Student's Mobile Number</label>
             <input
+              disabled={canEdit}
               {...register("mobileNumber", {
                 required: "Number Required",
               })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              placeholder={loggedinStudent.mobileNumber}
+              defaultValue={loggedinStudent.mobileNumber}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -355,13 +373,14 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Period of Study </label>
             <input
+              disabled={canEdit}
               {...register("periodOfStudy", {
                 required: "Period of Study Required",
               })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              placeholder={loggedinStudent.periodOfStudy}
+              defaultValue={loggedinStudent.periodOfStudy}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -371,13 +390,14 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Mother's Mobile Number</label>
             <input
+              disabled={canEdit}
               {...register("motherMobileNumber", {
                 required: "Number Required",
               })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              placeholder={loggedinStudent.motherMobileNumber}
+              defaultValue={loggedinStudent.motherMobileNumber}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -387,13 +407,14 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Blood Group</label>
             <input
+              disabled={canEdit}
               {...register("bloodGroup", {
                 required: "Blood Group Required",
               })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              placeholder={loggedinStudent.bloodGroup}
+              defaultValue={loggedinStudent.bloodGroup}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -403,12 +424,13 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Address for Communication</label>
             <textarea
+              disabled={canEdit}
               {...register("address", {
                 required: "Address Required",
               })}
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
-              placeholder={loggedinStudent.addressForCommunication}
+              defaultValue={loggedinStudent.addressForCommunication}
             ></textarea>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
