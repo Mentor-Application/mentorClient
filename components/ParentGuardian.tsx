@@ -12,8 +12,13 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { ApiService } from "../services/api.service";
 import { User } from "../interfaces";
+import { LocalGuardian } from "../interfaces/LocalGuardian";
 
 export const ParentGuardian = ({ studentId, canEditProp }) => {
+
+  var logedinGuardian: LocalGuardian = new LocalGuardian();
+  const [loggedinGuardian, setLoggedinguardian] = useState<LocalGuardian>(Object);
+
   const {
     register,
     handleSubmit,
@@ -28,13 +33,34 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
 
   let apiService: ApiService = new ApiService();
   let loggedInUser: User;
+  let url: string;
+
+  useEffect(() => {
+    console.log("guardian");
+    setCanEdit(canEditProp);
+    url = `student/list/guardian/${studentId}`;
+    const response = apiService
+      .get(url)
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    response.then((res) => {
+      const data = res;
+      logedinGuardian.deserialize(data, loggedinGuardian);
+      console.log(loggedinGuardian);
+
+    });
+  }, []);
 
   const submitParentGuardian = (values) => {
     setValue("studentId", studentId);
     console.log(values);
-    const parentvalues = Object.assign(values);
+    // const parentvalues = Object.assign(values);
     apiService
-      .post("student/guardian", values)
+      .post(`student/${studentId}/guardian`, values)
       .then((res) => {
         console.log(res);
       })
@@ -135,10 +161,12 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               Name
             </label>
             <input
+            disabled={canEdit}
               {...register("guardianName")}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              defaultValue={loggedinGuardian.guardianName}
             ></input>
           </Row>
 
@@ -148,6 +176,8 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               {...register("address")}
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
+              disabled={canEdit}
+              defaultValue={loggedinGuardian.address}
             ></textarea>
           </Row>
 
@@ -158,6 +188,8 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              disabled={canEdit}
+              defaultValue={loggedinGuardian.mobileNumber}
             ></input>
           </Row>
 
@@ -168,6 +200,8 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              disabled={canEdit}
+              defaultValue={loggedinGuardian.emailId}
             ></input>
           </Row>
           <Row>

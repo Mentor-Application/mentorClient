@@ -81,7 +81,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
         <div className="d-flex  flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
           <Row className="d-flex justify-content-center">
             <label style={{ marginTop: "10%" }} className={classes.label}>
-              Name {loggedinStudent.emailId}
+              Name 
             </label>
             <input
               disabled={canEdit}

@@ -114,7 +114,7 @@ const SchoolRecord = ({ studentId, canEditProp }) => {
             </th>
             <th className={classes.tablehead}>Percentage</th>
           </tr>
-          {schoolRecord.map((items, index) => {
+        {schoolRecord.map((items, index) => {
             return (
               <tr>
                 <td className={classes.tablehead}>

@@ -6,35 +6,85 @@ import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { User } from "../interfaces";
+import { Hobbies } from "../interfaces/Hobbies";
+import { StrengthAssessment } from "../interfaces/StrengthAssessment";
+import { Student } from "../interfaces/student";
 
 const HobbiesStrength = ({ studentId, canEditProp }) => {
-  const { register, handleSubmit, setValue, getValues } = useForm();
-  const { register: register1, handleSubmit: handleSubmit1 } = useForm();
-  const { register: register2, handleSubmit: handleSubmit2 } = useForm();
-  const { register: register3, handleSubmit: handleSubmit3 } = useForm();
 
-  const [hobbiesStrength, sethobbiesStrength] = useState([]);
+  var logedinstudent: StrengthAssessment = new StrengthAssessment();
+  const [loggedinStudent, setLoggedinStudent] = useState<StrengthAssessment>(Object);
+  const { register, handleSubmit } = useForm();
   const [canEdit, setCanEdit] = useState(false);
-  const [hobbiesStrength1, sethobbiesStrength1] = useState([]);
-  let loggedInUser: User;
+  const [hobbies, setHobbies] = useState<Array<Hobbies>>([]);
+
+  let url: string;
+
+  useEffect(() => {
+    url = `student/list/hobbies/${studentId}`;
+    setCanEdit(canEditProp);
+    apiService
+      .get(url)
+      .then((res) => {
+        const data = res;
+        if (data.length === 0) {
+          setHobbies([
+            {
+              hobbieId: "",
+              hobbie: "",
+            },
+            {
+              hobbieId: "",
+              hobbie: "",
+            },
+            {
+              hobbieId: "",
+              hobbie: "",
+            },
+          ]);
+        } else {
+          if (data.length < 2) {
+            while (data.length <= 3) {
+              data.push({
+                hobbieId: "",
+                hobbie: "",
+
+              });
+            }
+          }
+          setHobbies(data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      
+
+  }, []);
+
+
+  useEffect(()=>{
+    url = `student/list/strengthassessment/${studentId}`;
+    console.log("hello");
+    setCanEdit(canEditProp);
+    apiService
+      .get(url)
+      .then((res) => {
+        const data = res;
+        console.log(data);
+        logedinstudent.deserialize(data, loggedinStudent);
+        console.log(loggedinStudent);
+      })
+        .catch((err) => {
+          console.log(err);
+        });  
+  },[])
 
   const onsubmit = (values) => {
-    hobbiesStrength.push(values);
-  };
-
-  const onsubmit1 = (values) => {
-    hobbiesStrength.push(values);
-  };
-
-  const onsubmit2 = (values) => {
-    hobbiesStrength.push(values);
-    console.log(hobbiesStrength);
-  };
-
-  const onsubmit3 = (values1) => {
-    console.log(values1);
+    console.log("hi")
     apiService
-      .post(`student/${studentId}/strengthassessment`, values1)
+      .post(`student/${studentId}/strengthassessment`, values)
 
       .then((res) => {
         console.log(res);
@@ -45,10 +95,11 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
   };
 
   let apiService: ApiService = new ApiService();
-  const submitHobbiesStrength = (values) => {
-    console.log(hobbiesStrength);
+  const updateHobbies = (e) => {
+    e.preventDefault();
+    console.log(hobbies);
     apiService
-      .post(`student/${studentId}/hobbies`, hobbiesStrength)
+      .post(`student/${studentId}/hobbies`, hobbies)
 
       .then((res) => {
         console.log(res);
@@ -56,6 +107,7 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
       .catch((err) => {
         console.log(err);
       });
+      
   };
 
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
@@ -63,7 +115,6 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
     <div style={{ height: "90%" }} className={whiteBox}>
       <form
         style={{ overflowY: "scroll", overflowX: "hidden" }}
-        onSubmit={handleSubmit(submitHobbiesStrength)}
         className=" row d-flex justify-content-center col-12"
       >
         <div
@@ -79,7 +130,8 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
           >
             Top three Hobbies{" "}
           </h4>
-
+    {hobbies.map((items, index) => {
+            return (
           <div
             style={{
               marginLeft: "15%",
@@ -89,43 +141,21 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
               marginTop: "1%",
             }}
           >
-            1.
+            {index+1}
             <input
-              {...register("hobbie")}
+              key={items.hobbie}
+              disabled={canEdit}
+              onChange={(e) => {
+                items.hobbie == e.target.value;
+              }}
+              defaultValue={items.hobbie}
               className={classes.inputgoals}
+              type="text"
             ></input>
           </div>
 
-          <div
-            style={{
-              marginLeft: "15%",
-              color: "#0166b2",
-              fontWeight: "bold",
-              marginTop: "1%",
-            }}
-          >
-            2.
-            <input
-              {...register1("hobbie")}
-              className={classes.inputgoals}
-            ></input>
-          </div>
-
-          <div
-            style={{
-              marginLeft: "15%",
-              color: "#0166b2",
-              fontWeight: "bold",
-              marginTop: "1%",
-            }}
-          >
-            3.
-            <input
-              {...register2("hobbie")}
-              className={classes.inputgoals}
-            ></input>
-          </div>
-
+          );
+          })}
           <h4
             style={{
               marginLeft: "15%",
@@ -145,7 +175,11 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
             }}
           >
             I am{" "}
-            <input {...register3("iAm")} className={classes.inputgoals}></input>
+            <input {...register("iAm")} 
+            disabled={canEdit}
+            className={classes.inputgoals}
+            defaultValue={loggedinStudent.iCan}
+            ></input>
           </div>
 
           <div
@@ -158,8 +192,10 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
           >
             I have{" "}
             <input
-              {...register3("iCan")}
+              {...register("iCan")}
+              disabled={canEdit}
               className={classes.inputgoals}
+              defaultValue={loggedinStudent.iCan}
             ></input>
           </div>
 
@@ -173,8 +209,10 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
           >
             I can{" "}
             <input
-              {...register3("iHave")}
+              {...register("iHave")}
               className={classes.inputgoals}
+              disabled={canEdit}
+              defaultValue={loggedinStudent.iCan}
             ></input>
           </div>
         </div>
@@ -186,9 +224,7 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
             type="submit"
             onClick={(e) => {
               handleSubmit(onsubmit)();
-              handleSubmit1(onsubmit1)();
-              handleSubmit2(onsubmit2)();
-              handleSubmit3(onsubmit3)();
+              updateHobbies(e);
             }}
           >
             <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />

@@ -92,22 +92,22 @@ export const index = () => {
             <button
               type="button"
               onClick={() => {
+                setNavHidden(true);
                 setmentorRoute("mentees");
                 console.log(mentorRoute);
               }}
-              className={menteesActive ? classes.navbtnActive : classes.navbtn}
+              className={menteesActive ? classes.navbtnActive: classes.navbtn}
             >
               Mentees
             </button>
             <button
               type="button"
               onClick={() => {
+                setNavHidden(true);
                 setmentorRoute("addmentees");
                 console.log(mentorRoute);
               }}
-              className={
-                addMenteesActive ? classes.navbtnActive : classes.navbtn
-              }
+              className={addMenteesActive ? classes.navbtnActive : classes.navbtn}
             >
               Add Mentees
             </button>
