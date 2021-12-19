@@ -30,11 +30,9 @@ export const AdditionalDetails = () => {
                        <Btech></Btech> </div>
                     <div>
                     <label className={classes.placement}>Career (PLacement) Information :</label>
-                    <textarea style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"25px",outlineColor:"black" }}
+                    <textarea style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"25px",outlineColor:"black"}}
                     className={classes.box}></textarea>
-                    </div>
-
-                    <div>
+                  
                     <label className={classes.placement}>Graduate Study :</label>
                     <textarea style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"25px",marginTop:"20px",outlineColor:"black" }}
                     className={classes.box}></textarea>

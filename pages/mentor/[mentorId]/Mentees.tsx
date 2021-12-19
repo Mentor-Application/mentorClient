@@ -11,7 +11,7 @@ import { ApiService } from "../../../services/api.service";
 import { useForm } from "react-hook-form";
 type MenteeCardItems = {
   studentName: string;
-  regNo: string;
+  registerNumber: string;
 };
 
 let loggedInUser: User;
@@ -21,31 +21,27 @@ let apiService: ApiService = new ApiService();
 
 let a: boolean = false;
 export const Mentees = () => {
-  const [MenteeCardItems, setMenteeCardItems] = useState([
-    { studentId: 1, studentName: "Vaseekaran", regNo: "195001124" },
-    { studentId: 2, studentName: "Srikanth", regNo: "195001108" },
-    { studentId: 3, studentName: "Vignesh", regNo: "195001127" },
-    { studentId: 4, studentName: "Pravin", regNo: "195001082" },
-    { studentId: 5, studentName: "Yashwanth", regNo: "195001130" },
-    { studentId: 6, studentName: "Venkat", regNo: "195001126" },
-  ]);
+  const [MenteeCardItems, setMenteeCardItems] = useState<Array<MenteeCardItems>>([]);
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
     apiService
-      .get(`mentor/${loggedInUser.mentorId}`)
+      .get(`student/mentor/${loggedInUser.mentorId}`)
       .then((res) => {
         const data = res;
         setMenteeCardItems(data);
+        console.log(data)
+        console.log(MenteeCardItems)
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
+
   const [removeMenteecards, setremoveMenteecards] = useState([]);
 
   function handleremoveMentees(items, regNo) {
-    const newMentees = MenteeCardItems.filter((item) => item.regNo !== regNo);
+    const newMentees = MenteeCardItems.filter((item) => item.registerNumber !== regNo);
     console.log(newMentees);
     setMenteeCardItems(newMentees);
     console.log(MenteeCardItems);
@@ -83,7 +79,7 @@ export const Mentees = () => {
       >
         Clear Mentees
       </button>
-      {/* {MenteeCardItems.map((items) => (
+      {MenteeCardItems.map((items) => (
         <div>
           <div
             style={{
@@ -102,7 +98,7 @@ export const Mentees = () => {
           >
             <Image width={15} height={115} src={prof}></Image>
 
-            <div>{ a ? <button  style={{top:"0px",right:"0px",}}onClick={()=>handleremoveMentees(items,items.regNo)}><FontAwesomeIcon  style={{marginTop:" 5%",marginLeft:"20px",color:"#0166b2"}}icon={faUserTimes} /></button>:null}
+            <div>{ a ? <button  style={{top:"0px",right:"0px",}}onClick={()=>handleremoveMentees(items,items.registerNumber)}><FontAwesomeIcon  style={{marginTop:" 5%",marginLeft:"20px",color:"#0166b2"}}icon={faUserTimes} /></button>:null}
             </div>
 
             <div
@@ -112,11 +108,11 @@ export const Mentees = () => {
                 fontWeight: "bold",
               }}
             >
-              {items.studentName}-{items.regNo}
+              {items.studentName}-{items.registerNumber}
             </div>
           </div>
         </div>
-      ))} */}
+      ))}
     </div>
   );
 };
