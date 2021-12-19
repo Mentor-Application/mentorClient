@@ -18,7 +18,8 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
   const [loggedinStudent, setLoggedinStudent] = useState<Student>(Object);
   const [isLoarding, setIsLoarding] = useState(true);
   const [canEdit, setCanEdit] = useState(false);
-
+  const [isMale, setMale] = useState(false);
+  const [isFemale, setFemale] = useState(false);
   let loggedInUser: User;
   let url: string;
 
@@ -32,6 +33,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
   const [isChecked, setIsChecked] = useState(true);
 
   useEffect(() => {
+    setValue("studentId", studentId);
     setCanEdit(canEditProp);
     url = `student/${studentId}/profile`;
     const response = apiService
@@ -45,14 +47,18 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
     response.then((res) => {
       const data = res;
       logedinstudent.deserialize(data, loggedinStudent);
-
+      if (data.gender === "M") {
+        setMale(true);
+      } else {
+        setFemale(true);
+      }
       setIsLoarding(false);
     });
   }, []);
 
   const submitProfile = (values) => {
-    setValue("studentId", studentId);
     setLoggedinStudent(values);
+    setIsLoarding(false);
     // console.log(loggedInUser.email);
     console.log(values);
     apiService
@@ -81,7 +87,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
         <div className="d-flex  flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
           <Row className="d-flex justify-content-center">
             <label style={{ marginTop: "10%" }} className={classes.label}>
-              Name 
+              Name
             </label>
             <input
               disabled={canEdit}
@@ -105,10 +111,11 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
               <label className={classes.label}>
                 <input
                   disabled={canEdit}
-                  checked={isChecked}
+                  checked={isMale}
                   {...register("gender")}
                   onChange={() => {
-                    setIsChecked(!isChecked);
+                    setMale(true);
+                    setFemale(false);
                   }}
                   value="M"
                   type="radio"
@@ -119,10 +126,12 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
 
               <label style={{ marginLeft: "35%" }} className={classes.label}>
                 <input
+                  checked={isFemale}
                   disabled={canEdit}
                   {...register("gender")}
                   onChange={() => {
-                    setIsChecked(!isChecked);
+                    setFemale(true);
+                    setMale(false);
                   }}
                   type="radio"
                   value="F"
@@ -282,7 +291,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
               <label className={classes.label}>Hosteller/Day Scholar</label>
               <input
                 disabled={canEdit}
-                {...register("mode", {
+                {...register("studentType", {
                   required: "Mode Required",
                 })}
                 style={{
@@ -425,7 +434,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
             <label className={classes.label}>Address for Communication</label>
             <textarea
               disabled={canEdit}
-              {...register("address", {
+              {...register("addressForCommunication", {
                 required: "Address Required",
               })}
               style={{ width: "80%", height: "90px" }}

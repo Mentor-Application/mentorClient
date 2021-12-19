@@ -13,22 +13,26 @@ import { ErrorMessage } from "@hookform/error-message";
 import { ApiService } from "../services/api.service";
 import { User } from "../interfaces";
 import { LocalGuardian } from "../interfaces/LocalGuardian";
+import { Parent } from "../interfaces/Parent";
 
 export const ParentGuardian = ({ studentId, canEditProp }) => {
-
   var logedinGuardian: LocalGuardian = new LocalGuardian();
-  const [loggedinGuardian, setLoggedinguardian] = useState<LocalGuardian>(Object);
+  const [loggedinGuardian, setLoggedinguardian] =
+    useState<LocalGuardian>(Object);
+  const [loggedinParent, setLoggedinParent] = useState<Parent>(Object);
 
   const {
     register,
     handleSubmit,
     setValue,
-    getValues,
-    setError,
     formState: { errors },
   } = useForm();
-  const [isChecked, setIsChecked] = useState(true);
-  const [branch, setBranch] = useState("");
+  const {
+    register: parentRegister,
+    handleSubmit: parentHandleSubmit,
+    setValue: parentSetValue,
+  } = useForm();
+
   const [canEdit, setCanEdit] = useState(false);
 
   let apiService: ApiService = new ApiService();
@@ -36,7 +40,6 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
   let url: string;
 
   useEffect(() => {
-    console.log("guardian");
     setCanEdit(canEditProp);
     url = `student/list/guardian/${studentId}`;
     const response = apiService
@@ -49,14 +52,25 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
       });
     response.then((res) => {
       const data = res;
-      logedinGuardian.deserialize(data, loggedinGuardian);
-      console.log(loggedinGuardian);
-
+      setLoggedinguardian(data);
+      console.log(data);
+    });
+    const response2 = apiService
+      .get(`student/list/parent/${studentId}`)
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    response2.then((res) => {
+      const data = res;
+      setLoggedinParent(data);
+      console.log(data);
     });
   }, []);
 
-  const submitParentGuardian = (values) => {
-    setValue("studentId", studentId);
+  const submitGuardian = (values) => {
     console.log(values);
     // const parentvalues = Object.assign(values);
     apiService
@@ -67,20 +81,19 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
       .catch((err) => {
         console.log(err);
       });
-
-    // apiService
-    // .post("student/parent",values)
-    // .then((res)=>{
-    //   console.log(res);
-    // })
-    // .catch((err)=>{
-    //   console.log(err);
-    // });
   };
 
   const submitParent = (parentvalues) => {
-    console.log("Hello");
+    parentSetValue("studentId", studentId);
     console.log(parentvalues);
+    apiService
+      .post("student/parent", parentvalues)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
@@ -89,7 +102,6 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
     <div style={{ height: "100%" }} className={whiteBox}>
       <form
         style={{ overflowY: "scroll" }}
-        onSubmit={handleSubmit(submitParentGuardian)}
         className="row d-flex justify-content-around"
       >
         <div className="d-flex flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
@@ -104,12 +116,14 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               Name
             </label>
             <input
-              {...register("parentName", {
+              {...parentRegister("parentName", {
                 required: "Parent Name Required",
               })}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
+              disabled={canEdit}
+              defaultValue={loggedinParent.parentName}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -120,11 +134,13 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Address for Communication</label>
             <textarea
-              {...register("parentAddress", {
+              {...parentRegister("parentAddress", {
                 required: "Address Required",
               })}
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
+              disabled={canEdit}
+              defaultValue={loggedinParent.address}
             ></textarea>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -135,9 +151,11 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
           <Row className="d-flex justify-content-center">
             <label className={classes.label}>Email ID</label>
             <input
-              {...register("parentEmailId", {
+              {...parentRegister("parentEmailId", {
                 required: "Email ID Required",
               })}
+              disabled={canEdit}
+              defaultValue={loggedinParent.emailId}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
@@ -161,7 +179,7 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               Name
             </label>
             <input
-            disabled={canEdit}
+              disabled={canEdit}
               {...register("guardianName")}
               style={{ width: "80%" }}
               className={classes.box}
@@ -210,8 +228,12 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
             >
               <button
                 className={classes.icon}
-                type="submit"
-                onClick={submitParent}
+                onClick={(e) => {
+                  e.preventDefault();
+                  parentSetValue("studentId", studentId);
+                  parentHandleSubmit(submitParent)();
+                  handleSubmit(submitGuardian)();
+                }}
               >
                 <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
               </button>
