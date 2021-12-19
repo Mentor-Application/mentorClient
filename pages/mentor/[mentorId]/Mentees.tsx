@@ -14,14 +14,16 @@ type MenteeCardItems = {
   registerNumber: string;
 };
 
-let loggedInUser: User;
-let url: string;
-
-let apiService: ApiService = new ApiService();
-
-let a: boolean = false;
 export const Mentees = () => {
-  const [MenteeCardItems, setMenteeCardItems] = useState<Array<MenteeCardItems>>([]);
+  let loggedInUser: User;
+  let url: string;
+
+  let apiService: ApiService = new ApiService();
+
+  const [isEdit, setIsEdit] = useState(false);
+  const [MenteeCardItems, setMenteeCardItems] = useState<
+    Array<MenteeCardItems>
+  >([]);
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
     apiService
@@ -29,27 +31,23 @@ export const Mentees = () => {
       .then((res) => {
         const data = res;
         setMenteeCardItems(data);
-        console.log(data)
-        console.log(MenteeCardItems)
+        console.log(data);
+        console.log(MenteeCardItems);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-
   const [removeMenteecards, setremoveMenteecards] = useState([]);
 
   function handleremoveMentees(items, regNo) {
-    const newMentees = MenteeCardItems.filter((item) => item.registerNumber !== regNo);
+    const newMentees = MenteeCardItems.filter(
+      (item) => item.registerNumber !== regNo
+    );
     console.log(newMentees);
     setMenteeCardItems(newMentees);
     console.log(MenteeCardItems);
-  }
-
-  function edit() {
-    console.log(MenteeCardItems);
-    a = true;
   }
 
   // const [addMenteesActive, setaddMenteesActive] = useState(false);
@@ -64,7 +62,9 @@ export const Mentees = () => {
           fontWeight: "bold",
           justifyItems: "center",
         }}
-        onClick={edit}
+        onClick={() => {
+          setIsEdit(true);
+        }}
       >
         Edit Mentees
       </button>
@@ -98,7 +98,24 @@ export const Mentees = () => {
           >
             <Image width={15} height={115} src={prof}></Image>
 
-            <div>{ a ? <button  style={{top:"0px",right:"0px",}}onClick={()=>handleremoveMentees(items,items.registerNumber)}><FontAwesomeIcon  style={{marginTop:" 5%",marginLeft:"20px",color:"#0166b2"}}icon={faUserTimes} /></button>:null}
+            <div>
+              {isEdit ? (
+                <button
+                  style={{ top: "0px", right: "0px" }}
+                  onClick={() =>
+                    handleremoveMentees(items, items.registerNumber)
+                  }
+                >
+                  <FontAwesomeIcon
+                    style={{
+                      marginTop: " 5%",
+                      marginLeft: "20px",
+                      color: "#0166b2",
+                    }}
+                    icon={faUserTimes}
+                  />
+                </button>
+              ) : null}
             </div>
 
             <div
