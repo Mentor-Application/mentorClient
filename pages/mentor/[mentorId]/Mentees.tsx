@@ -5,16 +5,19 @@ import prof from "../../../public/grey.jpg";
 import classes from "../../../styles/studentMainPage.module.css";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faUserTimes,faMinusCircle } from "@fortawesome/free-solid-svg-icons";
-import { MenteeItems } from "../../../interfaces";
+import {
+  faEdit,
+  faUserTimes,
+  faMinusCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { ApiService } from "../../../services/api.service";
-import { useForm } from "react-hook-form";
+
 type MenteeCardItems = {
   studentName: string;
   registerNumber: string;
 };
 
-export const Mentees = () => {
+export const Mentees = ({}) => {
   let loggedInUser: User;
   let url: string;
 
@@ -24,6 +27,7 @@ export const Mentees = () => {
   const [MenteeCardItems, setMenteeCardItems] = useState<
     Array<MenteeCardItems>
   >([]);
+  const [removeMenteecards, setRemoveMenteecards] = useState([]);
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
     apiService
@@ -37,38 +41,34 @@ export const Mentees = () => {
       });
   }, []);
 
-  const [removeMenteecards, setRemoveMenteecards] = useState([]);
-  const [itemCard, setItemCard] = useState([]);
+  useEffect(() => {
+    console.log("menetee", MenteeCardItems);
+    console.log("remov", removeMenteecards);
+  }, [MenteeCardItems, removeMenteecards]);
 
-  const handleremoveMentees=(items, regNo)=>  {
+  const handleremoveMentees = (items, regNo) => {
     const newMentees = MenteeCardItems.filter(
       (item) => item.registerNumber !== regNo
     );
-    removeMenteecards.push(items);
-    console.log("Remove",removeMenteecards)
+    setRemoveMenteecards([...removeMenteecards, items]);
     setMenteeCardItems(newMentees);
-    console.log("Mentees",MenteeCardItems);
-  }
+  };
 
-  const Clear=()=>{
+  const Clear = () => {
+    setRemoveMenteecards(MenteeCardItems);
     setMenteeCardItems([]);
-    // MenteeCardItems.splice(0, MenteeCardItems.length)
-    console.log(MenteeCardItems);
-  }
+  };
 
-  const Undo=()=>{
+  const Undo = () => {
     console.log(MenteeCardItems);
-    // console.log("Removed",removeMenteecards);
-    // setMenteeCardItems([...MenteeCardItems,...removeMenteecards])
-    MenteeCardItems.push(...removeMenteecards);
-    console.log("After pushing",MenteeCardItems);
-  }
+    setMenteeCardItems([...MenteeCardItems, ...removeMenteecards]);
+    setRemoveMenteecards([]);
+  };
 
-  const Submit=()=>{
+  const Submit = () => {
     console.log("Submit");
     console.log(removeMenteecards);
-  }
-  // const [addMenteesActive, setaddMenteesActive] = useState(false);
+  };
 
   return (
     <div>
@@ -80,11 +80,7 @@ export const Mentees = () => {
       >
         Edit Mentees
       </button>
-      <button
-        type="button"
-        onClick={Clear}
-        className={classes.Clearbtn}
-      >
+      <button type="button" onClick={Clear} className={classes.Clearbtn}>
         Clear Mentees
       </button>
       {MenteeCardItems.map((items) => (
@@ -109,14 +105,24 @@ export const Mentees = () => {
             <div>
               {isEdit ? (
                 <button
-                  style={{ top: "0px", right: "0px",background:'none',marginLeft:'70%',border:'none' }}
+                  style={{
+                    top: "0px",
+                    right: "0px",
+                    background: "none",
+                    marginLeft: "70%",
+                    border: "none",
+                  }}
                   onClick={() =>
                     handleremoveMentees(items, items.registerNumber)
                   }
                 >
                   <FontAwesomeIcon
                     style={{
-                      marginTop: " 5%",marginLeft: "5px",color: "#ff0000",alignItems:'center'}}
+                      marginTop: " 5%",
+                      marginLeft: "5px",
+                      color: "#ff0000",
+                      alignItems: "center",
+                    }}
                     icon={faMinusCircle}
                   />
                 </button>
@@ -135,31 +141,30 @@ export const Mentees = () => {
           </div>
         </div>
       ))}
-      
+
       <div>
-              {isEdit ? (
-                <button
-                  style={{ top: "0px", right: "0px" }}
-                  className={classes.Clearbtn}
-                  onClick={Submit}
-                >
-                  Submit
-                </button>
-              ) : null}
+        {isEdit ? (
+          <button
+            style={{ top: "0px", right: "0px" }}
+            className={classes.Clearbtn}
+            onClick={Submit}
+          >
+            Submit
+          </button>
+        ) : null}
       </div>
 
       <div>
-              {isEdit ? (
-                <button
-                  style={{ top: "0px", right: "0px" }}
-                  className={classes.Clearbtn}
-                  onClick={Undo}
-                >
-                  Undo
-                </button>
-              ) : null}
+        {isEdit ? (
+          <button
+            style={{ top: "0px", right: "0px" }}
+            className={classes.Clearbtn}
+            onClick={Undo}
+          >
+            Undo
+          </button>
+        ) : null}
       </div>
-
     </div>
   );
 };
