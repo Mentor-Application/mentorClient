@@ -1,18 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import classes from "../styles/studentMainPage.module.css";
 import { ApiService } from "../services/api.service"
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-export const DisciplinaryAction = () => {
-    const {register,handleSubmit,getValues,setValue} = useForm();
+import { User } from "../interfaces";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { Disciplinary } from '../interfaces/Disciplinary';
+
+
+export const DisciplinaryAction = ({studentId}) => {
+    var logedinStudent: Disciplinary=new Disciplinary();
+    const [loggedinStudent,setloggedinStudent]=useState<Disciplinary>(Object);
+    let url:string
     let apiService: ApiService = new ApiService();
+    useEffect(()=> {
+        url=`disciplinary/${studentId}/list`;
+        apiService.get(url)
+        .then((res) => {
+            const data=res;
+            setloggedinStudent(data);
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    },[]);
+
+    const submitdisciplinary=(e) => {
+        
+        apiService.post("disciplinary/update",Disciplinary)
+        .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    }
+    const {register,handleSubmit,getValues,setValue} = useForm();
+    
     const submitProfile = (values) => {
       console.log(values);
     };
     return (
         <div  style={{height:"100%"}}className={classes.forms}>
-            <form onSubmit={handleSubmit(submitProfile)}className="justify-content-around  d-flex flex-column ">
+            {/* <form onSubmit={handleSubmit(submitProfile)}className="justify-content-around  d-flex flex-column "> */}
                 <div className={classes.discipline}>Particulars of Disciplinary action</div>
                 <span style={{fontSize:" small",marginLeft:" 20px"}}>
                     (Whether transferred to or from other college,Migration,Discontinuation,Repetition,Detention due to lack of attendance , striking off from rolls,disciplinary actions,stoppage of scholarships,etc.)
@@ -25,15 +58,23 @@ export const DisciplinaryAction = () => {
                         <th style={{width:"5%"}}className={classes.table}>YEAR 4</th>
                     </tr>
                     <tr>
-                        <td className={classes.dataitem}><input className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year1} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year2} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year3} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year4} className={classes.inputbox}></input></td>
                     </tr>
                 </table>
-            </form>
+                
+            {/* </form> */}
+            <button className={classes.icon}
+                        onClick={(e)=>{
+                            handleSubmit(submitdisciplinary)
+                        }}
+                ><FontAwesomeIcon  style={{ fontSize: "110%" }} icon={faCheck} /></button>
         </div>
+        
     )
+    
 }
 
 export default DisciplinaryAction

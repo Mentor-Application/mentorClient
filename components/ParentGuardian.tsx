@@ -123,7 +123,7 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               className={classes.box}
               type="text"
               disabled={canEdit}
-              defaultValue={loggedinParent.parentName}
+              //defaultValue={loggedinParent.parentName}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -140,7 +140,7 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
               disabled={canEdit}
-              defaultValue={loggedinParent.address}
+              //defaultValue={loggedinParent.address}
             ></textarea>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -155,7 +155,7 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
                 required: "Email ID Required",
               })}
               disabled={canEdit}
-              defaultValue={loggedinParent.emailId}
+              //defaultValue={loggedinParent.emailId}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
@@ -184,7 +184,7 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              defaultValue={loggedinGuardian.guardianName}
+              //defaultValue={loggedinGuardian.guardianName}
             ></input>
           </Row>
 
@@ -195,7 +195,7 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
               disabled={canEdit}
-              defaultValue={loggedinGuardian.address}
+              //defaultValue={loggedinGuardian.address}
             ></textarea>
           </Row>
 
@@ -207,7 +207,7 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               className={classes.box}
               type="text"
               disabled={canEdit}
-              defaultValue={loggedinGuardian.mobileNumber}
+              //defaultValue={loggedinGuardian.mobileNumber}
             ></input>
           </Row>
 
@@ -219,7 +219,7 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
               className={classes.box}
               type="text"
               disabled={canEdit}
-              defaultValue={loggedinGuardian.emailId}
+              //defaultValue={loggedinGuardian.emailId}
             ></input>
           </Row>
           <Row>

@@ -1,12 +1,33 @@
-import React from 'react'
+import React ,{ useEffect , useState} from 'react'
 import { useForm } from 'react-hook-form';
 import classes from "../styles/studentMainPage.module.css";
 import { ApiService } from "../services/api.service"
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-export const CoCurricular = () => {
-    const {register,handleSubmit,getValues,setValue} = useForm();
+import { ExtraCurricular } from '../interfaces/ExtraCurricular';
+export const CoCurricular = ({studentId}) => {
+
+    var logedinStudent:ExtraCurricular=new ExtraCurricular();
+    const [loggedinStudent,setloggedinStudent]=useState<ExtraCurricular>(Object);
     let apiService: ApiService = new ApiService();
+    let url:string
+    useEffect(()=> {
+        url=`extracurricular/${studentId}/list`;
+        apiService.get(url)
+        .then((res) => {
+            const data=res;
+            setloggedinStudent(data);
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    },[]);
+
+    const {register,handleSubmit,getValues,setValue} = useForm();
+   
+
+
     const submitProfile = (values) => {
       console.log(values);
     };
@@ -25,10 +46,10 @@ export const CoCurricular = () => {
                         <th style={{width:"5%"}}className={classes.table}>YEAR 4</th>
                     </tr>
                     <tr>
-                        <td className={classes.dataitem}><input className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year1} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year2} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year3} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year4} className={classes.inputbox}></input></td>
                     </tr>
                 </table>
             </form>

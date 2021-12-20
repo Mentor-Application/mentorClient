@@ -179,7 +179,7 @@ export const index = ({ data }) => {
             pageRoute.match("additionaldetails") &&
             studentId.length !== 0
           ) {
-            return <AdditionalDetails></AdditionalDetails>;
+            return <AdditionalDetails studentId={studentId}></AdditionalDetails>;
           } else {
             return <></>;
           }

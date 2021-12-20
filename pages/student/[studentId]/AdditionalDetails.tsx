@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import classes from "../../../styles/studentMainPage.module.css";
 import Link from 'next/dist/client/link';
 import { useForm } from "react-hook-form";
@@ -8,33 +8,52 @@ import CoCurricular from '../../../components/CoCurricular';
 import { Row } from 'react-bootstrap';
 import OverallAssesment from '../../../components/OverallAssesment';
 import Btech from '../../../components/Btech';
-export const AdditionalDetails = () => {
+import { ApiService } from '../../../services/api.service';
+import { Additional } from '../../../interfaces/Additional';
+export const AdditionalDetails = ({studentId}) => {
+
+   var logedinStudent:Additional=new Additional();
+   const [loggedinStudent,setloggedinStudent]=useState<Additional>(Object);
+   let apiService: ApiService = new ApiService();
+   let url:string
+   useEffect(()=> {
+       url=`additional/${studentId}/list`;
+       apiService.get(url)
+       .then((res) => {
+           const data=res;
+           setloggedinStudent(data);
+           console.log(data);
+         })
+         .catch((err) => {
+           console.log(err);
+         });
+   },[]);
     return (
         <div style={{ background: "#ffffff", borderRadius: "30px", width:"98%",height: "90%",marginTop:"70px",overflowY:"scroll" }}
         className="col-11 col-xl-4 col-lg-4 col-md-6 col-sm-7 d-flex flex-column">
 
                     <div style={{ height: "50%" }}
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
-                       <DisciplinaryAction></DisciplinaryAction> </div>
+                       <DisciplinaryAction studentId={studentId}></DisciplinaryAction> </div>
                         
                     <div style={{ height: "50%" }}
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
-                       <CoCurricular></CoCurricular> </div>
+                       <CoCurricular studentId={studentId}></CoCurricular> </div>
                         
                     <div style={{ height: "50%" }}
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
-                       <OverallAssesment></OverallAssesment> </div>
+                       <OverallAssesment studentId={studentId}></OverallAssesment> </div>
                     
                     <div style={{ height: "50%" }}
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
-                       <Btech></Btech> </div>
+                       <Btech studentId={studentId}></Btech> </div>
                     <div>
                     <label className={classes.placement}>Career (PLacement) Information :</label>
-                    <textarea style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"25px",outlineColor:"black"}}
+                    <textarea defaultValue={loggedinStudent.careerInfo} style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"25px",outlineColor:"black"}}
                     className={classes.box}></textarea>
                   
                     <label className={classes.placement}>Graduate Study :</label>
-                    <textarea style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"25px",marginTop:"20px",outlineColor:"black" }}
+                    <textarea defaultValue={loggedinStudent.graduateStudy} style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"25px",marginTop:"20px",outlineColor:"black" }}
                     className={classes.box}></textarea>
                     </div>
 
