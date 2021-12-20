@@ -233,12 +233,13 @@
   background-color: black;
 }
 .Editbtn{
-  margin-left:"20px";
-  margin-top:"20px";
-  color:"#ffffff";
-  background-color:"#0166b2";
-  font-weight:"bold";
-  justify-items:'center';
+  margin-left: 20px;
+  margin-top:20px;
+  color:#ffffff;
+  background-color:#0166b2;
+  font-weight:bold;
+  justify-items:center;
+  border: none;
 }
 .Clearbtn{
   background-color: #0166b2;
@@ -249,4 +250,5 @@
   margin-left: 10%;
   font-weight: bold;
   justify-content: center;
+  border: none;
 }

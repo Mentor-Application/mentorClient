@@ -5,7 +5,7 @@ import prof from "../../../public/grey.jpg";
 import classes from "../../../styles/studentMainPage.module.css";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faUserTimes } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faUserTimes,faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import { MenteeItems } from "../../../interfaces";
 import { ApiService } from "../../../services/api.service";
 import { useForm } from "react-hook-form";
@@ -31,50 +31,58 @@ export const Mentees = () => {
       .then((res) => {
         const data = res;
         setMenteeCardItems(data);
-        console.log(data);
-        console.log(MenteeCardItems);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  const [removeMenteecards, setremoveMenteecards] = useState([]);
+  const [removeMenteecards, setRemoveMenteecards] = useState([]);
+  const [itemCard, setItemCard] = useState([]);
 
-  function handleremoveMentees(items, regNo) {
+  const handleremoveMentees=(items, regNo)=>  {
     const newMentees = MenteeCardItems.filter(
       (item) => item.registerNumber !== regNo
     );
-    console.log(newMentees);
+    removeMenteecards.push(items);
+    console.log("Remove",removeMenteecards)
     setMenteeCardItems(newMentees);
+    console.log("Mentees",MenteeCardItems);
+  }
+
+  const Clear=()=>{
+    setMenteeCardItems([]);
+    // MenteeCardItems.splice(0, MenteeCardItems.length)
     console.log(MenteeCardItems);
   }
 
+  const Undo=()=>{
+    console.log(MenteeCardItems);
+    // console.log("Removed",removeMenteecards);
+    // setMenteeCardItems([...MenteeCardItems,...removeMenteecards])
+    MenteeCardItems.push(...removeMenteecards);
+    console.log("After pushing",MenteeCardItems);
+  }
+
+  const Submit=()=>{
+    console.log("Submit");
+    console.log(removeMenteecards);
+  }
   // const [addMenteesActive, setaddMenteesActive] = useState(false);
+
   return (
     <div>
       <button
-        style={{
-          marginLeft: "20px",
-          marginTop: "20px",
-          color: "#ffffff",
-          backgroundColor: "#0166b2",
-          fontWeight: "bold",
-          justifyItems: "center",
-        }}
+        className={classes.Editbtn}
         onClick={() => {
-          setIsEdit(true);
+          setIsEdit(!isEdit);
         }}
       >
         Edit Mentees
       </button>
       <button
         type="button"
-        onClick={() => {
-          // alert('Do you want to clear the mentee list?')
-          MenteeCardItems.splice(0, MenteeCardItems.length);
-          console.log(MenteeCardItems);
-        }}
+        onClick={Clear}
         className={classes.Clearbtn}
       >
         Clear Mentees
@@ -101,18 +109,15 @@ export const Mentees = () => {
             <div>
               {isEdit ? (
                 <button
-                  style={{ top: "0px", right: "0px" }}
+                  style={{ top: "0px", right: "0px",background:'none',marginLeft:'70%',border:'none' }}
                   onClick={() =>
                     handleremoveMentees(items, items.registerNumber)
                   }
                 >
                   <FontAwesomeIcon
                     style={{
-                      marginTop: " 5%",
-                      marginLeft: "20px",
-                      color: "#0166b2",
-                    }}
-                    icon={faUserTimes}
+                      marginTop: " 5%",marginLeft: "5px",color: "#ff0000",alignItems:'center'}}
+                    icon={faMinusCircle}
                   />
                 </button>
               ) : null}
@@ -130,6 +135,31 @@ export const Mentees = () => {
           </div>
         </div>
       ))}
+      
+      <div>
+              {isEdit ? (
+                <button
+                  style={{ top: "0px", right: "0px" }}
+                  className={classes.Clearbtn}
+                  onClick={Submit}
+                >
+                  Submit
+                </button>
+              ) : null}
+      </div>
+
+      <div>
+              {isEdit ? (
+                <button
+                  style={{ top: "0px", right: "0px" }}
+                  className={classes.Clearbtn}
+                  onClick={Undo}
+                >
+                  Undo
+                </button>
+              ) : null}
+      </div>
+
     </div>
   );
 };
