@@ -10,6 +10,8 @@ import OverallAssesment from '../../../components/OverallAssesment';
 import Btech from '../../../components/Btech';
 import { ApiService } from '../../../services/api.service';
 import { Additional } from '../../../interfaces/Additional';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 export const AdditionalDetails = ({studentId}) => {
 
    var logedinStudent:Additional=new Additional();
@@ -28,6 +30,20 @@ export const AdditionalDetails = ({studentId}) => {
            console.log(err);
          });
    },[]);
+
+   const {register,handleSubmit,getValues,setValue} = useForm();
+
+   const submitProfile = (values) => {
+
+      console.log(values);
+      apiService.post("additional/update",values)
+      .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  };
     return (
         <div style={{ background: "#ffffff", borderRadius: "30px", width:"98%",height: "90%",marginTop:"70px",overflowY:"scroll" }}
         className="col-11 col-xl-4 col-lg-4 col-md-6 col-sm-7 d-flex flex-column">
@@ -44,22 +60,9 @@ export const AdditionalDetails = ({studentId}) => {
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
                        <OverallAssesment studentId={studentId}></OverallAssesment> </div>
                     
-                    <div style={{ height: "50%" }}
+                    <div style={{ height: "90%" }}
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
-                       <Btech studentId={studentId}></Btech> </div>
-                    <div>
-                    <label className={classes.placement}>Career (PLacement) Information :</label>
-                    <textarea defaultValue={loggedinStudent.careerInfo} style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"25px",outlineColor:"black"}}
-                    className={classes.box}></textarea>
-                  
-                    <label className={classes.placement}>Graduate Study :</label>
-                    <textarea defaultValue={loggedinStudent.graduateStudy} style={{ width: "80%", height: "100%",marginLeft:"30px",marginBottom:"25px",marginTop:"20px",outlineColor:"black" }}
-                    className={classes.box}></textarea>
-                    </div>
-
-                    
-                    
-                        
+                       <Btech studentId={studentId}></Btech> </div>             
         </div>
     )
 }

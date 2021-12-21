@@ -28,24 +28,22 @@ export const DisciplinaryAction = ({studentId}) => {
           });
     },[]);
 
-    const submitdisciplinary=(e) => {
-        
-        apiService.post("disciplinary/update",Disciplinary)
+    const {register,handleSubmit,getValues,setValue} = useForm();
+    
+    
+    const submitProfile = (values) => {
+
+        apiService.post("disciplinary/update",values)
         .then((res) => {
             console.log(res);
           })
           .catch((err) => {
             console.log(err);
           });
-    }
-    const {register,handleSubmit,getValues,setValue} = useForm();
-    
-    const submitProfile = (values) => {
-      console.log(values);
     };
     return (
         <div  style={{height:"100%"}}className={classes.forms}>
-            {/* <form onSubmit={handleSubmit(submitProfile)}className="justify-content-around  d-flex flex-column "> */}
+            <form className="justify-content-around  d-flex flex-column ">
                 <div className={classes.discipline}>Particulars of Disciplinary action</div>
                 <span style={{fontSize:" small",marginLeft:" 20px"}}>
                     (Whether transferred to or from other college,Migration,Discontinuation,Repetition,Detention due to lack of attendance , striking off from rolls,disciplinary actions,stoppage of scholarships,etc.)
@@ -58,18 +56,18 @@ export const DisciplinaryAction = ({studentId}) => {
                         <th style={{width:"5%"}}className={classes.table}>YEAR 4</th>
                     </tr>
                     <tr>
-                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year1} className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year2} className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year3} className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year4} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input {...register("year1")} defaultValue={loggedinStudent.year1} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input {...register("year2")} defaultValue={loggedinStudent.year2} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input {...register("year3")} defaultValue={loggedinStudent.year3} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input {...register("year4")} defaultValue={loggedinStudent.year4} className={classes.inputbox}></input></td>
                     </tr>
                 </table>
-                
-            {/* </form> */}
-            <button className={classes.icon}
-                        onClick={(e)=>{
-                            handleSubmit(submitdisciplinary)
-                        }}
+                   
+            </form>
+            <button onClick={()=>{
+                setValue("studentId",studentId)
+                handleSubmit(submitProfile)()
+            }} className={classes.icon}
                 ><FontAwesomeIcon  style={{ fontSize: "110%" }} icon={faCheck} /></button>
         </div>
         

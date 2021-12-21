@@ -5,6 +5,8 @@ import { ApiService } from "../services/api.service"
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ExtraCurricular } from '../interfaces/ExtraCurricular';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 export const CoCurricular = ({studentId}) => {
 
     var logedinStudent:ExtraCurricular=new ExtraCurricular();
@@ -29,11 +31,19 @@ export const CoCurricular = ({studentId}) => {
 
 
     const submitProfile = (values) => {
-      console.log(values);
+        console.log(values);
+        apiService.post("extracurricular/update",values)
+        .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
     };
     return (
         <div style={{height:"100%"}} className={classes.forms}>
-            <form onSubmit={handleSubmit(submitProfile)}className="justify-content-around  d-flex flex-column ">
+            <form className="justify-content-around  d-flex flex-column ">
             <div className={classes.discipline}>Extra-Curricular/Co-Curricular Activities :</div>
                 <span style={{fontSize:" small",marginLeft:" 20px"}}>
                    (Sports,Competitions,Club Activities,Services,Hobbies)
@@ -46,13 +56,19 @@ export const CoCurricular = ({studentId}) => {
                         <th style={{width:"5%"}}className={classes.table}>YEAR 4</th>
                     </tr>
                     <tr>
-                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year1} className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year2} className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year3} className={classes.inputbox}></input></td>
-                        <td className={classes.dataitem}><input defaultValue={loggedinStudent.year4} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input {...register("year1")} defaultValue={loggedinStudent.year1} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input {...register("year2")} defaultValue={loggedinStudent.year2} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input {...register("year3")} defaultValue={loggedinStudent.year3} className={classes.inputbox}></input></td>
+                        <td className={classes.dataitem}><input {...register("year4")} defaultValue={loggedinStudent.year4} className={classes.inputbox}></input></td>
                     </tr>
                 </table>
             </form>
+            <button onClick={()=>{
+                setValue("studentId",studentId)
+                handleSubmit(submitProfile)()
+            }}  className={classes.icon}
+            ><FontAwesomeIcon  style={{ fontSize: "110%" }} icon={faCheck} />
+            </button>
         </div>
     )
 }

@@ -1,4 +1,5 @@
 export class Overall{
+    
     studentId!: string;
     year1!: string;
     year2!: string;
@@ -7,6 +8,7 @@ export class Overall{
 
     deserialize(input: any, output: any): this{
         if(input) {
+            
             output.studentId=input.studentId;
             output.year1=input.year1;
             output.year2=input.year2;
