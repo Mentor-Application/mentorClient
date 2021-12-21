@@ -121,7 +121,7 @@ const GoalsGrid = ({ studentId, canEditProp }) => {
                     key={items.goal}
                     disabled={canEdit}
                     onChange={(e) => {
-                      items.goal == e.target.value;
+                      items.goal = e.target.value;
                     }}
                     defaultValue={items.goal}
                     className={classes.inputbox}
@@ -133,7 +133,7 @@ const GoalsGrid = ({ studentId, canEditProp }) => {
                     key={items.planOfAction}
                     disabled={canEdit}
                     onChange={(e) => {
-                      items.planOfAction == e.target.value;
+                      items.planOfAction = e.target.value;
                     }}
                     defaultValue={items.planOfAction}
                     className={classes.inputbox}

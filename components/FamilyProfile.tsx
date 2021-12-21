@@ -111,10 +111,13 @@ const FamilyProfile = ({ studentId, canEditProp }) => {
                 <td className={classes.table}>
                   {(() => {
                     if (index + 1 === 1) {
+                      items.relationShip = "Father";
                       return "Father";
                     } else if (index + 1 === 2) {
+                      items.relationShip = "Mother";
                       return "Mother";
                     } else {
+                      items.relationShip = "sibling(s)";
                       return "Sibling(s)";
                     }
                   })()}

@@ -127,7 +127,7 @@ const ChallengesSupport = ({ studentId, canEditProp }) => {
                     key={items.challenges}
                     disabled={canEdit}
                     onChange={(e) => {
-                      items.challenges == e.target.value;
+                      items.challenges = e.target.value;
                     }}
                     defaultValue={items.challenges}
                     className={classes.inputbox}
@@ -139,7 +139,7 @@ const ChallengesSupport = ({ studentId, canEditProp }) => {
                     key={items.sourceOfSupport}
                     disabled={canEdit}
                     onChange={(e) => {
-                      items.sourceOfSupport == e.target.value;
+                      items.sourceOfSupport = e.target.value;
                     }}
                     defaultValue={items.sourceOfSupport}
                     className={classes.inputbox}

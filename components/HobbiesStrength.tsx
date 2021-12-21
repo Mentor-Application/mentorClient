@@ -11,9 +11,9 @@ import { StrengthAssessment } from "../interfaces/StrengthAssessment";
 import { Student } from "../interfaces/student";
 
 const HobbiesStrength = ({ studentId, canEditProp }) => {
-
   var logedinstudent: StrengthAssessment = new StrengthAssessment();
-  const [loggedinStudent, setLoggedinStudent] = useState<StrengthAssessment>(Object);
+  const [loggedinStudent, setLoggedinStudent] =
+    useState<StrengthAssessment>(Object);
   const { register, handleSubmit } = useForm();
   const [canEdit, setCanEdit] = useState(false);
   const [hobbies, setHobbies] = useState<Array<Hobbies>>([]);
@@ -48,7 +48,6 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
               data.push({
                 hobbieId: "",
                 hobbie: "",
-
               });
             }
           }
@@ -58,13 +57,9 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
       .catch((err) => {
         console.log(err);
       });
-
-      
-
   }, []);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     url = `student/list/strengthassessment/${studentId}`;
     console.log("hello");
     setCanEdit(canEditProp);
@@ -73,16 +68,17 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
       .then((res) => {
         const data = res;
         console.log(data);
-        logedinstudent.deserialize(data, loggedinStudent);
+        setLoggedinStudent(data);
+        //logedinstudent.deserialize(data, loggedinStudent);
         console.log(loggedinStudent);
       })
-        .catch((err) => {
-          console.log(err);
-        });  
-  },[])
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const onsubmit = (values) => {
-    console.log("hi")
+    console.log("hi");
     apiService
       .post(`student/${studentId}/strengthassessment`, values)
 
@@ -107,7 +103,6 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
       .catch((err) => {
         console.log(err);
       });
-      
   };
 
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
@@ -130,31 +125,30 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
           >
             Top three Hobbies{" "}
           </h4>
-    {hobbies.map((items, index) => {
+          {hobbies.map((items, index) => {
             return (
-          <div
-            style={{
-              marginLeft: "15%",
-              color: "#0166b2",
-              fontWeight: "bold",
-              overflowX: "scroll",
-              marginTop: "1%",
-            }}
-          >
-            {index+1}
-            <input
-              key={items.hobbie}
-              disabled={canEdit}
-              onChange={(e) => {
-                items.hobbie == e.target.value;
-              }}
-              defaultValue={items.hobbie}
-              className={classes.inputgoals}
-              type="text"
-            ></input>
-          </div>
-
-          );
+              <div
+                style={{
+                  marginLeft: "15%",
+                  color: "#0166b2",
+                  fontWeight: "bold",
+                  overflowX: "scroll",
+                  marginTop: "1%",
+                }}
+              >
+                {index + 1}
+                <input
+                  key={items.hobbie}
+                  disabled={canEdit}
+                  onChange={(e) => {
+                    items.hobbie = e.target.value;
+                  }}
+                  defaultValue={items.hobbie}
+                  className={classes.inputgoals}
+                  type="text"
+                ></input>
+              </div>
+            );
           })}
           <h4
             style={{
@@ -175,10 +169,11 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
             }}
           >
             I am{" "}
-            <input {...register("iAm")} 
-            disabled={canEdit}
-            className={classes.inputgoals}
-            defaultValue={loggedinStudent.iCan}
+            <input
+              {...register("iAm")}
+              disabled={canEdit}
+              className={classes.inputgoals}
+              defaultValue={loggedinStudent.iCan}
             ></input>
           </div>
 

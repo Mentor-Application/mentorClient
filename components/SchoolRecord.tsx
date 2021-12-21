@@ -114,16 +114,19 @@ const SchoolRecord = ({ studentId, canEditProp }) => {
             </th>
             <th className={classes.tablehead}>Percentage</th>
           </tr>
-        {schoolRecord.map((items, index) => {
+          {schoolRecord.map((items, index) => {
             return (
               <tr>
                 <td className={classes.tablehead}>
                   {(() => {
                     if (index + 1 === 1) {
+                      items.course = "11th";
                       return "11th";
                     } else if (index + 1 === 2) {
+                      items.course = "12th";
                       return "12th";
                     } else {
+                      items.course = "Diploma";
                       return "Diploma";
                     }
                   })()}
