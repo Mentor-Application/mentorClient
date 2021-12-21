@@ -10,6 +10,7 @@ export class Student {
   studentId!: string;
   registerNumber!: string;
   studentName!: string;
+  personalEmail!:string;
   mentorId!: string;
   gender!: string;
   dob!: string;
@@ -40,6 +41,7 @@ export class Student {
       output.studentId = input.studentId;
       output.registerNumber = input.registerNumber;
       output.studentName = input.studentName;
+      output.personalEmail=input.personalEmail;
       output.mentorId = input.mentorId;
       output.gender = input.gender;
       output.dob = input.dob;

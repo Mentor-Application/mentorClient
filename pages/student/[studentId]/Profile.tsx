@@ -7,7 +7,7 @@ import ParentGuardian from "../../../components/ParentGuardian";
 import SchoolRecord from "../../../components/SchoolRecord";
 import StudentProfile from "../../../components/StudentProfile";
 
-export const Profile = ({ studentId, canEdit }) => {
+export const Profile = ({ studentId, canEdit,editButton}) => {
   return (
     <div
       style={{
@@ -23,6 +23,7 @@ export const Profile = ({ studentId, canEdit }) => {
         <StudentProfile
           canEditProp={canEdit}
           studentId={studentId}
+          editButton={editButton}
         ></StudentProfile>
       </div>
       <div

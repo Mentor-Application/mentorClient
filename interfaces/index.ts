@@ -28,4 +28,5 @@ export type MenteeItems = {
 export type viewProfile = {
   studentId: string;
   canEdit: boolean;
+  editButton:boolean;
 };

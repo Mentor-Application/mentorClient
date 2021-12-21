@@ -19,6 +19,7 @@ export const index = () => {
   const [meetActive, setmeetActive] = useState(false);
   const [careerActive, setcareerActive] = useState(false);
   const [navHidden, setNavHidden] = useState(true);
+  const [editbuttonHidden, setEditButtonHidden] = useState(false);
   const [childProp, setChildProp] = useState<viewProfile>(Object);
   const router = useRouter();
 
@@ -30,11 +31,12 @@ export const index = () => {
       : "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 d-none d-sm-flex"
   } `;
 
-  const getChildProp = (studentId, canEdit, route) => {
+  const getChildProp = (studentId:string, canEdit:boolean,route:string,editButton?:boolean) => {
     childProp.studentId = studentId;
     childProp.canEdit = canEdit;
     setNavHidden(false);
     setmentorRoute(route);
+    childProp.editButton=editButton;
   };
 
   useEffect(() => {
@@ -178,12 +180,13 @@ export const index = () => {
           if (mentorRoute.match("addmentees")) {
             return <AddMentees sendProp={getChildProp}></AddMentees>;
           } else if (mentorRoute.match("mentees")) {
-            return <Mentees></Mentees>;
+            return <Mentees sendProp={getChildProp}></Mentees>;
           } else if (mentorRoute.match("profile")) {
             return (
               <Profile
                 canEdit={childProp.canEdit}
                 studentId={childProp.studentId}
+                editButton={childProp.editButton}
               ></Profile>
             );
           } else if (mentorRoute.match("marks")) {
@@ -198,10 +201,11 @@ export const index = () => {
               <MentorMeetingDetails
                 canEditProp={childProp.canEdit}
                 studentId={childProp.studentId}
+
               ></MentorMeetingDetails>
             );
           } else if (mentorRoute.match("additionaldetails")) {
-            return <AdditionalDetails></AdditionalDetails>;
+            return <AdditionalDetails studentId={childProp.studentId}></AdditionalDetails>;
           } else {
             return <></>;
           }

@@ -12,7 +12,7 @@ import { ApiService } from "../services/api.service";
 import { Student } from "../interfaces/student";
 import { User } from "../interfaces";
 
-export const StudentProfile = ({ studentId, canEditProp }) => {
+export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
   let apiService: ApiService = new ApiService();
   var logedinstudent: Student = new Student();
   const [loggedinStudent, setLoggedinStudent] = useState<Student>(Object);
@@ -55,6 +55,10 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
       setIsLoarding(false);
     });
   }, []);
+
+  const edit=()=>{
+    setCanEdit(false);
+  }
 
   const submitProfile = (values) => {
     setLoggedinStudent(values);
@@ -156,7 +160,6 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
                 })}
                 disabled={canEdit}
                 style={{
-                  color: "#0166b2",
                   backgroundColor: "white",
                   border: "1.5px solid #0166b2",
                   borderRadius: "15px",
@@ -295,7 +298,6 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
                   required: "Mode Required",
                 })}
                 style={{
-                  color: "#0166b2",
                   backgroundColor: "white",
                   border: "1.5px solid #0166b2",
                   borderRadius: "15px",
@@ -343,8 +345,27 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
         </div>
         {/* <div className={middileLine}></div> */}
         <div className="d-flex flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
-          <Row className="d-flex justify-content-center">
+        <Row className="d-flex justify-content-center">
             <label style={{ marginTop: "10%" }} className={classes.label}>
+              Register Number
+            </label>
+            <input
+              disabled={canEdit}
+              {...register("registerNumber", {
+                required: "Register Number Required",
+              })}
+              style={{ width: "80%" }}
+              className={classes.box}
+              type="text"
+              defaultValue={loggedinStudent.registerNumber}
+            ></input>
+            <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="registerNumber" />
+            </span>
+          </Row>
+          <Row className="d-flex justify-content-center">
+            <label  className={classes.label}>
               Email ID
             </label>
             <input
@@ -355,7 +376,7 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
               style={{ width: "80%" }}
               className={classes.box}
               type="email"
-              defaultValue={loggedinStudent.emailId}
+              defaultValue={loggedinStudent.personalEmail}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -390,7 +411,22 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
               className={classes.box}
               type="text"
               defaultValue={loggedinStudent.periodOfStudy}
+              list="batch"
             ></input>
+            <datalist id="batch">
+                <option value="2018-2022" />
+                <option value="2019-2023" />
+                <option value="2020-2024" />
+                <option value="2021-2025" />
+                <option value="2022-2026" />
+                <option value="2023-2027" />
+                <option value="2024-2028" />
+                <option value="2025-2029" />
+                <option value="2026-2030" />
+                <option value="2027-2031" />
+                <option value="2028-2032" />
+                <option value="2029-2033" />
+              </datalist>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
               <ErrorMessage errors={errors} name="periodOfStudy" />
@@ -453,10 +489,22 @@ export const StudentProfile = ({ studentId, canEditProp }) => {
               <button className={classes.icon} title="Submit" type="submit">
                 <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
               </button>
+              
             </div>
           </Row>
         </div>
       </form>
+      <div>
+        {editButton ? (
+          <button
+            style={{ top: "0px", right: "0px" }}
+            className={classes.Clearbtn}
+            onClick={edit}
+          >
+            Edit
+          </button>
+        ) : null}
+      </div>
     </div>
   );
 };

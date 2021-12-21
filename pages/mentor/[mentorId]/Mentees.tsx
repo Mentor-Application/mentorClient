@@ -3,21 +3,24 @@ import MenteeCard from "../../../components/MenteeCard";
 import { User } from "../../../interfaces";
 import prof from "../../../public/grey.jpg";
 import classes from "../../../styles/studentMainPage.module.css";
+import Row from "react-bootstrap/Row";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
   faUserTimes,
   faMinusCircle,
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
 import { ApiService } from "../../../services/api.service";
 
 type MenteeCardItems = {
   studentName: string;
   registerNumber: string;
+  studentId:string;
 };
 
-export const Mentees = ({}) => {
+export const Mentees = ({sendProp}) => {
   let loggedInUser: User;
   let url: string;
 
@@ -28,6 +31,7 @@ export const Mentees = ({}) => {
     Array<MenteeCardItems>
   >([]);
   const [removeMenteecards, setRemoveMenteecards] = useState([]);
+  const [clearMentee, setClearMentee] = useState([]);
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
     apiService
@@ -35,16 +39,13 @@ export const Mentees = ({}) => {
       .then((res) => {
         const data = res;
         setMenteeCardItems(data);
+        setClearMentee(data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  useEffect(() => {
-    console.log("menetee", MenteeCardItems);
-    console.log("remov", removeMenteecards);
-  }, [MenteeCardItems, removeMenteecards]);
 
   const handleremoveMentees = (items, regNo) => {
     const newMentees = MenteeCardItems.filter(
@@ -57,6 +58,16 @@ export const Mentees = ({}) => {
   const Clear = () => {
     setRemoveMenteecards(MenteeCardItems);
     setMenteeCardItems([]);
+    // loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    // apiService
+    //   .post(`student/mentor/${loggedInUser.mentorId}/editmentee`, clearMentee)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // alert("Mentees List have been cleared");
   };
 
   const Undo = () => {
@@ -68,10 +79,21 @@ export const Mentees = ({}) => {
   const Submit = () => {
     console.log("Submit");
     console.log(removeMenteecards);
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    apiService
+      .post(`student/mentor/${loggedInUser.mentorId}/editmentee`, removeMenteecards)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    alert("Mentees List have been submitted");
   };
 
   return (
     <div>
+      <div>
       <button
         className={classes.Editbtn}
         onClick={() => {
@@ -79,9 +101,6 @@ export const Mentees = ({}) => {
         }}
       >
         Edit Mentees
-      </button>
-      <button type="button" onClick={Clear} className={classes.Clearbtn}>
-        Clear Mentees
       </button>
       {MenteeCardItems.map((items) => (
         <div>
@@ -100,8 +119,6 @@ export const Mentees = ({}) => {
             className="col-11 col-xl-4 col-lg-4 col-md-6 col-sm-7 d-flex flex-column
         justify-content-center "
           >
-            <Image width={15} height={115} src={prof}></Image>
-
             <div>
               {isEdit ? (
                 <button
@@ -128,6 +145,7 @@ export const Mentees = ({}) => {
                 </button>
               ) : null}
             </div>
+            <Image width={15} height={115} src={prof}></Image>
 
             <div
               style={{
@@ -136,36 +154,58 @@ export const Mentees = ({}) => {
                 fontWeight: "bold",
               }}
             >
-              {items.studentName}-{items.registerNumber}
+              {items.studentName}
+              <button
+                  style={{
+                    top: "0px",
+                    right: "0px",
+                    background: "none",
+                    marginLeft: "70%",
+                    border: "none",
+                  }}
+                  onClick={() => sendProp(items.studentId, true,"profile",true)}
+                >
+                  <FontAwesomeIcon
+                    style={{
+                      marginTop: " 5%",
+                      marginLeft: "5px",
+                      color: "#0166b2",
+                      alignItems: "center",
+                    }}
+                    icon={faUser}
+                    
+                  />
+                </button>
+                {items.registerNumber}
             </div>
           </div>
         </div>
       ))}
-
+      </div>
       <div>
+     <Row> <div style={{marginTop:'60%'}}>
         {isEdit ? (
-          <button
-            style={{ top: "0px", right: "0px" }}
-            className={classes.Clearbtn}
-            onClick={Submit}
-          >
+          <button className={classes.Clearbtn} onClick={Submit}>
             Submit
           </button>
         ) : null}
-      </div>
-
-      <div>
+      
         {isEdit ? (
-          <button
-            style={{ top: "0px", right: "0px" }}
-            className={classes.Clearbtn}
-            onClick={Undo}
-          >
+          <button className={classes.Clearbtn} onClick={Undo}>
             Undo
           </button>
         ) : null}
+      
+      {isEdit ? (
+      <button onClick={Clear} className={classes.Clearbtn}>
+        Clear 
+      </button>
+      ):null}
       </div>
-    </div>
+      </Row>
+      </div>
+      </div>
+    
   );
 };
 

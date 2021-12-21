@@ -162,7 +162,7 @@ export const index = ({ data }) => {
         </button>
         {(() => {
           if (pageRoute.match("profile") && studentId.length !== 0) {
-            return <Profile studentId={studentId} canEdit={false}></Profile>;
+            return <Profile studentId={studentId} canEdit={false} editButton={false}></Profile>;
           } else if (pageRoute.match("marks") && studentId.length !== 0) {
             return <Marks canEdit={false} studentId={studentId}></Marks>;
           } else if (
