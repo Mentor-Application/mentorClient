@@ -3,15 +3,16 @@ import classes from "../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { User } from "../interfaces";
 import { Challenges } from "../interfaces/Challenges";
 
-const ChallengesSupport = ({ studentId, canEditProp }) => {
+const ChallengesSupport = ({ studentId, canEditProp,editButton}) => {
   const [canEdit, setCanEdit] = useState(false);
   const [challengesSupport, setChallengesSupport] = useState<Array<Challenges>>(
     []
   );
+  const [toggleEdit, setToggleEdit] = useState(true);
 
   let url: string;
 
@@ -82,6 +83,12 @@ const ChallengesSupport = ({ studentId, canEditProp }) => {
       });
   };
 
+  const edit=(e)=>{
+    e.preventDefault();
+    setCanEdit(!toggleEdit);
+    setToggleEdit(!toggleEdit);
+  }
+
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
   return (
@@ -150,10 +157,22 @@ const ChallengesSupport = ({ studentId, canEditProp }) => {
             );
           })}
         </table>
-        <div style={{ marginTop: "5%", marginLeft: "60%" }}>
+        <div style={{ marginTop: "5%", marginLeft: "70%",marginBottom:'5%' }}>
+      {editButton ? (
+          <button
+            className={classes.icon}
+            onClick={edit}
+            title="Edit"
+            style={{marginRight:'10px'}}
+          >
+            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+          </button>
+        ) : null}
+
           <button
             className={classes.icon}
             type="button"
+            // style={{marginLeft:'1%'}}
             onClick={(e) => {
               console.log(challengesSupport);
               updateChallengesSupport(e);

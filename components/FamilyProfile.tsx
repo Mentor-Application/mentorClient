@@ -3,13 +3,14 @@ import classes from "../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FamilyProfile } from "../interfaces/FamilyProfile";
 import SchoolRecord from "./SchoolRecord";
 
-const FamilyProfile = ({ studentId, canEditProp }) => {
+const FamilyProfile = ({ studentId, canEditProp,editButton }) => {
   const [canEdit, setCanEdit] = useState(false);
   const [familyProfile, setFamilyProfile] = useState<Array<FamilyProfile>>([]);
+  const [toggleEdit, setToggleEdit] = useState(true);
 
   let url: string;
 
@@ -81,6 +82,12 @@ const FamilyProfile = ({ studentId, canEditProp }) => {
         console.log(err);
       });
   };
+
+  const edit=(e)=>{
+    e.preventDefault();
+    setCanEdit(!toggleEdit);
+    setToggleEdit(!toggleEdit);
+  }
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
@@ -176,10 +183,22 @@ const FamilyProfile = ({ studentId, canEditProp }) => {
           })}
         </table>
       </form>
-      <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+      <div style={{ marginTop:'5%',marginLeft: "82%" }}>
+      {editButton ? (
+          <button
+            className={classes.icon}
+            onClick={edit}
+            title="Edit"
+            // style={{marginLeft:'60%'}}
+          >
+            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+          </button>
+        ) : null}
+        
         <button
           className={classes.icon}
           type="button"
+          style={{marginLeft:'5%'}}
           onClick={(e) => {
             console.log(familyProfile);
             updateFamilyProfile(e);
@@ -187,6 +206,7 @@ const FamilyProfile = ({ studentId, canEditProp }) => {
         >
           <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
         </button>
+        
       </div>
     </div>
   );

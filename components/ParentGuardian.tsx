@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 //import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { ApiService } from "../services/api.service";
@@ -15,11 +15,12 @@ import { User } from "../interfaces";
 import { LocalGuardian } from "../interfaces/LocalGuardian";
 import { Parent } from "../interfaces/Parent";
 
-export const ParentGuardian = ({ studentId, canEditProp }) => {
+export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
   var logedinGuardian: LocalGuardian = new LocalGuardian();
   const [loggedinGuardian, setLoggedinguardian] =
     useState<LocalGuardian>(Object);
   const [loggedinParent, setLoggedinParent] = useState<Parent>(Object);
+  const[toggleEdit,setToggleEdit]=useState(true);
 
   const {
     register,
@@ -71,6 +72,7 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
   }, []);
 
   const submitGuardian = (values) => {
+    setCanEdit(true);
     console.log(values);
     // const parentvalues = Object.assign(values);
     apiService
@@ -84,6 +86,7 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
   };
 
   const submitParent = (parentvalues) => {
+    setCanEdit(true);
     parentSetValue("studentId", studentId);
     console.log(parentvalues);
     apiService
@@ -95,6 +98,12 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
         console.log(err);
       });
   };
+
+  const edit=(e)=>{
+    e.preventDefault();
+    setCanEdit(!toggleEdit);
+    setToggleEdit(!toggleEdit);
+  }
 
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
 
@@ -224,8 +233,18 @@ export const ParentGuardian = ({ studentId, canEditProp }) => {
           </Row>
           <Row>
             <div
-              style={{ marginTop: "5%", marginBottom: "4%", marginLeft: "60%" }}
+              style={{ marginTop: "5%", marginBottom: "4%", marginLeft: "70%" }}
             >
+               {editButton ? (
+          <button
+            className={classes.icon}
+            onClick={edit}
+            title="Edit"
+            style={{marginRight:'10px'}}
+          >
+            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+          </button>
+        ) : null}
               <button
                 className={classes.icon}
                 onClick={(e) => {

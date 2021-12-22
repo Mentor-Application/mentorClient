@@ -110,8 +110,9 @@ export const AddMentees = ({ sendProp }) => {
           <input
             type="text"
             placeholder="Student Name"
-            style={{ height: "40px" }}
+            style={{ height: "40px",border:'none' }}
             {...register("studentname")}
+            className={classes.searchbutton}
           />
           <input
             {...register("branch")}
@@ -122,7 +123,9 @@ export const AddMentees = ({ sendProp }) => {
               width: "10%",
               height: "40px",
               marginLeft: "12%",
+              textAlign:'center'
             }}
+            className={classes.input}
             list="branches"
             type="text"
             placeholder="Branch"
@@ -147,7 +150,9 @@ export const AddMentees = ({ sendProp }) => {
               width: "10%",
               height: "40px",
               marginLeft: "12%",
+              textAlign:'center'
             }}
+            className={classes.input}
             list="section"
             type="text"
             placeholder="Section"
@@ -166,7 +171,9 @@ export const AddMentees = ({ sendProp }) => {
               width: "10%",
               height: "40px",
               marginLeft: "12%",
+              textAlign:'center'
             }}
+            className={classes.input}
             list="batch"
             type="text"
             placeholder="Batch"

@@ -4,14 +4,15 @@ import { ApiService } from "../services/api.service";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck,faPen } from "@fortawesome/free-solid-svg-icons";
 import { CatMark } from "../interfaces/CatMark";
 
-const CatMarks = ({ semesterName, studentId, canEditProp }) => {
+const CatMarks = ({ semesterName, studentId, canEditProp,editButton}) => {
   let apiService: ApiService = new ApiService();
   const [canEdit, setCanEdit] = useState(false);
   const [attendance, setAttendance] = useState(Number);
   const [catMarks, setcatMarks] = useState<Array<CatMark>>([]);
+  const [toggleEdit, setToggleEdit] = useState(true);
   let url: string;
 
   useEffect(() => {
@@ -175,6 +176,12 @@ const CatMarks = ({ semesterName, studentId, canEditProp }) => {
       });
   };
 
+  const edit=(e)=>{
+    e.preventDefault();
+    setCanEdit(!toggleEdit);
+    setToggleEdit(!toggleEdit);
+  }
+
   let whiteBox = `${classes.forms} col-12 col-xl-11 `;
 
   return (
@@ -300,9 +307,20 @@ const CatMarks = ({ semesterName, studentId, canEditProp }) => {
         </table>
       </form>
       <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+      {editButton ? (
+          <button
+            className={classes.icon}
+            onClick={edit}
+            title="Edit"
+            // style={{marginLeft:'60%'}}
+          >
+            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+          </button>
+        ) : null}
         <button
           className={classes.icon}
           type="button"
+          style={{marginLeft:'7%'}}
           onClick={(e) => {
             console.log(catMarks);
             updateMarks(e);

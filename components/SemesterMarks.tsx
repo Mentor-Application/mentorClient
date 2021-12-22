@@ -6,16 +6,17 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck,faPen } from "@fortawesome/free-solid-svg-icons";
 import { EndSem } from "../interfaces/EndSem";
 import MentorMeetingDetails from "../pages/student/[studentId]/MentorMeetingDetails";
 
-const SemesterMarks = ({ semesterName, studentId, canEditProp }) => {
+const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
   const [SemMarks, setSemMarks] = useState<Array<EndSem>>([]);
   const [credits, setCredits] = useState(String);
   const [totalGradePoints, setTotalGradePoints] = useState("");
   const [gpa, setgpa] = useState("");
   const [canEdit, setCanEdit] = useState(false);
+  const [toggleEdit, setToggleEdit] = useState(true);
   let apiService: ApiService = new ApiService();
   let url: string;
   useEffect(() => {
@@ -196,6 +197,12 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp }) => {
       });
   };
 
+  const edit=(e)=>{
+    e.preventDefault();
+    setCanEdit(!toggleEdit);
+    setToggleEdit(!toggleEdit);
+  }
+
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
   return (
@@ -338,9 +345,20 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp }) => {
           </div>
         </div>
         <div style={{ marginTop: "4%", marginLeft: "83%", marginBottom: "3%" }}>
+        {editButton ? (
+          <button
+            className={classes.icon}
+            onClick={edit}
+            title="Edit"
+            // style={{marginLeft:'60%'}}
+          >
+            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+          </button>
+        ) : null}
           <button
             className={classes.icon}
             type="button"
+            style={{marginLeft:'7%'}}
             onClick={(e) => {
               updateMarks(e);
             }}

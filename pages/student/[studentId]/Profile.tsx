@@ -33,6 +33,7 @@ export const Profile = ({ studentId, canEdit,editButton}) => {
         <ParentGuardian
           canEditProp={canEdit}
           studentId={studentId}
+          editButton={editButton}
         ></ParentGuardian>
       </div>
       <div
@@ -42,6 +43,7 @@ export const Profile = ({ studentId, canEdit,editButton}) => {
         <SchoolRecord
           canEditProp={canEdit}
           studentId={studentId}
+          editButton={editButton}
         ></SchoolRecord>
       </div>
       <div
@@ -51,6 +53,7 @@ export const Profile = ({ studentId, canEdit,editButton}) => {
         <FamilyProfile
           canEditProp={canEdit}
           studentId={studentId}
+          editButton={editButton}
         ></FamilyProfile>
       </div>
       <div
@@ -60,13 +63,18 @@ export const Profile = ({ studentId, canEdit,editButton}) => {
         <HobbiesStrength
           canEditProp={canEdit}
           studentId={studentId}
+          editButton={editButton}
         ></HobbiesStrength>
       </div>
       <div
         style={{ height: "70%" }}
         className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
       >
-        <GoalsGrid canEditProp={canEdit} studentId={studentId}></GoalsGrid>
+        <GoalsGrid 
+        canEditProp={canEdit} 
+        studentId={studentId}
+        editButton={editButton}
+        ></GoalsGrid>
       </div>
       <div
         style={{ height: "70%" }}
@@ -75,6 +83,7 @@ export const Profile = ({ studentId, canEdit,editButton}) => {
         <ChallengesSupport
           canEditProp={canEdit}
           studentId={studentId}
+          editButton={editButton}
         ></ChallengesSupport>
       </div>
     </div>

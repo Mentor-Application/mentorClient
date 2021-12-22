@@ -252,3 +252,10 @@
   justify-content: center;
   border: none;
 }
+
+.horizontalline{
+  opacity: 0.6;
+  background-color: #0166b2;
+  border-top: 2px solid #0166b2;
+  width: 60%;;
+}

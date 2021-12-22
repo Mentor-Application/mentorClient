@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck,faPen } from "@fortawesome/free-solid-svg-icons";
 import { ApiService } from "../services/api.service";
 import { Student } from "../interfaces/student";
 import { User } from "../interfaces";
@@ -20,6 +20,7 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
   const [canEdit, setCanEdit] = useState(false);
   const [isMale, setMale] = useState(false);
   const [isFemale, setFemale] = useState(false);
+  const [toggleEdit, setToggleEdit] = useState(true);
   let loggedInUser: User;
   let url: string;
 
@@ -56,11 +57,14 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
     });
   }, []);
 
-  const edit=()=>{
-    setCanEdit(false);
+  const edit=(e)=>{
+    e.preventDefault();
+    setCanEdit(!toggleEdit);
+    setToggleEdit(!toggleEdit);
   }
 
   const submitProfile = (values) => {
+    setCanEdit(true);
     setLoggedinStudent(values);
     setIsLoarding(false);
     // console.log(loggedInUser.email);
@@ -84,9 +88,9 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
   return (
     <div style={{ height: "90%" }} className={whiteBox}>
       <form
-        style={{ overflowY: "scroll", overflowX: "hidden" }}
-        onSubmit={handleSubmit(submitProfile)}
+        style={{ overflowY: "scroll", overflowX: "hidden"}}
         className="row d-flex justify-content-around"
+        
       >
         <div className="d-flex  flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
           <Row className="d-flex justify-content-center">
@@ -483,28 +487,37 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
             </span>
           </Row>
           <Row>
-            <div
-              style={{ marginTop: "5%", marginLeft: "60%", marginBottom: "5%" }}
+          <div
+              style={{ marginTop: "5%", marginBottom: "4%", marginLeft: "60%" }}
             >
-              <button className={classes.icon} title="Submit" type="submit">
+               {editButton ? (
+          <button
+            className={classes.icon}
+            onClick={edit}
+            title="Edit"
+            style={{marginRight:'10px'}}
+          >
+            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+          </button>
+        ) : null}
+              <button className={classes.icon} title="Submit" 
+              onClick={(e)=>{
+                e.preventDefault();
+                handleSubmit(submitProfile)();
+              }}
+              >
                 <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
               </button>
               
             </div>
           </Row>
+          
         </div>
+        
       </form>
-      <div>
-        {editButton ? (
-          <button
-            style={{ top: "0px", right: "0px" }}
-            className={classes.Clearbtn}
-            onClick={edit}
-          >
-            Edit
-          </button>
-        ) : null}
-      </div>
+      
+      
+      
     </div>
   );
 };

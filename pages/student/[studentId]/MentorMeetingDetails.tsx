@@ -4,14 +4,15 @@ import { useForm } from "react-hook-form";
 import { ApiService } from "../../../services/api.service";
 import { Dropdown, DropdownButton, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { MentorMeeting } from "../../../interfaces/MenorMeeting";
 
-export const MentorMeetingDetails = ({ studentId, canEditProp }) => {
+export const MentorMeetingDetails = ({ studentId, canEditProp,editButton}) => {
   const [mentorMeetingDetails, setMentor] = useState<Array<MentorMeeting>>([]);
   const [semesterName, setSemesterName] = useState("semester1");
   let apiService: ApiService = new ApiService();
   const [canEdit, setCanEdit] = useState(false);
+  const [toggleEdit, setToggleEdit] = useState(true);
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
   let url: string;
   useEffect(() => {
@@ -84,6 +85,12 @@ export const MentorMeetingDetails = ({ studentId, canEditProp }) => {
         console.log(err);
       });
   }, [semesterName]);
+
+  const edit=(e)=>{
+    e.preventDefault();
+    setCanEdit(!toggleEdit);
+    setToggleEdit(!toggleEdit);
+  }
 
   const updateMarks = (e) => {
     e.preventDefault();
@@ -284,6 +291,16 @@ export const MentorMeetingDetails = ({ studentId, canEditProp }) => {
             </table>
           </form>
           <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+          {editButton ? (
+          <button
+            className={classes.icon}
+            onClick={edit}
+            title="Edit"
+            // style={{marginLeft:'60%'}}
+          >
+            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+          </button>
+        ) : null}
             <button
               className={classes.icon}
               type="button"

@@ -164,7 +164,7 @@ export const index = ({ data }) => {
           if (pageRoute.match("profile") && studentId.length !== 0) {
             return <Profile studentId={studentId} canEdit={false} editButton={false}></Profile>;
           } else if (pageRoute.match("marks") && studentId.length !== 0) {
-            return <Marks canEdit={false} studentId={studentId}></Marks>;
+            return <Marks canEdit={false} studentId={studentId} editButton={false}></Marks>;
           } else if (
             pageRoute.match("mentormeeting") &&
             studentId.length !== 0
@@ -173,13 +173,14 @@ export const index = ({ data }) => {
               <MentorMeetingDetails
                 canEditProp={false}
                 studentId={studentId}
+                editButton={false}
               ></MentorMeetingDetails>
             );
           } else if (
             pageRoute.match("additionaldetails") &&
             studentId.length !== 0
           ) {
-            return <AdditionalDetails studentId={studentId}></AdditionalDetails>;
+            return <AdditionalDetails canEdit={false} studentId={studentId} editButton={false}></AdditionalDetails>;
           } else {
             return <></>;
           }

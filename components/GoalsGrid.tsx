@@ -3,13 +3,14 @@ import classes from "../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { User } from "../interfaces";
 import { GoalsGrid } from "../interfaces/GoalsGrid";
 
-const GoalsGrid = ({ studentId, canEditProp }) => {
+const GoalsGrid = ({ studentId, canEditProp,editButton}) => {
   const [canEdit, setCanEdit] = useState(false);
   const [goalsGrid, setGoalsGrid] = useState<Array<GoalsGrid>>([]);
+  const [toggleEdit, setToggleEdit] = useState(true);
 
   let url: string;
 
@@ -70,6 +71,7 @@ const GoalsGrid = ({ studentId, canEditProp }) => {
 
   let apiService: ApiService = new ApiService();
   const updateGoalsGrid = (e) => {
+    setCanEdit(true);
     e.preventDefault();
     setCanEdit(true);
     apiService
@@ -81,6 +83,13 @@ const GoalsGrid = ({ studentId, canEditProp }) => {
         console.log(err);
       });
   };
+
+  const edit=(e)=>{
+    e.preventDefault();
+    setCanEdit(!toggleEdit);
+    setToggleEdit(!toggleEdit);
+  }
+
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
   return (
@@ -145,10 +154,20 @@ const GoalsGrid = ({ studentId, canEditProp }) => {
           })}
         </table>
       </form>
-      <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+      <div style={{ marginTop: "-8%", marginLeft: "80%",marginBottom:'5%' }}>
+      {editButton ? (
+          <button
+            className={classes.icon}
+            onClick={edit}
+            title="Edit"
+          >
+            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+          </button>
+        ) : null}
         <button
           className={classes.icon}
           type="submit"
+          style={{marginLeft:'5%'}}
           onClick={(e) => {
             console.log(goalsGrid);
             updateGoalsGrid(e);

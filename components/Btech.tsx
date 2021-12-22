@@ -6,13 +6,20 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Additional } from "../interfaces/Additional";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-const Btech = ({ studentId }) => {
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
+
+
+const Btech = ({canEditProp,studentId,editButton }) => {
+
   var logedinStudent: Additional = new Additional();
   const [additional, setadditional] = useState<Additional>(Object);
   let apiService: ApiService = new ApiService();
+  const [toggleEdit, setToggleEdit] = useState(true);
+  const [canEdit, setCanEdit] = useState(false);
+
   let url: string;
   useEffect(() => {
+    setCanEdit(canEditProp);
     url = `additional/${studentId}/list`;
     apiService
       .get(url)
@@ -37,6 +44,12 @@ const Btech = ({ studentId }) => {
       });
   }, []);
   const { register, handleSubmit, getValues, setValue } = useForm();
+
+  const edit=(e)=>{
+    e.preventDefault();
+    setCanEdit(!toggleEdit);
+    setToggleEdit(!toggleEdit);
+  }
 
   const submitProfile = (values) => {
     console.log(values);
@@ -64,6 +77,7 @@ const Btech = ({ studentId }) => {
             Percentage:{" "}
             <input
               {...register("percentage")}
+              disabled={canEdit}
               defaultValue={additional.percentage}
               className={classes.credits}
             ></input>
@@ -75,6 +89,7 @@ const Btech = ({ studentId }) => {
             Class :{" "}
             <input
               {...register("className")}
+              disabled={canEdit}
               defaultValue={additional.className}
               className={classes.credits}
             ></input>
@@ -86,6 +101,7 @@ const Btech = ({ studentId }) => {
             Rank :{" "}
             <input
               {...register("rank")}
+              disabled={canEdit}
               defaultValue={additional.rank}
               className={classes.credits}
             ></input>
@@ -98,6 +114,7 @@ const Btech = ({ studentId }) => {
           </label>
           <textarea
             {...register("careerInfo")}
+            disabled={canEdit}
             defaultValue={additional.careerInfo}
             style={{
               width: "90%",
@@ -114,6 +131,7 @@ const Btech = ({ studentId }) => {
           </label>
           <textarea
             {...register("graduateStudy")}
+            disabled={canEdit}
             defaultValue={additional.graduateStudy}
             style={{
               width: "90%",
@@ -127,6 +145,17 @@ const Btech = ({ studentId }) => {
           ></textarea>
         </div>
       </form>
+      <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+      {editButton ? (
+          <button
+            className={classes.icon}
+            onClick={edit}
+            title="Edit"
+            // style={{marginLeft:'60%'}}
+          >
+            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+          </button>
+        ) : null}
       <button
         style={{ marginLeft: "50%" }}
         onClick={() => {
@@ -137,6 +166,7 @@ const Btech = ({ studentId }) => {
       >
         <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
       </button>
+      </div>
     </div>
   );
 };

@@ -4,19 +4,26 @@ import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { User } from "../interfaces";
 import { Hobbies } from "../interfaces/Hobbies";
 import { StrengthAssessment } from "../interfaces/StrengthAssessment";
 import { Student } from "../interfaces/student";
+import { ErrorMessage } from "@hookform/error-message";
 
-const HobbiesStrength = ({ studentId, canEditProp }) => {
+const HobbiesStrength = ({ studentId, canEditProp,editButton }) => {
   var logedinstudent: StrengthAssessment = new StrengthAssessment();
   const [loggedinStudent, setLoggedinStudent] =
     useState<StrengthAssessment>(Object);
-  const { register, handleSubmit } = useForm();
   const [canEdit, setCanEdit] = useState(false);
   const [hobbies, setHobbies] = useState<Array<Hobbies>>([]);
+  const [toggleEdit, setToggleEdit] = useState(true);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   let url: string;
 
@@ -90,8 +97,15 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
       });
   };
 
+  const edit=(e)=>{
+    e.preventDefault();
+    setCanEdit(!toggleEdit);
+    setToggleEdit(!toggleEdit);
+  }
+
   let apiService: ApiService = new ApiService();
   const updateHobbies = (e) => {
+    setCanEdit(true);
     e.preventDefault();
     console.log(hobbies);
     apiService
@@ -173,7 +187,7 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
               {...register("iAm")}
               disabled={canEdit}
               className={classes.inputgoals}
-              defaultValue={loggedinStudent.iCan}
+              defaultValue={loggedinStudent.iAm}
             ></input>
           </div>
 
@@ -187,11 +201,17 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
           >
             I have{" "}
             <input
-              {...register("iCan")}
+              {...register("iHave",{
+                required:"Required",
+              })}
               disabled={canEdit}
               className={classes.inputgoals}
-              defaultValue={loggedinStudent.iCan}
+              defaultValue={loggedinStudent.iHave}
             ></input>
+            {/* <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
+              {" "}
+              <ErrorMessage errors={errors} name="iHave" />
+            </span> */}
           </div>
 
           <div
@@ -204,19 +224,27 @@ const HobbiesStrength = ({ studentId, canEditProp }) => {
           >
             I can{" "}
             <input
-              {...register("iHave")}
+              {...register("iCan")}
               className={classes.inputgoals}
               disabled={canEdit}
               defaultValue={loggedinStudent.iCan}
             ></input>
           </div>
         </div>
-        <div
-          style={{ marginTop: "5%", marginLeft: "100%", marginBottom: "3%" }}
-        >
+        <div style={{ marginTop: "5%", marginLeft: "157%",marginBottom:'5%' }}>
+      {editButton ? (
+          <button
+            className={classes.icon}
+            onClick={edit}
+            title="Edit"
+          >
+            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+          </button>
+        ) : null}
           <button
             className={classes.icon}
             type="submit"
+            style={{marginLeft:'1%'}}
             onClick={(e) => {
               handleSubmit(onsubmit)();
               updateHobbies(e);

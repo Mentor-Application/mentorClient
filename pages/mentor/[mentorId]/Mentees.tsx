@@ -183,7 +183,7 @@ export const Mentees = ({sendProp}) => {
       ))}
       </div>
       <div>
-     <Row> <div style={{marginTop:'60%'}}>
+     <Row> <div style={{position:'fixed',bottom:'60px',left:'600px'}}>
         {isEdit ? (
           <button className={classes.Clearbtn} onClick={Submit}>
             Submit

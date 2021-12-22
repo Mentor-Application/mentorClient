@@ -115,6 +115,7 @@ export const index = () => {
             </button>
           </div>
           <div className="d-flex flex-column align-items-center ">
+           <hr style={{marginTop:'20%'}}hidden={navHidden} className={classes.horizontalline}/>
             <button
               hidden={navHidden}
               type="button"
@@ -194,6 +195,7 @@ export const index = () => {
               <Marks
                 canEdit={childProp.canEdit}
                 studentId={childProp.studentId}
+                editButton={childProp.editButton}
               ></Marks>
             );
           } else if (mentorRoute.match("mentormeeting")) {
@@ -201,11 +203,16 @@ export const index = () => {
               <MentorMeetingDetails
                 canEditProp={childProp.canEdit}
                 studentId={childProp.studentId}
+                editButton={childProp.editButton}
 
               ></MentorMeetingDetails>
             );
           } else if (mentorRoute.match("additionaldetails")) {
-            return <AdditionalDetails studentId={childProp.studentId}></AdditionalDetails>;
+            return <AdditionalDetails 
+            canEdit={childProp.canEdit}
+            studentId={childProp.studentId}
+            editButton={childProp.editButton}
+            ></AdditionalDetails>;
           } else {
             return <></>;
           }

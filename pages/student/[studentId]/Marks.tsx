@@ -7,7 +7,7 @@ import CatMarks from "../../../components/CatMarks";
 import { Dropdown, DropdownButton, Row } from "react-bootstrap";
 import SemesterMarks from "../../../components/SemesterMarks";
 
-export const Marks = ({ studentId, canEdit }) => {
+export const Marks = ({ studentId, canEdit,editButton }) => {
   const [semesterName, setSemesterName] = useState("semester1");
 
   return (
@@ -124,6 +124,7 @@ export const Marks = ({ studentId, canEdit }) => {
             semesterName={semesterName}
             studentId={studentId}
             canEditProp={canEdit}
+            editButton={editButton}
           ></CatMarks>
         </div>
 
@@ -135,6 +136,7 @@ export const Marks = ({ studentId, canEdit }) => {
             canEditProp={canEdit}
             semesterName={semesterName}
             studentId={studentId}
+            editButton={editButton}
           ></SemesterMarks>
         </div>
       </div>

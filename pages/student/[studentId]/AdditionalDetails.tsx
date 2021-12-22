@@ -12,7 +12,7 @@ import { ApiService } from '../../../services/api.service';
 import { Additional } from '../../../interfaces/Additional';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-export const AdditionalDetails = ({studentId}) => {
+export const AdditionalDetails = ({canEdit,studentId,editButton}) => {
 
    var logedinStudent:Additional=new Additional();
    const [loggedinStudent,setloggedinStudent]=useState<Additional>(Object);
@@ -50,19 +50,19 @@ export const AdditionalDetails = ({studentId}) => {
 
                     <div style={{ height: "50%" }}
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
-                       <DisciplinaryAction studentId={studentId}></DisciplinaryAction> </div>
+                       <DisciplinaryAction canEditProp={canEdit} studentId={studentId} editButton={editButton}></DisciplinaryAction> </div>
                         
                     <div style={{ height: "50%" }}
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
-                       <CoCurricular studentId={studentId}></CoCurricular> </div>
+                       <CoCurricular canEditProp={canEdit}  studentId={studentId} editButton={editButton}></CoCurricular> </div>
                         
                     <div style={{ height: "50%" }}
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
-                       <OverallAssesment studentId={studentId}></OverallAssesment> </div>
+                       <OverallAssesment canEditProp={canEdit}  studentId={studentId} editButton={editButton}></OverallAssesment> </div>
                     
                     <div style={{ height: "90%" }}
                     className="d-flex justify-content-center align-items-center col-lg-12 col-md-11 col-xl-12">
-                       <Btech studentId={studentId}></Btech> </div>             
+                       <Btech canEditProp={canEdit}  studentId={studentId} editButton={editButton}></Btech> </div>             
         </div>
     )
 }

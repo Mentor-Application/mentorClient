@@ -3,15 +3,17 @@ import classes from "../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { Student } from "../interfaces/student";
 import { User } from "../interfaces";
 import { SchoolRecord } from "../interfaces/SchoolRecord";
+import Row from "react-bootstrap/Row";
 
-const SchoolRecord = ({ studentId, canEditProp }) => {
+const SchoolRecord = ({ studentId, canEditProp,editButton }) => {
   const [canEdit, setCanEdit] = useState(false);
   const [twelfthCutOff, setTwelfthCutOff] = useState(String);
   const [schoolRecord, setSchoolRecord] = useState<Array<SchoolRecord>>([]);
+  const [toggleEdit, setToggleEdit] = useState(true);
 
   let url: string;
 
@@ -94,6 +96,12 @@ const SchoolRecord = ({ studentId, canEditProp }) => {
         console.log(res);
       });
   };
+
+  const edit=(e)=>{
+    e.preventDefault();
+    setCanEdit(!toggleEdit);
+    setToggleEdit(!toggleEdit);
+  }
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
@@ -199,11 +207,22 @@ const SchoolRecord = ({ studentId, canEditProp }) => {
           </tr>
         </table>
       </form>
-
-      <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+      <div style={{ marginTop: "-6%", marginLeft: "80%" }}>
+      {editButton ? (
+          <button
+            className={classes.icon}
+            onClick={edit}
+            title="Edit"
+            // style={{marginLeft:'60%'}}
+          >
+            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+          </button>
+        ) : null}
+        
         <button
           className={classes.icon}
           type="button"
+          style={{marginLeft:'5%'}}
           onClick={(e) => {
             console.log(schoolRecord);
             updateSchoolRecord(e);
@@ -211,6 +230,7 @@ const SchoolRecord = ({ studentId, canEditProp }) => {
         >
           <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
         </button>
+        
       </div>
     </div>
   );
