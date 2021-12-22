@@ -67,6 +67,9 @@ export const login = () => {
           } else if (mentorId != null) {
             router.push("mentor");
           }
+            else if(parentId!= null){
+              router.push("parent")
+            }
         } else {
           setIsError(false);
         }
