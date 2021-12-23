@@ -68,23 +68,7 @@ export const AddMentees = ({ sendProp }) => {
     }
   }
 
-  //   const Submit=async()=>{
-  //   loggedInUser=JSON.parse(sessionStorage.getItem("user"));
-  //   console.log(loggedInUser.mentorId);
-  //   console.log(menteesList);
-  //   await axios.post(`${environment.api_url}/student/mentor/${loggedInUser.mentorId}/addmentee`,{
-  //         body:{menteesList: menteesList},
-  //         headers:{"Content-Type": "application/json"},
-  //       })
-  //       .then((res)=>{
-  //         const data=res.data;
-  //         setStudentList(data)
-  //         return res;
-  //       })
-  //       .catch((err)=>{
-  //         console.log(err);
-  //       });
-  // }
+
 
   const Submit = () => {
     // console.log(values);

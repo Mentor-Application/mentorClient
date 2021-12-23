@@ -271,3 +271,17 @@
   font-size:13px;
 
 }
+
+.nomentees{
+  margin-left: 0%;
+  margin-right:auto;
+  text-align: center;
+  color:#0166b2;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  top:50%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+
+}

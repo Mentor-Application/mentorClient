@@ -97,6 +97,7 @@ export const Mentees = ({sendProp}) => {
   return (
     <div style={{overflowY:'scroll'}}>
       <div style={{marginTop:'7%'}}>
+      {MenteeCardItems.length!=0 ?(
       <button
         className={classes.Editbtn}
         onClick={() => {
@@ -105,12 +106,13 @@ export const Mentees = ({sendProp}) => {
       >
         Edit Mentees
       </button>
+      ):null}
       {isEdit ? (
           <button  onClick={Clear} className={classes.Clearbtn}>
           Clear Mentees
         </button>
         ) : null}
-      <div
+    {MenteeCardItems.length!=0 ?(  <div
           style={{
             overflowX: "auto",
             overflowY: "scroll",
@@ -207,6 +209,18 @@ export const Mentees = ({sendProp}) => {
       </Row>
       </div>
       </div>
+    ):<div
+    style={{
+      overflowX: "auto",
+      overflowY: "scroll",
+      height: "20%",
+      marginBottom: "10px",
+      borderRadius:'30px'
+    }}
+    className={whiteBox}
+  >
+    <h2 className={classes.nomentees}>No Mentees Added</h2>
+  </div>}
     
       </div>
       
