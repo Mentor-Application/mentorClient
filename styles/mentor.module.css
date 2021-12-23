@@ -14,6 +14,14 @@
     overflow-x: hidden;
   }
 
+  .formss {
+    margin-top: 8%;
+    background: #ffffff;
+    width: 90%;
+    border-radius: 30px;
+    overflow-x: hidden;
+  }
+
 .labeldisplay{
     margin-left: 4%;
     margin-right: 5%;

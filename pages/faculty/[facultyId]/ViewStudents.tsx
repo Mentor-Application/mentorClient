@@ -9,7 +9,7 @@ import classes from "../../../styles/mentor.module.css";
 import { faTimes, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { User } from "../../../interfaces";
 
-export const AddMentees = ({ sendProp }) => {
+export const ViewStudents = ({ sendProp }) => {
   // const [mentorRoute, setmentorRoute] = useState("mentees");
   const { register, handleSubmit } = useForm();
   const [studentList, setStudentList] = useState([]);
@@ -42,64 +42,6 @@ export const AddMentees = ({ sendProp }) => {
       });
   };
 
-  function addList(items, registerNumber) {
-    menteesList.push(items);
-    console.log(menteesList);
-    const newList = studentList.filter(
-      (item) => item.registerNumber !== registerNumber
-    );
-    setStudentList(newList);
-    console.log(studentList);
-  }
-
-  function handleRemove(items, registerNumber) {
-    const newList = menteesList.filter(
-      (item) => item.registerNumber !== registerNumber
-    );
-    setMenteesList(newList);
-    studentList.unshift(items);
-  }
-
-  function hidden(menteesList) {
-    if (!menteesList.length) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  //   const Submit=async()=>{
-  //   loggedInUser=JSON.parse(sessionStorage.getItem("user"));
-  //   console.log(loggedInUser.mentorId);
-  //   console.log(menteesList);
-  //   await axios.post(`${environment.api_url}/student/mentor/${loggedInUser.mentorId}/addmentee`,{
-  //         body:{menteesList: menteesList},
-  //         headers:{"Content-Type": "application/json"},
-  //       })
-  //       .then((res)=>{
-  //         const data=res.data;
-  //         setStudentList(data)
-  //         return res;
-  //       })
-  //       .catch((err)=>{
-  //         console.log(err);
-  //       });
-  // }
-
-  const Submit = () => {
-    // console.log(values);
-    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-    apiService
-      .post(`student/mentor/${loggedInUser.mentorId}/addmentee`, menteesList)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    alert("Mentees List have been added");
-    window.location.reload();
-  };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
@@ -220,25 +162,20 @@ export const AddMentees = ({ sendProp }) => {
               }}
               key={items.registerNumber}
             >
-              <label style={{ width: "73px" }} className={classes.labeldisplay}>
+              <label style={{ marginLeft:'7%',width: "73px" }} className={classes.labeldisplay}>
                 {items.registerNumber}
               </label>
-              <label style={{ width: "50px" }} className={classes.labeldisplay}>
+              <label style={{ width: "60px" }} className={classes.labeldisplay}>
                 {items.studentName}
               </label>
               <label className={classes.labeldisplay}>{items.branch}</label>
               <label className={classes.labeldisplay}>{items.section}</label>
-              <label className={classes.labeldisplay}>
+              <label  className={classes.labeldisplay}>
                 {items.periodOfStudy}
               </label>
               <button
-                onClick={() => addList(items, items.registerNumber)}
-                className={classes.addbutton}
-              >
-                Add
-              </button>
-              <button
                 onClick={() => sendProp(items.studentId, true, "profile")}
+                style={{marginLeft:'7%'}}
                 className={classes.addbutton}
               >
                 View Profile
@@ -246,63 +183,10 @@ export const AddMentees = ({ sendProp }) => {
             </div>
           ))}
         </div>
-        <div>
-          {hidden(menteesList) ? (
-            <div
-              style={{ overflowX: "auto", height: "40%", overflowY: "scroll" }}
-              className={whiteBox}
-            >
-              {menteesList.map((items) => (
-                <div
-                  style={{
-                    marginTop: "2%",
-                    marginLeft: "4%",
-                    marginRight: "4%",
-                    padding: "15px",
-                    backgroundColor: "#D3D3D3",
-                  }}
-                  key={items.registerNumber}
-                >
-                  <label
-                    style={{ width: "73px" }}
-                    className={classes.labeldisplay}
-                  >
-                    {items.registerNumber}
-                  </label>
-                  <label
-                    style={{ width: "50px" }}
-                    className={classes.labeldisplay}
-                  >
-                    {items.studentName}
-                  </label>
-                  <label className={classes.labeldisplay}>{items.branch}</label>
-                  <label className={classes.labeldisplay}>
-                    {items.section}
-                  </label>
-                  <label className={classes.labeldisplay}>
-                    {items.periodOfStudy}
-                  </label>
-                  <button
-                    onClick={() => handleRemove(items, items.registerNumber)}
-                    className={classes.removebutton}
-                  >
-                    <FontAwesomeIcon
-                      style={{ fontSize: "110%" }}
-                      icon={faTimes}
-                    />
-                  </button>
-                </div>
-              ))}
-
-              <button onClick={Submit} className={classes.submitbutton}>
-                Submit
-              </button>
-            </div>
-          ) : null}
-        </div>
+        
       </form>
     </div>
   );
 };
 
-export default AddMentees;
+export default ViewStudents;

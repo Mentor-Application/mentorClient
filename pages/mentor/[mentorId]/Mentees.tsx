@@ -10,7 +10,8 @@ import {
   faEdit,
   faUserTimes,
   faMinusCircle,
-  faUser
+  faUser,
+  faUserCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { ApiService } from "../../../services/api.service";
 
@@ -56,18 +57,18 @@ export const Mentees = ({sendProp}) => {
   };
 
   const Clear = () => {
-    setRemoveMenteecards(MenteeCardItems);
+
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    apiService
+      .post(`student/mentor/${loggedInUser.mentorId}/editmentee`, MenteeCardItems)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setMenteeCardItems([]);
-    // loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-    // apiService
-    //   .post(`student/mentor/${loggedInUser.mentorId}/editmentee`, clearMentee)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    // alert("Mentees List have been cleared");
+    alert("Mentees List have been cleared");
   };
 
   const Undo = () => {
@@ -79,21 +80,23 @@ export const Mentees = ({sendProp}) => {
   const Submit = () => {
     console.log("Submit");
     console.log(removeMenteecards);
-    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
-    apiService
-      .post(`student/mentor/${loggedInUser.mentorId}/editmentee`, removeMenteecards)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    alert("Mentees List have been submitted");
+    // loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    // apiService
+    //   .post(`student/mentor/${loggedInUser.mentorId}/editmentee`, removeMenteecards)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // alert("Mentees List have been submitted");
   };
 
+  let whiteBox = `${classes.forms} col-12 col-xl-11`;
+
   return (
-    <div>
-      <div>
+    <div style={{overflowY:'scroll'}}>
+      <div style={{marginTop:'7%'}}>
       <button
         className={classes.Editbtn}
         onClick={() => {
@@ -102,11 +105,27 @@ export const Mentees = ({sendProp}) => {
       >
         Edit Mentees
       </button>
+      {isEdit ? (
+          <button  onClick={Clear} className={classes.Clearbtn}>
+          Clear Mentees
+        </button>
+        ) : null}
+      <div
+          style={{
+            overflowX: "auto",
+            overflowY: "scroll",
+            height: "90%",
+            marginBottom: "10px",
+            borderRadius:'0px'
+          }}
+          className={whiteBox}
+        >
       {MenteeCardItems.map((items) => (
         <div>
           <div
             style={{
-              background: "#ffffff",
+              background: "#0166b2",
+              opacity:'0.9',
               borderRadius: "10px",
               width: "25%",
               outline: "black",
@@ -115,6 +134,7 @@ export const Mentees = ({sendProp}) => {
               float: "left",
               marginLeft: "20px",
               marginTop: "40px",
+              marginBottom:'5%'
             }}
             className="col-11 col-xl-4 col-lg-4 col-md-6 col-sm-7 d-flex flex-column
         justify-content-center "
@@ -135,9 +155,10 @@ export const Mentees = ({sendProp}) => {
                 >
                   <FontAwesomeIcon
                     style={{
+                      opacity:'1',
                       marginTop: " 5%",
-                      marginLeft: "5px",
-                      color: "#ff0000",
+                      marginLeft: "20px",
+                      color: "white",
                       alignItems: "center",
                     }}
                     icon={faMinusCircle}
@@ -145,65 +166,50 @@ export const Mentees = ({sendProp}) => {
                 </button>
               ) : null}
             </div>
-            <Image width={15} height={115} src={prof}></Image>
-
+            {/* <Image width={15} height={115} src={prof}></Image> */}
+            <FontAwesomeIcon style={{fontSize:'400%',color:'white',marginLeft:'37%',marginBottom:'5%'}} icon={faUserCircle}/>
             <div
               style={{
                 textAlign: "center",
-                color: "#0166b2",
+                color: "white",
                 fontWeight: "bold",
+                marginTop:'4%'
               }}
             >
-              {items.studentName}
+              {items.studentName}-{items.registerNumber}
+              <div>
               <button
-                  style={{
-                    top: "0px",
-                    right: "0px",
-                    background: "none",
-                    marginLeft: "70%",
-                    border: "none",
-                  }}
+                  className={classes.editprofilebutton}
                   onClick={() => sendProp(items.studentId, true,"profile",true)}
                 >
-                  <FontAwesomeIcon
-                    style={{
-                      marginTop: " 5%",
-                      marginLeft: "5px",
-                      color: "#0166b2",
-                      alignItems: "center",
-                    }}
-                    icon={faUser}
-                    
-                  />
+                  Edit Profile
                 </button>
-                {items.registerNumber}
+                </div>
+                
             </div>
           </div>
         </div>
       ))}
-      </div>
-      <div>
-     <Row> <div style={{position:'fixed',bottom:'60px',left:'600px'}}>
+      <div style={{bottom:'0px',left:'600px',marginTop:'30%',marginBottom:'5%',marginLeft:'60%'}}>
+     <Row > <div >
         {isEdit ? (
-          <button className={classes.Clearbtn} onClick={Submit}>
-            Submit
-          </button>
-        ) : null}
-      
-        {isEdit ? (
-          <button className={classes.Clearbtn} onClick={Undo}>
-            Undo
-          </button>
+          <button style={{marginLeft:'40%',opacity:'0.9'}} className={classes.Clearbtn} onClick={Undo}>
+          Undo
+        </button>
         ) : null}
       
       {isEdit ? (
-      <button onClick={Clear} className={classes.Clearbtn}>
-        Clear 
-      </button>
+      <button style={{opacity:'0.9',marginLeft:'0%'}}className={classes.Clearbtn} onClick={Submit}>
+      Submit
+    </button>
       ):null}
       </div>
       </Row>
       </div>
+      </div>
+    
+      </div>
+      
       </div>
     
   );

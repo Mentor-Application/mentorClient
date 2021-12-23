@@ -66,6 +66,8 @@ export const login = () => {
             router.push("student");
           } else if (mentorId != null) {
             router.push("mentor");
+          } else if (facultyId !=null) {
+            router.push("faculty");
           }
             else if(parentId!= null){
               router.push("parent")
@@ -123,7 +125,7 @@ export const login = () => {
           </button>
           <div className={classes.forgotPassword}>
             <Link href="/signup">
-              <div>SignUp?</div>
+              <div>SignUp</div>
             </Link>
           </div>
         </form>

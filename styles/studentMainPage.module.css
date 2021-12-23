@@ -259,3 +259,15 @@
   border-top: 2px solid #0166b2;
   width: 60%;;
 }
+
+.editprofilebutton{
+  background: white;
+  margin-left: 0%;
+  margin-top: 5%;
+  border: none;
+  color:#0166b2;
+  font-weight: 700;
+  width: 80px;
+  font-size:13px;
+
+}
