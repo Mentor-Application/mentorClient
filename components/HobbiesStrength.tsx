@@ -73,7 +73,10 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
       .then((res) => {
         const data = res;
         console.log(data);
-        setStrengthCanEdit(true);
+        if (data.length > 0) {
+          setStrengthCanEdit(true);
+        }
+        //setStrengthCanEdit(true);
         setLoggedinStudent(data);
         //logedinstudent.deserialize(data, loggedinStudent);
         //console.log(loggedinStudent);
@@ -280,6 +283,7 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
             type="submit"
             style={{ marginLeft: "1%" }}
             onClick={(e) => {
+              e.preventDefault();
               handleSubmit(onsubmit)();
             }}
           >

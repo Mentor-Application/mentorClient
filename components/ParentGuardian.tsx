@@ -42,6 +42,8 @@ export const ParentGuardian = ({ studentId, canEditProp, editButton }) => {
   let url: string;
 
   useEffect(() => {
+    setParentCanEdit(canEditProp);
+    setGuardianCanEdit(canEditProp);
     url = `student/list/guardian/${studentId}`;
     const response = apiService
       .get(url)
@@ -53,7 +55,10 @@ export const ParentGuardian = ({ studentId, canEditProp, editButton }) => {
       });
     response.then((res) => {
       const data = res;
-      setParentCanEdit(true);
+      if (data.length > 0) {
+        setParentCanEdit(true);
+      }
+      //==setParentCanEdit(true);
       setValue("guardianName", data.guardianName);
       setValue("address", data.address);
       setValue("mobileNumber", data.mobileNumber);
@@ -71,7 +76,10 @@ export const ParentGuardian = ({ studentId, canEditProp, editButton }) => {
       });
     response2.then((res) => {
       const data = res;
-      setGuardianCanEdit(true);
+      if (data.length > 0) {
+        setGuardianCanEdit(true);
+      }
+
       parentSetValue("parentName", data.parentName);
       parentSetValue("parentAddress", data.parentAddress);
       parentSetValue("parentEmailId", data.parentEmailId);

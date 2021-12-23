@@ -35,28 +35,30 @@ export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
 
   useEffect(() => {
     setValue("studentId", studentId);
-
+    setCanEdit(canEditProp);
     url = `student/${studentId}/profile`;
     const response = apiService
       .get(url)
       .then((res) => {
-        return res;
+        const data = res;
+        console.log(data);
+        if (data.length > 0) {
+          setCanEdit(true);
+        }
+
+        logedinstudent.setValue(setValue, data);
+        logedinstudent.deserialize(data, loggedinStudent);
+        if (data.gender === "M") {
+          setMale(true);
+        } else {
+          setFemale(true);
+        }
+        setIsLoarding(false);
       })
       .catch((err) => {
         console.log(err);
       });
-    response.then((res) => {
-      const data = res;
-      setCanEdit(true);
-      logedinstudent.setValue(setValue, data);
-      logedinstudent.deserialize(data, loggedinStudent);
-      if (data.gender === "M") {
-        setMale(true);
-      } else {
-        setFemale(true);
-      }
-      setIsLoarding(false);
-    });
+    response.then((res) => {});
     //setCanEdit(canEditProp);
   }, []);
 
