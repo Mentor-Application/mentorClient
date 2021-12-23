@@ -7,12 +7,12 @@ import Row from "react-bootstrap/Row";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck,faPen } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { ApiService } from "../services/api.service";
 import { Student } from "../interfaces/student";
 import { User } from "../interfaces";
 
-export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
+export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
   let apiService: ApiService = new ApiService();
   var logedinstudent: Student = new Student();
   const [loggedinStudent, setLoggedinStudent] = useState<Student>(Object);
@@ -35,7 +35,7 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
 
   useEffect(() => {
     setValue("studentId", studentId);
-    setCanEdit(canEditProp);
+
     url = `student/${studentId}/profile`;
     const response = apiService
       .get(url)
@@ -47,6 +47,8 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
       });
     response.then((res) => {
       const data = res;
+      setCanEdit(true);
+      logedinstudent.setValue(setValue, data);
       logedinstudent.deserialize(data, loggedinStudent);
       if (data.gender === "M") {
         setMale(true);
@@ -55,16 +57,16 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
       }
       setIsLoarding(false);
     });
+    //setCanEdit(canEditProp);
   }, []);
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   const submitProfile = (values) => {
-    setCanEdit(true);
     setLoggedinStudent(values);
     setIsLoarding(false);
     // console.log(loggedInUser.email);
@@ -72,7 +74,8 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
     apiService
       .post("student/profile", values)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
+        setCanEdit(true);
       })
       .catch((err) => {
         console.log(err);
@@ -88,9 +91,8 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
   return (
     <div style={{ height: "90%" }} className={whiteBox}>
       <form
-        style={{ overflowY: "scroll", overflowX: "hidden"}}
+        style={{ overflowY: "scroll", overflowX: "hidden" }}
         className="row d-flex justify-content-around"
-        
       >
         <div className="d-flex  flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
           <Row className="d-flex justify-content-center">
@@ -349,7 +351,7 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
         </div>
         {/* <div className={middileLine}></div> */}
         <div className="d-flex flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
-        <Row className="d-flex justify-content-center">
+          <Row className="d-flex justify-content-center">
             <label style={{ marginTop: "10%" }} className={classes.label}>
               Register Number
             </label>
@@ -369,9 +371,7 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
             </span>
           </Row>
           <Row className="d-flex justify-content-center">
-            <label  className={classes.label}>
-              Email ID
-            </label>
+            <label className={classes.label}>Email ID</label>
             <input
               disabled={canEdit}
               {...register("personalEmail", {
@@ -418,19 +418,19 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
               list="batch"
             ></input>
             <datalist id="batch">
-                <option value="2018-2022" />
-                <option value="2019-2023" />
-                <option value="2020-2024" />
-                <option value="2021-2025" />
-                <option value="2022-2026" />
-                <option value="2023-2027" />
-                <option value="2024-2028" />
-                <option value="2025-2029" />
-                <option value="2026-2030" />
-                <option value="2027-2031" />
-                <option value="2028-2032" />
-                <option value="2029-2033" />
-              </datalist>
+              <option value="2018-2022" />
+              <option value="2019-2023" />
+              <option value="2020-2024" />
+              <option value="2021-2025" />
+              <option value="2022-2026" />
+              <option value="2023-2027" />
+              <option value="2024-2028" />
+              <option value="2025-2029" />
+              <option value="2026-2030" />
+              <option value="2027-2031" />
+              <option value="2028-2032" />
+              <option value="2029-2033" />
+            </datalist>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
               <ErrorMessage errors={errors} name="periodOfStudy" />
@@ -487,37 +487,34 @@ export const StudentProfile = ({ studentId, canEditProp,editButton }) => {
             </span>
           </Row>
           <Row>
-          <div
+            <div
               style={{ marginTop: "5%", marginBottom: "4%", marginLeft: "60%" }}
             >
-               {editButton ? (
-          <button
-            className={classes.icon}
-            onClick={edit}
-            title="Edit"
-            style={{marginRight:'10px'}}
-          >
-            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
-          </button>
-        ) : null}
-              <button className={classes.icon} title="Submit" 
-              onClick={(e)=>{
-                e.preventDefault();
-                handleSubmit(submitProfile)();
-              }}
+              {editButton ? (
+                <button
+                  className={classes.icon}
+                  onClick={edit}
+                  title="Edit"
+                  style={{ marginRight: "10px" }}
+                >
+                  <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+                </button>
+              ) : null}
+              <button
+                hidden={canEdit}
+                className={classes.icon}
+                title="Submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleSubmit(submitProfile)();
+                }}
               >
                 <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
               </button>
-              
             </div>
           </Row>
-          
         </div>
-        
       </form>
-      
-      
-      
     </div>
   );
 };

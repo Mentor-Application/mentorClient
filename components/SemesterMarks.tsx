@@ -6,11 +6,16 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck,faPen } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { EndSem } from "../interfaces/EndSem";
 import MentorMeetingDetails from "../pages/student/[studentId]/MentorMeetingDetails";
 
-const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
+const SemesterMarks = ({
+  semesterName,
+  studentId,
+  canEditProp,
+  editButton,
+}) => {
   const [SemMarks, setSemMarks] = useState<Array<EndSem>>([]);
   const [credits, setCredits] = useState(String);
   const [totalGradePoints, setTotalGradePoints] = useState("");
@@ -20,7 +25,6 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
   let apiService: ApiService = new ApiService();
   let url: string;
   useEffect(() => {
-    setCanEdit(canEditProp);
     url = `endsemester/${studentId}/${semesterName}/list`;
     apiService
       .get(url)
@@ -32,6 +36,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
           setgpa("");
           setSemMarks([
             {
+              endsemId: "",
               semesterName: semesterName,
               subjectCode: "",
               subjectName: "",
@@ -44,6 +49,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               gpa: gpa,
             },
             {
+              endsemId: "",
               semesterName: semesterName,
               subjectCode: "",
               subjectName: "",
@@ -56,6 +62,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               gpa: gpa,
             },
             {
+              endsemId: "",
               semesterName: semesterName,
               subjectCode: "",
               subjectName: "",
@@ -68,6 +75,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               gpa: gpa,
             },
             {
+              endsemId: "",
               semesterName: semesterName,
               subjectCode: "",
               subjectName: "",
@@ -80,6 +88,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               gpa: gpa,
             },
             {
+              endsemId: "",
               semesterName: semesterName,
               subjectCode: "",
               subjectName: "",
@@ -92,6 +101,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               gpa: gpa,
             },
             {
+              endsemId: "",
               semesterName: semesterName,
               subjectCode: "",
               subjectName: "",
@@ -104,6 +114,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               gpa: gpa,
             },
             {
+              endsemId: "",
               semesterName: semesterName,
               subjectCode: "",
               subjectName: "",
@@ -116,6 +127,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               gpa: gpa,
             },
             {
+              endsemId: "",
               semesterName: semesterName,
               subjectCode: "",
               subjectName: "",
@@ -128,6 +140,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               gpa: gpa,
             },
             {
+              endsemId: "",
               semesterName: semesterName,
               subjectCode: "",
               subjectName: "",
@@ -140,6 +153,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               gpa: gpa,
             },
             {
+              endsemId: "",
               semesterName: semesterName,
               subjectCode: "",
               subjectName: "",
@@ -152,10 +166,12 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               gpa: gpa,
             },
           ]);
+          setCanEdit(false);
         } else {
           if (data.length < 8) {
             while (data.length <= 8) {
               data.push({
+                endSemId: "",
                 semesterName: semesterName,
                 subjectCode: "",
                 subjectName: "",
@@ -169,6 +185,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               });
             }
           }
+          setCanEdit(true);
           setSemMarks(data);
           setCredits(data[0].credits);
           setTotalGradePoints(data[0].totalGradePoints);
@@ -190,6 +207,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
     apiService
       .post("endsemester/update", SemMarks)
       .then((res) => {
+        setCanEdit(true);
         console.log("res", res);
       })
       .catch((res) => {
@@ -197,11 +215,11 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
       });
   };
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
@@ -313,6 +331,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               key={credits}
               defaultValue={credits}
               className={classes.credits}
+              disabled={canEdit}
             ></input>
           </div>
           <div
@@ -327,6 +346,7 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               key={totalGradePoints}
               defaultValue={totalGradePoints}
               className={classes.credits}
+              disabled={canEdit}
             ></input>
           </div>
           <div
@@ -341,24 +361,26 @@ const SemesterMarks = ({ semesterName, studentId, canEditProp,editButton }) => {
               key={gpa}
               defaultValue={gpa}
               className={classes.credits}
+              disabled={canEdit}
             ></input>
           </div>
         </div>
         <div style={{ marginTop: "4%", marginLeft: "83%", marginBottom: "3%" }}>
-        {editButton ? (
+          {editButton ? (
+            <button
+              className={classes.icon}
+              onClick={edit}
+              title="Edit"
+              // style={{marginLeft:'60%'}}
+            >
+              <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+            </button>
+          ) : null}
           <button
-            className={classes.icon}
-            onClick={edit}
-            title="Edit"
-            // style={{marginLeft:'60%'}}
-          >
-            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
-          </button>
-        ) : null}
-          <button
+            hidden={canEdit}
             className={classes.icon}
             type="button"
-            style={{marginLeft:'7%'}}
+            style={{ marginLeft: "7%" }}
             onClick={(e) => {
               updateMarks(e);
             }}

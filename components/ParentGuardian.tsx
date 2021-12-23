@@ -15,13 +15,13 @@ import { User } from "../interfaces";
 import { LocalGuardian } from "../interfaces/LocalGuardian";
 import { Parent } from "../interfaces/Parent";
 
-export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
+export const ParentGuardian = ({ studentId, canEditProp, editButton }) => {
   var logedinGuardian: LocalGuardian = new LocalGuardian();
   const [loggedinGuardian, setLoggedinguardian] =
     useState<LocalGuardian>(Object);
   const [loggedinParent, setLoggedinParent] = useState<Parent>(Object);
-  const[toggleEdit,setToggleEdit]=useState(true);
-
+  const [toggleEdit, setToggleEdit] = useState(false);
+  const [parentToggle, setParentToggle] = useState(false);
   const {
     register,
     handleSubmit,
@@ -34,14 +34,14 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
     setValue: parentSetValue,
   } = useForm();
 
-  const [canEdit, setCanEdit] = useState(false);
+  const [parentCanEdit, setParentCanEdit] = useState(false);
+  const [guardianCanEdit, setGuardianCanEdit] = useState(false);
 
   let apiService: ApiService = new ApiService();
   let loggedInUser: User;
   let url: string;
 
   useEffect(() => {
-    setCanEdit(canEditProp);
     url = `student/list/guardian/${studentId}`;
     const response = apiService
       .get(url)
@@ -53,6 +53,11 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
       });
     response.then((res) => {
       const data = res;
+      setParentCanEdit(true);
+      setValue("guardianName", data.guardianName);
+      setValue("address", data.address);
+      setValue("mobileNumber", data.mobileNumber);
+      setValue("emailId", data.emailId);
       setLoggedinguardian(data);
       console.log(data);
     });
@@ -66,18 +71,21 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
       });
     response2.then((res) => {
       const data = res;
+      setGuardianCanEdit(true);
+      parentSetValue("parentName", data.parentName);
+      parentSetValue("parentAddress", data.parentAddress);
+      parentSetValue("parentEmailId", data.parentEmailId);
       setLoggedinParent(data);
       console.log(data);
     });
   }, []);
 
   const submitGuardian = (values) => {
-    setCanEdit(true);
-    console.log(values);
-    // const parentvalues = Object.assign(values);
+    //console.log(values);
     apiService
       .post(`student/${studentId}/guardian`, values)
       .then((res) => {
+        setGuardianCanEdit(true);
         console.log(res);
       })
       .catch((err) => {
@@ -86,24 +94,29 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
   };
 
   const submitParent = (parentvalues) => {
-    setCanEdit(true);
-    parentSetValue("studentId", studentId);
-    console.log(parentvalues);
+    //console.log(parentvalues);
     apiService
       .post("student/parent", parentvalues)
       .then((res) => {
         console.log(res);
+        setParentCanEdit(true);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const edit=(e)=>{
+  const parentEdit = (e) => {
     e.preventDefault();
-    setCanEdit(!toggleEdit);
+    setParentCanEdit(!parentToggle);
+    setParentToggle(!parentToggle);
+  };
+
+  const guardianEdit = (e) => {
+    e.preventDefault();
+    setGuardianCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   let whiteBox = `${classes.forms}  d-flex justify-content-center col-12 col-xl-11`;
 
@@ -131,7 +144,7 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              disabled={canEdit}
+              disabled={parentCanEdit}
               defaultValue={loggedinParent.parentName}
             ></input>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
@@ -148,8 +161,8 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
               })}
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
-              disabled={canEdit}
-              defaultValue={loggedinParent.address}
+              disabled={parentCanEdit}
+              defaultValue={loggedinParent.parentAddress}
             ></textarea>
             <span style={{ color: "red", marginTop: "-5%", marginLeft: "15%" }}>
               {" "}
@@ -163,8 +176,8 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
               {...parentRegister("parentEmailId", {
                 required: "Email ID Required",
               })}
-              disabled={canEdit}
-              defaultValue={loggedinParent.emailId}
+              disabled={parentCanEdit}
+              defaultValue={loggedinParent.parentEmailId}
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
@@ -173,6 +186,34 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
               {" "}
               <ErrorMessage errors={errors} name="parentEmailId" />
             </span>
+          </Row>
+
+          <Row>
+            <div
+              style={{ marginTop: "5%", marginBottom: "4%", marginLeft: "70%" }}
+            >
+              {editButton ? (
+                <button
+                  className={classes.icon}
+                  onClick={parentEdit}
+                  title="Edit"
+                  style={{ marginRight: "10px" }}
+                >
+                  <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+                </button>
+              ) : null}
+              <button
+                hidden={parentCanEdit}
+                className={classes.icon}
+                onClick={(e) => {
+                  e.preventDefault();
+                  parentSetValue("studentId", studentId);
+                  parentHandleSubmit(submitParent)();
+                }}
+              >
+                <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+              </button>
+            </div>
           </Row>
         </div>
 
@@ -188,7 +229,7 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
               Name
             </label>
             <input
-              disabled={canEdit}
+              disabled={guardianCanEdit}
               {...register("guardianName")}
               style={{ width: "80%" }}
               className={classes.box}
@@ -203,7 +244,7 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
               {...register("address")}
               style={{ width: "80%", height: "90px" }}
               className={classes.box}
-              disabled={canEdit}
+              disabled={guardianCanEdit}
               defaultValue={loggedinGuardian.address}
             ></textarea>
           </Row>
@@ -215,7 +256,7 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              disabled={canEdit}
+              disabled={guardianCanEdit}
               defaultValue={loggedinGuardian.mobileNumber}
             ></input>
           </Row>
@@ -227,7 +268,7 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
               style={{ width: "80%" }}
               className={classes.box}
               type="text"
-              disabled={canEdit}
+              disabled={guardianCanEdit}
               defaultValue={loggedinGuardian.emailId}
             ></input>
           </Row>
@@ -235,22 +276,21 @@ export const ParentGuardian = ({ studentId, canEditProp,editButton }) => {
             <div
               style={{ marginTop: "5%", marginBottom: "4%", marginLeft: "70%" }}
             >
-               {editButton ? (
-          <button
-            className={classes.icon}
-            onClick={edit}
-            title="Edit"
-            style={{marginRight:'10px'}}
-          >
-            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
-          </button>
-        ) : null}
+              {editButton ? (
+                <button
+                  className={classes.icon}
+                  onClick={guardianEdit}
+                  title="Edit"
+                  style={{ marginRight: "10px" }}
+                >
+                  <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+                </button>
+              ) : null}
               <button
+                hidden={guardianCanEdit}
                 className={classes.icon}
                 onClick={(e) => {
                   e.preventDefault();
-                  parentSetValue("studentId", studentId);
-                  parentHandleSubmit(submitParent)();
                   handleSubmit(submitGuardian)();
                 }}
               >

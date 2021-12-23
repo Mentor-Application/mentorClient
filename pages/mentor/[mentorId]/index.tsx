@@ -19,10 +19,7 @@ export const index = () => {
   const [meetActive, setmeetActive] = useState(false);
   const [careerActive, setcareerActive] = useState(false);
   const [navHidden, setNavHidden] = useState(true);
-  const [editbuttonHidden, setEditButtonHidden] = useState(false);
   const [childProp, setChildProp] = useState<viewProfile>(Object);
-  const router = useRouter();
-
   //const studentId = router.query.studentId;
   const [showNav, setShowNav] = useState(false);
   let navCss = `${
@@ -31,29 +28,26 @@ export const index = () => {
       : "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 d-none d-sm-flex"
   } `;
 
-  const getChildProp = (studentId:string, canEdit:boolean,route:string,editButton?:boolean) => {
+  const getChildProp = (
+    studentId: string,
+    canEdit: boolean,
+    route: string,
+    editButton?: boolean
+  ) => {
     childProp.studentId = studentId;
     childProp.canEdit = canEdit;
     setNavHidden(false);
     setmentorRoute(route);
-    childProp.editButton=editButton;
+    childProp.editButton = editButton;
   };
 
   useEffect(() => {
-    if (mentorRoute.match("mentees")) {
-      setmenteesActive(true);
-      setaddMenteesActive(false);
-      setprofileActive(false);
-      setmarksActive(false);
-      setcareerActive(false);
-      setmeetActive(false);
-    } else if (mentorRoute.match("addmentees")) {
+    if (mentorRoute.match("addmentees")) {
       setmenteesActive(false);
       setaddMenteesActive(true);
-      setprofileActive(false);
-      setmarksActive(false);
-      setcareerActive(false);
-      setmeetActive(false);
+    } else if (mentorRoute.match("mentees")) {
+      setmenteesActive(true);
+      setaddMenteesActive(false);
     } else if (mentorRoute.match("profile")) {
       setmenteesActive(false);
       setaddMenteesActive(false);
@@ -98,7 +92,7 @@ export const index = () => {
                 setmentorRoute("mentees");
                 console.log(mentorRoute);
               }}
-              className={menteesActive ? classes.navbtnActive: classes.navbtn}
+              className={menteesActive ? classes.navbtnActive : classes.navbtn}
             >
               Mentees
             </button>
@@ -109,13 +103,19 @@ export const index = () => {
                 setmentorRoute("addmentees");
                 console.log(mentorRoute);
               }}
-              className={addMenteesActive ? classes.navbtnActive : classes.navbtn}
+              className={
+                addMenteesActive ? classes.navbtnActive : classes.navbtn
+              }
             >
               Add Mentees
             </button>
           </div>
           <div className="d-flex flex-column align-items-center ">
-           <hr style={{marginTop:'20%'}}hidden={navHidden} className={classes.horizontalline}/>
+            <hr
+              style={{ marginTop: "20%" }}
+              hidden={navHidden}
+              className={classes.horizontalline}
+            />
             <button
               hidden={navHidden}
               type="button"
@@ -204,15 +204,16 @@ export const index = () => {
                 canEditProp={childProp.canEdit}
                 studentId={childProp.studentId}
                 editButton={childProp.editButton}
-
               ></MentorMeetingDetails>
             );
           } else if (mentorRoute.match("additionaldetails")) {
-            return <AdditionalDetails 
-            canEdit={childProp.canEdit}
-            studentId={childProp.studentId}
-            editButton={childProp.editButton}
-            ></AdditionalDetails>;
+            return (
+              <AdditionalDetails
+                canEdit={childProp.canEdit}
+                studentId={childProp.studentId}
+                editButton={childProp.editButton}
+              ></AdditionalDetails>
+            );
           } else {
             return <></>;
           }

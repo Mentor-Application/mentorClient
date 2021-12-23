@@ -10,7 +10,7 @@ export class Student {
   studentId!: string;
   registerNumber!: string;
   studentName!: string;
-  personalEmail!:string;
+  personalEmail!: string;
   mentorId!: string;
   gender!: string;
   dob!: string;
@@ -41,7 +41,7 @@ export class Student {
       output.studentId = input.studentId;
       output.registerNumber = input.registerNumber;
       output.studentName = input.studentName;
-      output.personalEmail=input.personalEmail;
+      output.personalEmail = input.personalEmail;
       output.mentorId = input.mentorId;
       output.gender = input.gender;
       output.dob = input.dob;
@@ -68,5 +68,36 @@ export class Student {
       output.strenghAssessment = input.strenghAssessment;
     }
     return output;
+  }
+
+  setValue(setval, input) {
+    setval("studentId", input.studentId);
+    setval("registerNumber", input.registerNumber);
+    setval("studentName", input.studentName);
+    setval("personalEmail", input.personalEmail);
+    setval("mentorId", input.mentorId);
+    setval("gender", input.gender);
+    setval("dob", input.dob);
+    setval("branch", input.branch);
+    setval("section", input.section);
+    setval("mobileNumber", input.mobileNumber);
+    setval("fatherMobileNumber", input.fatherMobileNumber);
+    setval("motherMobileNumber", input.motherMobileNumber);
+    setval("religion", input.religion);
+    setval("community", input.community);
+    setval("bloodGroup", input.bloodGroup);
+    setval("studentType", input.studentType);
+    setval("addressForCommunication", input.addressForCommunication);
+    setval("periodOfStudy", input.periodOfStudy);
+    setval("emailId", input.emailId);
+    setval("roomNumber", input.roomNumber);
+    setval("busRouteNumber", input.busRouteNumber);
+    // setval("localGuardian",input.localGuardian);
+    // setval("schoolRecord",input.schoolRecord);
+    // setval("familyProfile",input.familyProfile);
+    // setval("hobbies",input.hobbies);
+    // setval(input.goalsGrid);
+    // setval(input.challenges);
+    // setval(input.strenghAssessment);
   }
 }

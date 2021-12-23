@@ -21,7 +21,7 @@ export const ViewStudents = ({ sendProp }) => {
 
   const handleSearch = async (values) => {
     await axios
-      .get(`${environment.api_url}/student/search`, {
+      .get(`${environment.api_url}/student/faculty/search`, {
         params: {
           periodOfStudy: values.periodofstudy,
           studentName: values.studentname,
@@ -42,7 +42,6 @@ export const ViewStudents = ({ sendProp }) => {
       });
   };
 
-
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
   return (
@@ -52,7 +51,7 @@ export const ViewStudents = ({ sendProp }) => {
           <input
             type="text"
             placeholder="Student Name"
-            style={{ height: "40px",border:'none' }}
+            style={{ height: "40px", border: "none" }}
             {...register("studentname")}
             className={classes.searchbutton}
           />
@@ -65,7 +64,7 @@ export const ViewStudents = ({ sendProp }) => {
               width: "10%",
               height: "40px",
               marginLeft: "12%",
-              textAlign:'center'
+              textAlign: "center",
             }}
             className={classes.input}
             list="branches"
@@ -92,7 +91,7 @@ export const ViewStudents = ({ sendProp }) => {
               width: "10%",
               height: "40px",
               marginLeft: "12%",
-              textAlign:'center'
+              textAlign: "center",
             }}
             className={classes.input}
             list="section"
@@ -113,7 +112,7 @@ export const ViewStudents = ({ sendProp }) => {
               width: "10%",
               height: "40px",
               marginLeft: "12%",
-              textAlign:'center'
+              textAlign: "center",
             }}
             className={classes.input}
             list="batch"
@@ -158,11 +157,14 @@ export const ViewStudents = ({ sendProp }) => {
                 marginRight: "4%",
                 padding: "15px",
                 backgroundColor: "#D3D3D3",
-                marginBottom:'2%'
+                marginBottom: "2%",
               }}
               key={items.registerNumber}
             >
-              <label style={{ marginLeft:'7%',width: "73px" }} className={classes.labeldisplay}>
+              <label
+                style={{ marginLeft: "7%", width: "73px" }}
+                className={classes.labeldisplay}
+              >
                 {items.registerNumber}
               </label>
               <label style={{ width: "60px" }} className={classes.labeldisplay}>
@@ -170,12 +172,12 @@ export const ViewStudents = ({ sendProp }) => {
               </label>
               <label className={classes.labeldisplay}>{items.branch}</label>
               <label className={classes.labeldisplay}>{items.section}</label>
-              <label  className={classes.labeldisplay}>
+              <label className={classes.labeldisplay}>
                 {items.periodOfStudy}
               </label>
               <button
                 onClick={() => sendProp(items.studentId, true, "profile")}
-                style={{marginLeft:'7%'}}
+                style={{ marginLeft: "7%" }}
                 className={classes.addbutton}
               >
                 View Profile
@@ -183,7 +185,6 @@ export const ViewStudents = ({ sendProp }) => {
             </div>
           ))}
         </div>
-        
       </form>
     </div>
   );

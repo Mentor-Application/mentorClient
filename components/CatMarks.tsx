@@ -4,10 +4,10 @@ import { ApiService } from "../services/api.service";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck,faPen } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { CatMark } from "../interfaces/CatMark";
 
-const CatMarks = ({ semesterName, studentId, canEditProp,editButton}) => {
+const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
   let apiService: ApiService = new ApiService();
   const [canEdit, setCanEdit] = useState(false);
   const [attendance, setAttendance] = useState(Number);
@@ -16,8 +16,8 @@ const CatMarks = ({ semesterName, studentId, canEditProp,editButton}) => {
   let url: string;
 
   useEffect(() => {
-    url = `marks/${studentId}/${semesterName}/list`;
     setCanEdit(canEditProp);
+    url = `marks/${studentId}/${semesterName}/list`;
     apiService
       .get(url)
       .then((res) => {
@@ -134,6 +134,7 @@ const CatMarks = ({ semesterName, studentId, canEditProp,editButton}) => {
               studentId: studentId,
             },
           ]);
+          setCanEdit(false);
         } else {
           if (data.length < 8) {
             while (data.length <= 8) {
@@ -151,6 +152,7 @@ const CatMarks = ({ semesterName, studentId, canEditProp,editButton}) => {
               });
             }
           }
+          setCanEdit(true);
           setcatMarks(data);
           console.log("cat", catMarks);
           setAttendance(data[0].attendance);
@@ -176,11 +178,11 @@ const CatMarks = ({ semesterName, studentId, canEditProp,editButton}) => {
       });
   };
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11 `;
 
@@ -307,7 +309,7 @@ const CatMarks = ({ semesterName, studentId, canEditProp,editButton}) => {
         </table>
       </form>
       <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-      {editButton ? (
+        {editButton ? (
           <button
             className={classes.icon}
             onClick={edit}
@@ -318,9 +320,10 @@ const CatMarks = ({ semesterName, studentId, canEditProp,editButton}) => {
           </button>
         ) : null}
         <button
+          hidden={canEdit}
           className={classes.icon}
           type="button"
-          style={{marginLeft:'7%'}}
+          style={{ marginLeft: "7%" }}
           onClick={(e) => {
             console.log(catMarks);
             updateMarks(e);

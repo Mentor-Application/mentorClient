@@ -1,4 +1,6 @@
 export class EndSem {
+  endsemId: String;
+
   semesterName: string;
 
   subjectCode: string;

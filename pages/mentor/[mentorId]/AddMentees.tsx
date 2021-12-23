@@ -68,8 +68,6 @@ export const AddMentees = ({ sendProp }) => {
     }
   }
 
-
-
   const Submit = () => {
     // console.log(values);
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
@@ -94,7 +92,7 @@ export const AddMentees = ({ sendProp }) => {
           <input
             type="text"
             placeholder="Student Name"
-            style={{ height: "40px",border:'none' }}
+            style={{ height: "40px", border: "none" }}
             {...register("studentname")}
             className={classes.searchbutton}
           />
@@ -107,7 +105,7 @@ export const AddMentees = ({ sendProp }) => {
               width: "10%",
               height: "40px",
               marginLeft: "12%",
-              textAlign:'center'
+              textAlign: "center",
             }}
             className={classes.input}
             list="branches"
@@ -134,7 +132,7 @@ export const AddMentees = ({ sendProp }) => {
               width: "10%",
               height: "40px",
               marginLeft: "12%",
-              textAlign:'center'
+              textAlign: "center",
             }}
             className={classes.input}
             list="section"
@@ -155,7 +153,7 @@ export const AddMentees = ({ sendProp }) => {
               width: "10%",
               height: "40px",
               marginLeft: "12%",
-              textAlign:'center'
+              textAlign: "center",
             }}
             className={classes.input}
             list="batch"
@@ -200,14 +198,14 @@ export const AddMentees = ({ sendProp }) => {
                 marginRight: "4%",
                 padding: "15px",
                 backgroundColor: "#D3D3D3",
-                marginBottom:'2%'
+                marginBottom: "2%",
               }}
               key={items.registerNumber}
             >
               <label style={{ width: "73px" }} className={classes.labeldisplay}>
                 {items.registerNumber}
               </label>
-              <label style={{ width: "50px" }} className={classes.labeldisplay}>
+              <label style={{ width: "75px" }} className={classes.labeldisplay}>
                 {items.studentName}
               </label>
               <label className={classes.labeldisplay}>{items.branch}</label>

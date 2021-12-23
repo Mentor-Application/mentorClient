@@ -9,7 +9,7 @@ import { User } from "../interfaces";
 import { SchoolRecord } from "../interfaces/SchoolRecord";
 import Row from "react-bootstrap/Row";
 
-const SchoolRecord = ({ studentId, canEditProp,editButton }) => {
+const SchoolRecord = ({ studentId, canEditProp, editButton }) => {
   const [canEdit, setCanEdit] = useState(false);
   const [twelfthCutOff, setTwelfthCutOff] = useState(String);
   const [schoolRecord, setSchoolRecord] = useState<Array<SchoolRecord>>([]);
@@ -70,7 +70,7 @@ const SchoolRecord = ({ studentId, canEditProp,editButton }) => {
             }
           }
           setSchoolRecord(data);
-
+          setCanEdit(true);
           setTwelfthCutOff(data[0].twelfthCutOff);
         }
       })
@@ -82,7 +82,6 @@ const SchoolRecord = ({ studentId, canEditProp,editButton }) => {
   let apiService: ApiService = new ApiService();
   const updateSchoolRecord = (e) => {
     e.preventDefault();
-    setCanEdit(true);
     schoolRecord.forEach((items) => {
       items.twelfthCutOff = twelfthCutOff;
     });
@@ -90,18 +89,19 @@ const SchoolRecord = ({ studentId, canEditProp,editButton }) => {
     apiService
       .post(`student/${studentId}/schoolrecord`, schoolRecord)
       .then((res) => {
-        console.log(res);
+        setCanEdit(true);
+        //console.log(res);
       })
       .catch((res) => {
         console.log(res);
       });
   };
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
@@ -208,7 +208,7 @@ const SchoolRecord = ({ studentId, canEditProp,editButton }) => {
         </table>
       </form>
       <div style={{ marginTop: "-6%", marginLeft: "80%" }}>
-      {editButton ? (
+        {editButton ? (
           <button
             className={classes.icon}
             onClick={edit}
@@ -218,11 +218,12 @@ const SchoolRecord = ({ studentId, canEditProp,editButton }) => {
             <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
           </button>
         ) : null}
-        
+
         <button
+          hidden={canEdit}
           className={classes.icon}
           type="button"
-          style={{marginLeft:'5%'}}
+          style={{ marginLeft: "5%" }}
           onClick={(e) => {
             console.log(schoolRecord);
             updateSchoolRecord(e);
@@ -230,7 +231,6 @@ const SchoolRecord = ({ studentId, canEditProp,editButton }) => {
         >
           <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
         </button>
-        
       </div>
     </div>
   );

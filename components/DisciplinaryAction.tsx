@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { Disciplinary } from "../interfaces/Disciplinary";
 
-export const DisciplinaryAction = ({ studentId,canEditProp,editButton}) => {
+export const DisciplinaryAction = ({ studentId, canEditProp, editButton }) => {
   var logedinStudent: Disciplinary = new Disciplinary();
   const [disciplinary, setdisciplinary] = useState<Disciplinary>(Object);
   const [toggleEdit, setToggleEdit] = useState(true);
@@ -33,6 +33,12 @@ export const DisciplinaryAction = ({ studentId,canEditProp,editButton}) => {
             year4: " ",
           });
         } else {
+          //setCanEdit(true);
+          setValue("studentId", data.studentId);
+          setValue("year1", data.year1);
+          setValue("year2", data.year2);
+          setValue("year3", data.year3);
+          setValue("year4", data.year4);
           setdisciplinary(data);
           console.log(data);
         }
@@ -44,18 +50,18 @@ export const DisciplinaryAction = ({ studentId,canEditProp,editButton}) => {
 
   const { register, handleSubmit, getValues, setValue } = useForm();
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   const submitProfile = (values) => {
-    setCanEdit(true);
     apiService
       .post("disciplinary/update", values)
       .then((res) => {
         console.log(res);
+        setCanEdit(true);
       })
       .catch((err) => {
         console.log(err);
@@ -132,7 +138,7 @@ export const DisciplinaryAction = ({ studentId,canEditProp,editButton}) => {
         </table>
       </form>
       <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-      {editButton ? (
+        {editButton ? (
           <button
             className={classes.icon}
             onClick={edit}
@@ -142,15 +148,16 @@ export const DisciplinaryAction = ({ studentId,canEditProp,editButton}) => {
             <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
           </button>
         ) : null}
-      <button
-        onClick={() => {
-          setValue("studentId", studentId);
-          handleSubmit(submitProfile)();
-        }}
-        className={classes.icon}
-      >
-        <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
-      </button>
+        <button
+          hidden={canEdit}
+          onClick={() => {
+            setValue("studentId", studentId);
+            handleSubmit(submitProfile)();
+          }}
+          className={classes.icon}
+        >
+          <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+        </button>
       </div>
     </div>
   );

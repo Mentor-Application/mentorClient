@@ -7,7 +7,7 @@ import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { User } from "../interfaces";
 import { Challenges } from "../interfaces/Challenges";
 
-const ChallengesSupport = ({ studentId, canEditProp,editButton}) => {
+const ChallengesSupport = ({ studentId, canEditProp, editButton }) => {
   const [canEdit, setCanEdit] = useState(false);
   const [challengesSupport, setChallengesSupport] = useState<Array<Challenges>>(
     []
@@ -61,6 +61,7 @@ const ChallengesSupport = ({ studentId, canEditProp,editButton}) => {
               });
             }
           }
+          setCanEdit(true);
           setChallengesSupport(data);
         }
       })
@@ -72,22 +73,23 @@ const ChallengesSupport = ({ studentId, canEditProp,editButton}) => {
   let apiService: ApiService = new ApiService();
   const updateChallengesSupport = (e) => {
     e.preventDefault();
-    setCanEdit(true);
+
     apiService
       .post(`student/${studentId}/challenges`, challengesSupport)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
+        setCanEdit(true);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
@@ -157,19 +159,20 @@ const ChallengesSupport = ({ studentId, canEditProp,editButton}) => {
             );
           })}
         </table>
-        <div style={{ marginTop: "5%", marginLeft: "70%",marginBottom:'5%' }}>
-      {editButton ? (
-          <button
-            className={classes.icon}
-            onClick={edit}
-            title="Edit"
-            style={{marginRight:'10px'}}
-          >
-            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
-          </button>
-        ) : null}
+        <div style={{ marginTop: "5%", marginLeft: "70%", marginBottom: "5%" }}>
+          {editButton ? (
+            <button
+              className={classes.icon}
+              onClick={edit}
+              title="Edit"
+              style={{ marginRight: "10px" }}
+            >
+              <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+            </button>
+          ) : null}
 
           <button
+            hidden={canEdit}
             className={classes.icon}
             type="button"
             // style={{marginLeft:'1%'}}

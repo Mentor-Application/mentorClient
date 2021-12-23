@@ -1,6 +1,5 @@
-import { Router, useRouter } from "next/dist/client/router";
+import { useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
-import Navbar from "../../../components/Navbar";
 import classes from "../../../styles/studentMainPage.module.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Profile from "./Profile";
@@ -162,9 +161,21 @@ export const index = ({ data }) => {
         </button>
         {(() => {
           if (pageRoute.match("profile") && studentId.length !== 0) {
-            return <Profile studentId={studentId} canEdit={false} editButton={false}></Profile>;
+            return (
+              <Profile
+                studentId={studentId}
+                canEdit={false}
+                editButton={false}
+              ></Profile>
+            );
           } else if (pageRoute.match("marks") && studentId.length !== 0) {
-            return <Marks canEdit={false} studentId={studentId} editButton={false}></Marks>;
+            return (
+              <Marks
+                canEdit={false}
+                studentId={studentId}
+                editButton={false}
+              ></Marks>
+            );
           } else if (
             pageRoute.match("mentormeeting") &&
             studentId.length !== 0
@@ -180,7 +191,13 @@ export const index = ({ data }) => {
             pageRoute.match("additionaldetails") &&
             studentId.length !== 0
           ) {
-            return <AdditionalDetails canEdit={false} studentId={studentId} editButton={false}></AdditionalDetails>;
+            return (
+              <AdditionalDetails
+                canEdit={false}
+                studentId={studentId}
+                editButton={false}
+              ></AdditionalDetails>
+            );
           } else {
             return <></>;
           }

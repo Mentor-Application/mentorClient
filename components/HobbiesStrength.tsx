@@ -2,22 +2,19 @@ import React, { useEffect, useState } from "react";
 import classes from "../styles/studentMainPage.module.css";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../services/api.service";
-import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
-import { User } from "../interfaces";
 import { Hobbies } from "../interfaces/Hobbies";
 import { StrengthAssessment } from "../interfaces/StrengthAssessment";
-import { Student } from "../interfaces/student";
-import { ErrorMessage } from "@hookform/error-message";
 
-const HobbiesStrength = ({ studentId, canEditProp,editButton }) => {
-  var logedinstudent: StrengthAssessment = new StrengthAssessment();
+const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
   const [loggedinStudent, setLoggedinStudent] =
     useState<StrengthAssessment>(Object);
   const [canEdit, setCanEdit] = useState(false);
+  const [strengthCanEdit, setStrengthCanEdit] = useState(false);
   const [hobbies, setHobbies] = useState<Array<Hobbies>>([]);
   const [toggleEdit, setToggleEdit] = useState(true);
+  const [sttoggleEdit, setStToggleEdit] = useState(true);
   const {
     register,
     handleSubmit,
@@ -58,6 +55,7 @@ const HobbiesStrength = ({ studentId, canEditProp,editButton }) => {
               });
             }
           }
+          setCanEdit(true);
           setHobbies(data);
         }
       })
@@ -69,15 +67,16 @@ const HobbiesStrength = ({ studentId, canEditProp,editButton }) => {
   useEffect(() => {
     url = `student/list/strengthassessment/${studentId}`;
     console.log("hello");
-    setCanEdit(canEditProp);
+
     apiService
       .get(url)
       .then((res) => {
         const data = res;
         console.log(data);
+        setStrengthCanEdit(true);
         setLoggedinStudent(data);
         //logedinstudent.deserialize(data, loggedinStudent);
-        console.log(loggedinStudent);
+        //console.log(loggedinStudent);
       })
       .catch((err) => {
         console.log(err);
@@ -97,11 +96,17 @@ const HobbiesStrength = ({ studentId, canEditProp,editButton }) => {
       });
   };
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
+
+  const strengthEdit = (e) => {
+    e.preventDefault();
+    setStrengthCanEdit(!sttoggleEdit);
+    setStToggleEdit(!sttoggleEdit);
+  };
 
   let apiService: ApiService = new ApiService();
   const updateHobbies = (e) => {
@@ -130,45 +135,71 @@ const HobbiesStrength = ({ studentId, canEditProp,editButton }) => {
           style={{ overflowX: "scroll" }}
           className="d-flex flex-column col-12"
         >
-          <h4
-            style={{
-              marginLeft: "15%",
-              color: "#0166b2",
-              marginTop: "5%",
-            }}
-          >
-            Top three Hobbies{" "}
-          </h4>
-          {hobbies.map((items, index) => {
-            return (
-              <div
-                style={{
-                  marginLeft: "15%",
-                  color: "#0166b2",
-                  fontWeight: "bold",
-                  overflowX: "scroll",
-                  marginTop: "1%",
+          <div>
+            <h4
+              style={{
+                marginLeft: "15%",
+                color: "#0166b2",
+                marginTop: "5%",
+              }}
+            >
+              Top three Hobbies{" "}
+            </h4>
+            {hobbies.map((items, index) => {
+              return (
+                <div
+                  style={{
+                    marginLeft: "15%",
+                    color: "#0166b2",
+                    fontWeight: "bold",
+                    overflowX: "scroll",
+                    marginTop: "1%",
+                  }}
+                >
+                  {index + 1}
+                  <input
+                    key={items.hobbie}
+                    disabled={canEdit}
+                    onChange={(e) => {
+                      items.hobbie = e.target.value;
+                    }}
+                    defaultValue={items.hobbie}
+                    className={classes.inputgoals}
+                    type="text"
+                  ></input>
+                </div>
+              );
+            })}
+            <div
+              style={{
+                marginTop: "5%",
+                marginLeft: "80%",
+                marginBottom: "5%",
+              }}
+            >
+              {editButton ? (
+                <button className={classes.icon} onClick={edit} title="Edit">
+                  <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+                </button>
+              ) : null}
+              <button
+                hidden={canEdit}
+                className={classes.icon}
+                type="submit"
+                style={{ marginLeft: "5%" }}
+                onClick={(e) => {
+                  updateHobbies(e);
                 }}
               >
-                {index + 1}
-                <input
-                  key={items.hobbie}
-                  disabled={canEdit}
-                  onChange={(e) => {
-                    items.hobbie = e.target.value;
-                  }}
-                  defaultValue={items.hobbie}
-                  className={classes.inputgoals}
-                  type="text"
-                ></input>
-              </div>
-            );
-          })}
+                <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+              </button>
+            </div>
+          </div>
           <h4
             style={{
               marginLeft: "15%",
               color: "#0166b2",
-              marginTop: "5%",
+              marginTop: "0%",
             }}
           >
             Strength Assessment{" "}
@@ -185,7 +216,7 @@ const HobbiesStrength = ({ studentId, canEditProp,editButton }) => {
             I am{" "}
             <input
               {...register("iAm")}
-              disabled={canEdit}
+              disabled={strengthCanEdit}
               className={classes.inputgoals}
               defaultValue={loggedinStudent.iAm}
             ></input>
@@ -201,10 +232,10 @@ const HobbiesStrength = ({ studentId, canEditProp,editButton }) => {
           >
             I have{" "}
             <input
-              {...register("iHave",{
-                required:"Required",
+              {...register("iHave", {
+                required: "Required",
               })}
-              disabled={canEdit}
+              disabled={strengthCanEdit}
               className={classes.inputgoals}
               defaultValue={loggedinStudent.iHave}
             ></input>
@@ -226,28 +257,30 @@ const HobbiesStrength = ({ studentId, canEditProp,editButton }) => {
             <input
               {...register("iCan")}
               className={classes.inputgoals}
-              disabled={canEdit}
+              disabled={strengthCanEdit}
               defaultValue={loggedinStudent.iCan}
             ></input>
           </div>
         </div>
-        <div style={{ marginTop: "5%", marginLeft: "157%",marginBottom:'5%' }}>
-      {editButton ? (
+        <div
+          style={{ marginTop: "5%", marginLeft: "157%", marginBottom: "5%" }}
+        >
+          {editButton ? (
+            <button
+              className={classes.icon}
+              onClick={strengthEdit}
+              title="Edit"
+            >
+              <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+            </button>
+          ) : null}
           <button
-            className={classes.icon}
-            onClick={edit}
-            title="Edit"
-          >
-            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
-          </button>
-        ) : null}
-          <button
+            hidden={strengthCanEdit}
             className={classes.icon}
             type="submit"
-            style={{marginLeft:'1%'}}
+            style={{ marginLeft: "1%" }}
             onClick={(e) => {
               handleSubmit(onsubmit)();
-              updateHobbies(e);
             }}
           >
             <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />

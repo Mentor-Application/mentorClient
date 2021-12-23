@@ -7,7 +7,7 @@ import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { User } from "../interfaces";
 import { GoalsGrid } from "../interfaces/GoalsGrid";
 
-const GoalsGrid = ({ studentId, canEditProp,editButton}) => {
+const GoalsGrid = ({ studentId, canEditProp, editButton }) => {
   const [canEdit, setCanEdit] = useState(false);
   const [goalsGrid, setGoalsGrid] = useState<Array<GoalsGrid>>([]);
   const [toggleEdit, setToggleEdit] = useState(true);
@@ -61,6 +61,7 @@ const GoalsGrid = ({ studentId, canEditProp,editButton}) => {
               });
             }
           }
+          setCanEdit(true);
           setGoalsGrid(data);
         }
       })
@@ -71,24 +72,24 @@ const GoalsGrid = ({ studentId, canEditProp,editButton}) => {
 
   let apiService: ApiService = new ApiService();
   const updateGoalsGrid = (e) => {
-    setCanEdit(true);
     e.preventDefault();
-    setCanEdit(true);
+
     apiService
       .post(`student/${studentId}/goalsgrid`, goalsGrid)
       .then((res) => {
-        console.log(res);
+        setCanEdit(true);
+        //console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
@@ -154,20 +155,17 @@ const GoalsGrid = ({ studentId, canEditProp,editButton}) => {
           })}
         </table>
       </form>
-      <div style={{ marginTop: "-8%", marginLeft: "80%",marginBottom:'5%' }}>
-      {editButton ? (
-          <button
-            className={classes.icon}
-            onClick={edit}
-            title="Edit"
-          >
+      <div style={{ marginTop: "-8%", marginLeft: "80%", marginBottom: "5%" }}>
+        {editButton ? (
+          <button className={classes.icon} onClick={edit} title="Edit">
             <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
           </button>
         ) : null}
         <button
+          hidden={canEdit}
           className={classes.icon}
           type="submit"
-          style={{marginLeft:'5%'}}
+          style={{ marginLeft: "5%" }}
           onClick={(e) => {
             console.log(goalsGrid);
             updateGoalsGrid(e);

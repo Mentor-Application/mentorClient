@@ -7,7 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { MentorMeeting } from "../../../interfaces/MenorMeeting";
 
-export const MentorMeetingDetails = ({ studentId, canEditProp,editButton}) => {
+export const MentorMeetingDetails = ({
+  studentId,
+  canEditProp,
+  editButton,
+}) => {
   const [mentorMeetingDetails, setMentor] = useState<Array<MentorMeeting>>([]);
   const [semesterName, setSemesterName] = useState("semester1");
   let apiService: ApiService = new ApiService();
@@ -16,7 +20,6 @@ export const MentorMeetingDetails = ({ studentId, canEditProp,editButton}) => {
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
   let url: string;
   useEffect(() => {
-    setCanEdit(canEditProp);
     url = `mentormeeting/${studentId}/${semesterName}/list`;
     apiService
       .get(url)
@@ -78,6 +81,7 @@ export const MentorMeetingDetails = ({ studentId, canEditProp,editButton}) => {
               });
             }
           }
+          setCanEdit(true);
           setMentor(data);
         }
       })
@@ -86,11 +90,11 @@ export const MentorMeetingDetails = ({ studentId, canEditProp,editButton}) => {
       });
   }, [semesterName]);
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   const updateMarks = (e) => {
     e.preventDefault();
@@ -291,17 +295,19 @@ export const MentorMeetingDetails = ({ studentId, canEditProp,editButton}) => {
             </table>
           </form>
           <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-          {editButton ? (
-          <button
-            className={classes.icon}
-            onClick={edit}
-            title="Edit"
-            // style={{marginLeft:'60%'}}
-          >
-            <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
-          </button>
-        ) : null}
+            {editButton ? (
+              <button
+                className={classes.icon}
+                onClick={edit}
+                title="Edit"
+                // style={{marginLeft:'60%'}}
+              >
+                <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+              </button>
+            ) : null}
             <button
+              hidden={canEdit}
+              style={{ marginLeft: "5%" }}
               className={classes.icon}
               type="button"
               onClick={(e) => {

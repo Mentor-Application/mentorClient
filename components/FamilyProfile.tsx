@@ -7,7 +7,7 @@ import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FamilyProfile } from "../interfaces/FamilyProfile";
 import SchoolRecord from "./SchoolRecord";
 
-const FamilyProfile = ({ studentId, canEditProp,editButton }) => {
+const FamilyProfile = ({ studentId, canEditProp, editButton }) => {
   const [canEdit, setCanEdit] = useState(false);
   const [familyProfile, setFamilyProfile] = useState<Array<FamilyProfile>>([]);
   const [toggleEdit, setToggleEdit] = useState(true);
@@ -61,6 +61,7 @@ const FamilyProfile = ({ studentId, canEditProp,editButton }) => {
               });
             }
           }
+          setCanEdit(true);
           setFamilyProfile(data);
         }
       })
@@ -72,22 +73,23 @@ const FamilyProfile = ({ studentId, canEditProp,editButton }) => {
   let apiService: ApiService = new ApiService();
   const updateFamilyProfile = (e) => {
     e.preventDefault();
-    setCanEdit(true);
+
     apiService
       .post(`student/${studentId}/familyprofile`, familyProfile)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
+        setCanEdit(true);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
 
@@ -175,7 +177,7 @@ const FamilyProfile = ({ studentId, canEditProp,editButton }) => {
                     }}
                     defaultValue={items.annualIncome}
                     className={classes.inputbox}
-                    type="text"
+                    type="number"
                   />
                 </td>
               </tr>
@@ -183,8 +185,8 @@ const FamilyProfile = ({ studentId, canEditProp,editButton }) => {
           })}
         </table>
       </form>
-      <div style={{ marginTop:'5%',marginLeft: "82%" }}>
-      {editButton ? (
+      <div style={{ marginTop: "5%", marginLeft: "82%" }}>
+        {editButton ? (
           <button
             className={classes.icon}
             onClick={edit}
@@ -194,11 +196,12 @@ const FamilyProfile = ({ studentId, canEditProp,editButton }) => {
             <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
           </button>
         ) : null}
-        
+
         <button
+          hidden={canEdit}
           className={classes.icon}
           type="button"
-          style={{marginLeft:'5%'}}
+          style={{ marginLeft: "5%" }}
           onClick={(e) => {
             console.log(familyProfile);
             updateFamilyProfile(e);
@@ -206,7 +209,6 @@ const FamilyProfile = ({ studentId, canEditProp,editButton }) => {
         >
           <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
         </button>
-        
       </div>
     </div>
   );

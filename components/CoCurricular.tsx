@@ -6,8 +6,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ExtraCurricular } from "../interfaces/ExtraCurricular";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faPen} from "@fortawesome/free-solid-svg-icons";
-export const CoCurricular = ({ canEditProp,studentId,editButton }) => {
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
+export const CoCurricular = ({ canEditProp, studentId, editButton }) => {
   var logedinStudent: ExtraCurricular = new ExtraCurricular();
   const [coCurricular, setcoCurricular] = useState<ExtraCurricular>(Object);
   let apiService: ApiService = new ApiService();
@@ -31,6 +31,12 @@ export const CoCurricular = ({ canEditProp,studentId,editButton }) => {
             year4: "",
           });
         } else {
+          setCanEdit(true);
+          setValue("studentId", data.studentId);
+          setValue("year1", data.year1);
+          setValue("year2", data.year2);
+          setValue("year3", data.year3);
+          setValue("year4", data.year4);
           setcoCurricular(data);
           console.log(data);
         }
@@ -42,17 +48,18 @@ export const CoCurricular = ({ canEditProp,studentId,editButton }) => {
 
   const { register, handleSubmit, getValues, setValue } = useForm();
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   const submitProfile = (values) => {
     console.log(values);
     apiService
       .post("extracurricular/update", values)
       .then((res) => {
+        setCanEdit(true);
         console.log(res);
       })
       .catch((err) => {
@@ -123,7 +130,7 @@ export const CoCurricular = ({ canEditProp,studentId,editButton }) => {
         </table>
       </form>
       <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-      {editButton ? (
+        {editButton ? (
           <button
             className={classes.icon}
             onClick={edit}
@@ -133,15 +140,16 @@ export const CoCurricular = ({ canEditProp,studentId,editButton }) => {
             <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
           </button>
         ) : null}
-      <button
-        onClick={() => {
-          setValue("studentId", studentId);
-          handleSubmit(submitProfile)();
-        }}
-        className={classes.icon}
-      >
-        <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
-      </button>
+        <button
+          hidden={canEdit}
+          onClick={() => {
+            setValue("studentId", studentId);
+            handleSubmit(submitProfile)();
+          }}
+          className={classes.icon}
+        >
+          <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+        </button>
       </div>
     </div>
   );

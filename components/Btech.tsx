@@ -8,9 +8,7 @@ import { Additional } from "../interfaces/Additional";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 
-
-const Btech = ({canEditProp,studentId,editButton }) => {
-
+const Btech = ({ canEditProp, studentId, editButton }) => {
   var logedinStudent: Additional = new Additional();
   const [additional, setadditional] = useState<Additional>(Object);
   let apiService: ApiService = new ApiService();
@@ -35,6 +33,13 @@ const Btech = ({canEditProp,studentId,editButton }) => {
             careerInfo: "",
           });
         } else {
+          setCanEdit(true);
+          setValue("studentId", data.studentId);
+          setValue("percentage", data.percentage);
+          setValue("className", data.className);
+          setValue("rank", data.rank);
+          setValue("graduateStudy", data.graduateStudy);
+          setValue("careerInfo", data.careerInfo);
           setadditional(data);
           console.log(data);
         }
@@ -45,17 +50,18 @@ const Btech = ({canEditProp,studentId,editButton }) => {
   }, []);
   const { register, handleSubmit, getValues, setValue } = useForm();
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   const submitProfile = (values) => {
     console.log(values);
     apiService
       .post("additional/update", values)
       .then((res) => {
+        setCanEdit(true);
         console.log(res);
       })
       .catch((err) => {
@@ -68,11 +74,18 @@ const Btech = ({canEditProp,studentId,editButton }) => {
         onSubmit={handleSubmit(submitProfile)}
         className="justify-content-around  d-flex flex-column "
       >
-        <div  style={{marginLeft:"20px"}}className={classes.discipline}>B.E/B.Tech. result (Overall) :</div>
+        <div style={{ marginLeft: "20px" }} className={classes.discipline}>
+          B.E/B.Tech. result (Overall) :
+        </div>
         <div className="row">
           <div
             className="col-md-3"
-            style={{ marginTop: "1.5%", color: "#0166b2", fontWeight: "bold",marginLeft:"20px" }}
+            style={{
+              marginTop: "1.5%",
+              color: "#0166b2",
+              fontWeight: "bold",
+              marginLeft: "20px",
+            }}
           >
             Percentage:{" "}
             <input
@@ -84,7 +97,7 @@ const Btech = ({canEditProp,studentId,editButton }) => {
           </div>
           <div
             className="col-md-5"
-            style={{ color: "#0166b2", fontWeight: "bold",marginTop:"0%" }}
+            style={{ color: "#0166b2", fontWeight: "bold", marginTop: "0%" }}
           >
             Class :{" "}
             <input
@@ -96,7 +109,12 @@ const Btech = ({canEditProp,studentId,editButton }) => {
           </div>
           <div
             className="col-md-4"
-            style={{ marginLeft: "-40px", color: "#0166b2", fontWeight: "bold",marginTop:"1%" }}
+            style={{
+              marginLeft: "-40px",
+              color: "#0166b2",
+              fontWeight: "bold",
+              marginTop: "1%",
+            }}
           >
             Rank :{" "}
             <input
@@ -146,7 +164,7 @@ const Btech = ({canEditProp,studentId,editButton }) => {
         </div>
       </form>
       <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-      {editButton ? (
+        {editButton ? (
           <button
             className={classes.icon}
             onClick={edit}
@@ -156,16 +174,17 @@ const Btech = ({canEditProp,studentId,editButton }) => {
             <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
           </button>
         ) : null}
-      <button
-        style={{ marginLeft: "50%" }}
-        onClick={() => {
-          setValue("studentId", studentId);
-          handleSubmit(submitProfile)();
-        }}
-        className={classes.icon}
-      >
-        <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
-      </button>
+        <button
+          hidden={canEdit}
+          style={{ marginLeft: "50%" }}
+          onClick={() => {
+            setValue("studentId", studentId);
+            handleSubmit(submitProfile)();
+          }}
+          className={classes.icon}
+        >
+          <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+        </button>
       </div>
     </div>
   );

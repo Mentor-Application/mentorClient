@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Overall } from "../interfaces/Overall";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
-const OverallAssesment = ({ canEditProp,studentId,editButton}) => {
+const OverallAssesment = ({ canEditProp, studentId, editButton }) => {
   var logedinStudent: Overall = new Overall();
   const [overallAssesment, setoverallAssesment] = useState<Overall>(Object);
   const [toggleEdit, setToggleEdit] = useState(true);
@@ -31,7 +31,13 @@ const OverallAssesment = ({ canEditProp,studentId,editButton}) => {
             year4: "",
           });
         } else {
+          setValue("studentId", data.studentId);
+          setValue("year1", data.year1);
+          setValue("year2", data.year2);
+          setValue("year3", data.year3);
+          setValue("year4", data.year4);
           setoverallAssesment(data);
+          setCanEdit(true);
           console.log(data);
         }
       })
@@ -41,11 +47,11 @@ const OverallAssesment = ({ canEditProp,studentId,editButton}) => {
   }, []);
   const { register, handleSubmit, getValues, setValue } = useForm();
 
-  const edit=(e)=>{
+  const edit = (e) => {
     e.preventDefault();
     setCanEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
-  }
+  };
 
   const submitProfile = (values) => {
     console.log(values);
@@ -53,6 +59,7 @@ const OverallAssesment = ({ canEditProp,studentId,editButton}) => {
       .post("overall/update", values)
       .then((res) => {
         console.log(res);
+        setCanEdit(true);
       })
       .catch((err) => {
         console.log(err);
@@ -121,7 +128,7 @@ const OverallAssesment = ({ canEditProp,studentId,editButton}) => {
         </table>
       </form>
       <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-      {editButton ? (
+        {editButton ? (
           <button
             className={classes.icon}
             onClick={edit}
@@ -131,15 +138,16 @@ const OverallAssesment = ({ canEditProp,studentId,editButton}) => {
             <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
           </button>
         ) : null}
-      <button
-        onClick={() => {
-          setValue("studentId", studentId);
-          handleSubmit(submitProfile)();
-        }}
-        className={classes.icon}
-      >
-        <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
-      </button>
+        <button
+          hidden={canEdit}
+          onClick={() => {
+            setValue("studentId", studentId);
+            handleSubmit(submitProfile)();
+          }}
+          className={classes.icon}
+        >
+          <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+        </button>
       </div>
     </div>
   );
