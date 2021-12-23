@@ -68,11 +68,11 @@ const Btech = ({canEditProp,studentId,editButton }) => {
         onSubmit={handleSubmit(submitProfile)}
         className="justify-content-around  d-flex flex-column "
       >
-        <div className={classes.discipline}>B.E/B.Tech. result (Overall) :</div>
+        <div  style={{marginLeft:"20px"}}className={classes.discipline}>B.E/B.Tech. result (Overall) :</div>
         <div className="row">
           <div
             className="col-md-3"
-            style={{ marginTop: "1%", color: "#0166b2", fontWeight: "bold" }}
+            style={{ marginTop: "1.5%", color: "#0166b2", fontWeight: "bold",marginLeft:"20px" }}
           >
             Percentage:{" "}
             <input
@@ -84,7 +84,7 @@ const Btech = ({canEditProp,studentId,editButton }) => {
           </div>
           <div
             className="col-md-5"
-            style={{ color: "#0166b2", fontWeight: "bold" }}
+            style={{ color: "#0166b2", fontWeight: "bold",marginTop:"0%" }}
           >
             Class :{" "}
             <input
@@ -96,7 +96,7 @@ const Btech = ({canEditProp,studentId,editButton }) => {
           </div>
           <div
             className="col-md-4"
-            style={{ marginLeft: "0%", color: "#0166b2", fontWeight: "bold" }}
+            style={{ marginLeft: "-40px", color: "#0166b2", fontWeight: "bold",marginTop:"1%" }}
           >
             Rank :{" "}
             <input
@@ -107,7 +107,7 @@ const Btech = ({canEditProp,studentId,editButton }) => {
             ></input>
           </div>
           <label
-            style={{ marginTop: "2%", marginLeft: "0%" }}
+            style={{ marginTop: "2%", marginLeft: "20px" }}
             className={classes.placement}
           >
             Career (PLacement) Information :
@@ -126,7 +126,7 @@ const Btech = ({canEditProp,studentId,editButton }) => {
             }}
             className={classes.box}
           ></textarea>
-          <label style={{ marginLeft: "0%" }} className={classes.placement}>
+          <label style={{ marginLeft: "20px" }} className={classes.placement}>
             Graduate Study :
           </label>
           <textarea
