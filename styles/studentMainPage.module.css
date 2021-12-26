@@ -38,7 +38,7 @@
   background: #ffffff;
   width: 90%;
   /* border-radius: 30px; */
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .box {
@@ -77,7 +77,6 @@
   color: #0166b2;
   table-layout: auto;
   overflow-x: scroll;
-  margin-right: 10%;
 }
 
 .inputbox {
@@ -227,21 +226,21 @@
 .credits:focus {
   outline: none !important;
 }
-.Ment{
-  height:20px;
+.Ment {
+  height: 20px;
   width: 100px;
   background-color: black;
 }
-.Editbtn{
+.Editbtn {
   margin-left: 20px;
-  margin-top:20px;
-  color:#ffffff;
-  background-color:#0166b2;
-  font-weight:bold;
-  justify-items:center;
+  margin-top: 20px;
+  color: #ffffff;
+  background-color: #0166b2;
+  font-weight: bold;
+  justify-items: center;
   border: none;
 }
-.Clearbtn{
+.Clearbtn {
   background-color: #0166b2;
   color: #ffffff;
   margin-top: 20px;
@@ -253,35 +252,33 @@
   border: none;
 }
 
-.horizontalline{
+.horizontalline {
   opacity: 0.6;
   background-color: #0166b2;
   border-top: 2px solid #0166b2;
-  width: 60%;;
+  width: 60%;
 }
 
-.editprofilebutton{
+.editprofilebutton {
   background: white;
   margin-left: 0%;
   margin-top: 5%;
   border: none;
-  color:#0166b2;
+  color: #0166b2;
   font-weight: 700;
   width: 80px;
-  font-size:13px;
-
+  font-size: 13px;
 }
 
-.nomentees{
+.nomentees {
   margin-left: 0%;
-  margin-right:auto;
+  margin-right: auto;
   text-align: center;
-  color:#0166b2;
+  color: #0166b2;
   font-weight: bolder;
   display: flex;
   justify-content: center;
-  top:50%;
+  top: 50%;
   margin-top: 10%;
   margin-bottom: 10%;
-
 }

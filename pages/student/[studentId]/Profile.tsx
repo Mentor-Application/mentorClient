@@ -7,7 +7,7 @@ import ParentGuardian from "../../../components/ParentGuardian";
 import SchoolRecord from "../../../components/SchoolRecord";
 import StudentProfile from "../../../components/StudentProfile";
 
-export const Profile = ({ studentId, canEdit,editButton}) => {
+export const Profile = ({ studentId, canEdit, editButton }) => {
   return (
     <div
       style={{
@@ -18,7 +18,7 @@ export const Profile = ({ studentId, canEdit,editButton}) => {
     >
       <div
         style={{ height: "115%", overflow: "hidden" }}
-        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
+        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-11 col-md-11 col-xl-12"
       >
         <StudentProfile
           canEditProp={canEdit}
@@ -27,8 +27,8 @@ export const Profile = ({ studentId, canEdit,editButton}) => {
         ></StudentProfile>
       </div>
       <div
-        style={{ height: "80%" }}
-        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
+        style={{ height: "90%" }}
+        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-11 col-md-11 col-xl-12"
       >
         <ParentGuardian
           canEditProp={canEdit}
@@ -38,7 +38,7 @@ export const Profile = ({ studentId, canEdit,editButton}) => {
       </div>
       <div
         style={{ height: "70%" }}
-        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
+        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-11 col-md-11 col-xl-12"
       >
         <SchoolRecord
           canEditProp={canEdit}
@@ -48,7 +48,7 @@ export const Profile = ({ studentId, canEdit,editButton}) => {
       </div>
       <div
         style={{ height: "60%" }}
-        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
+        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-11 col-md-11 col-xl-12"
       >
         <FamilyProfile
           canEditProp={canEdit}
@@ -58,7 +58,7 @@ export const Profile = ({ studentId, canEdit,editButton}) => {
       </div>
       <div
         style={{ height: "80%" }}
-        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
+        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-11 col-md-11 col-xl-12"
       >
         <HobbiesStrength
           canEditProp={canEdit}
@@ -68,12 +68,12 @@ export const Profile = ({ studentId, canEdit,editButton}) => {
       </div>
       <div
         style={{ height: "70%" }}
-        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-12 col-md-11 col-xl-12"
+        className="d-flex justify-content-center align-items-center col-11 col-sm-11 col-lg-11 col-md-11 col-xl-12"
       >
-        <GoalsGrid 
-        canEditProp={canEdit} 
-        studentId={studentId}
-        editButton={editButton}
+        <GoalsGrid
+          canEditProp={canEdit}
+          studentId={studentId}
+          editButton={editButton}
         ></GoalsGrid>
       </div>
       <div

@@ -91,71 +91,82 @@ const GoalsGrid = ({ studentId, canEditProp, editButton }) => {
     setToggleEdit(!toggleEdit);
   };
 
-  let whiteBox = `${classes.forms} col-12 col-xl-11`;
+  let whiteBox = `${classes.forms} col-12 col-xl-11 d-flex flex-column align-items-center justify-content-center`;
 
   return (
-    <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
-      <form style={{ marginLeft: "10%", height: "80%" }}>
-        <table style={{ marginTop: "10%" }} className={classes.table}>
-          <tr>
-            <th style={{ width: "10%" }} className={classes.tablehead}>
-              No.
-            </th>
-            <th className={classes.tablehead}>Domain</th>
-            <th style={{ width: "30%" }} className={classes.tablehead}>
-              Goal
-            </th>
-            <th style={{ width: "30%" }} className={classes.tablehead}>
-              Plan of Action
-            </th>
-          </tr>
-          {goalsGrid.map((items, index) => {
-            return (
-              <tr>
-                <td className={classes.tablehead}>1.</td>
-                <td className={classes.table}>
-                  {(() => {
-                    if (index + 1 === 1) {
-                      return "Acquire (Don’t have, but want)";
-                    } else if (index + 1 === 2) {
-                      return "Eliminate (Have but don’t want)";
-                    } else if (index + 1 === 3) {
-                      return "Avoid (Don’t have and don’t want)";
-                    } else {
-                      return "Sustain (Have and want)";
-                    }
-                  })()}
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.goal}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.goal = e.target.value;
-                    }}
-                    defaultValue={items.goal}
-                    className={classes.inputbox}
-                    type="text"
-                  />
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.planOfAction}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.planOfAction = e.target.value;
-                    }}
-                    defaultValue={items.planOfAction}
-                    className={classes.inputbox}
-                    type="text"
-                  />
-                </td>
-              </tr>
-            );
-          })}
-        </table>
+    <div style={{ height: "90%" }} className={whiteBox}>
+      <h3 style={{ marginTop: "0%" }} className={classes.heading}>
+        Goals Grid
+      </h3>
+      <form
+        style={{ height: "75%" }}
+        className="d-flex justify-content-center  align-items-center"
+      >
+        <div
+          style={{ height: "95%", marginTop: "5%" }}
+          className="table-responsive  col-10 col-sm-8 col-md-10 col-lg-12"
+        >
+          <table className="table table-borderless">
+            <tr>
+              <th style={{ width: "10%" }} className={classes.tablehead}>
+                No.
+              </th>
+              <th className={classes.tablehead}>Domain</th>
+              <th style={{ width: "30%" }} className={classes.tablehead}>
+                Goal
+              </th>
+              <th style={{ width: "30%" }} className={classes.tablehead}>
+                Plan of Action
+              </th>
+            </tr>
+            {goalsGrid.map((items, index) => {
+              return (
+                <tr>
+                  <td className={classes.tablehead}>1.</td>
+                  <td className={classes.table}>
+                    {(() => {
+                      if (index + 1 === 1) {
+                        return "Acquire (Don’t have, but want)";
+                      } else if (index + 1 === 2) {
+                        return "Eliminate (Have but don’t want)";
+                      } else if (index + 1 === 3) {
+                        return "Avoid (Don’t have and don’t want)";
+                      } else {
+                        return "Sustain (Have and want)";
+                      }
+                    })()}
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.goal}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.goal = e.target.value;
+                      }}
+                      defaultValue={items.goal}
+                      className={classes.inputbox}
+                      type="text"
+                    />
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.planOfAction}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.planOfAction = e.target.value;
+                      }}
+                      defaultValue={items.planOfAction}
+                      className={classes.inputbox}
+                      type="text"
+                    />
+                  </td>
+                </tr>
+              );
+            })}
+          </table>
+        </div>
       </form>
-      <div style={{ marginTop: "-8%", marginLeft: "80%", marginBottom: "5%" }}>
+      <div style={{ marginTop: "0%", marginLeft: "70%", width: "30%" }}>
         {editButton ? (
           <button className={classes.icon} onClick={edit} title="Edit">
             <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />

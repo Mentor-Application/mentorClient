@@ -175,9 +175,10 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
             })}
             <div
               style={{
-                marginTop: "5%",
-                marginLeft: "80%",
+                marginTop: "7%",
+                marginLeft: "70%",
                 marginBottom: "5%",
+                width: "30%",
               }}
             >
               {editButton ? (
@@ -233,7 +234,7 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
               fontWeight: "bold",
             }}
           >
-            I have{" "}
+            I have
             <input
               {...register("iHave", {
                 required: "Required",
@@ -256,7 +257,7 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
               marginTop: "1%",
             }}
           >
-            I can{" "}
+            I can{"  "}
             <input
               {...register("iCan")}
               className={classes.inputgoals}
@@ -264,31 +265,36 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
               defaultValue={loggedinStudent.iCan}
             ></input>
           </div>
-        </div>
-        <div
-          style={{ marginTop: "5%", marginLeft: "157%", marginBottom: "5%" }}
-        >
-          {editButton ? (
-            <button
-              className={classes.icon}
-              onClick={strengthEdit}
-              title="Edit"
-            >
-              <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
-            </button>
-          ) : null}
-          <button
-            hidden={strengthCanEdit}
-            className={classes.icon}
-            type="submit"
-            style={{ marginLeft: "1%" }}
-            onClick={(e) => {
-              e.preventDefault();
-              handleSubmit(onsubmit)();
+          <div
+            style={{
+              marginTop: "7%",
+              marginLeft: "70%",
+              marginBottom: "5%",
+              width: "30%",
             }}
           >
-            <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
-          </button>
+            {editButton ? (
+              <button
+                className={classes.icon}
+                onClick={strengthEdit}
+                title="Edit"
+              >
+                <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
+              </button>
+            ) : null}
+            <button
+              hidden={strengthCanEdit}
+              className={classes.icon}
+              type="submit"
+              style={{ marginLeft: "5%" }}
+              onClick={(e) => {
+                e.preventDefault();
+                handleSubmit(onsubmit)();
+              }}
+            >
+              <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
+            </button>
+          </div>
         </div>
       </form>
     </div>

@@ -103,111 +103,120 @@ const SchoolRecord = ({ studentId, canEditProp, editButton }) => {
     setToggleEdit(!toggleEdit);
   };
 
-  let whiteBox = `${classes.forms} col-12 col-xl-11`;
+  let whiteBox = `${classes.forms} col-12 col-xl-11  d-flex flex-column align-items-center justify-content-center`;
 
   return (
     <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
-      <form style={{ marginLeft: "10%", height: "80%" }}>
-        <table style={{ marginTop: "10%" }} className={classes.table}>
-          <tr>
-            <th className={classes.tablehead}>Course</th>
-            <th style={{ width: "15%" }} className={classes.tablehead}>
-              Year in which passed
-            </th>
-            <th style={{ width: "45%" }} className={classes.tablehead}>
-              Name of the School/Institution
-            </th>
-            <th style={{ width: "20%" }} className={classes.tablehead}>
-              Board
-            </th>
-            <th className={classes.tablehead}>Percentage</th>
-          </tr>
-          {schoolRecord.map((items, index) => {
-            return (
-              <tr>
-                <td className={classes.tablehead}>
-                  {(() => {
-                    if (index + 1 === 1) {
-                      items.course = "11th";
-                      return "11th";
-                    } else if (index + 1 === 2) {
-                      items.course = "12th";
-                      return "12th";
-                    } else {
-                      items.course = "Diploma";
-                      return "Diploma";
-                    }
-                  })()}
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.yearPassedOut}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.yearPassedOut = e.target.value;
-                    }}
-                    defaultValue={items.yearPassedOut}
-                    className={classes.inputbox}
-                    type="text"
-                  />
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.nameOfSchool}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.nameOfSchool = e.target.value;
-                    }}
-                    defaultValue={items.nameOfSchool}
-                    className={classes.inputbox}
-                    type="text"
-                  />
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.board}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.board = e.target.value;
-                    }}
-                    defaultValue={items.board}
-                    className={classes.inputbox}
-                    type="text"
-                  />
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.percentage}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.percentage = e.target.value;
-                    }}
-                    defaultValue={items.percentage}
-                    className={classes.inputbox}
-                    type="text"
-                  />
-                </td>
-              </tr>
-            );
-          })}
-          <tr>
-            <td className={classes.tablehead}>12th Cutoff </td>
-            <td>
-              <input
-                key={twelfthCutOff}
-                disabled={canEdit}
-                type="text"
-                onChange={(e) => {
-                  setTwelfthCutOff(e.target.value);
-                }}
-                defaultValue={twelfthCutOff || ""}
-                className={classes.inputbox}
-              />
-            </td>
-          </tr>
-        </table>
+      <h3 style={{ marginTop: "0%" }} className={classes.heading}>
+        School Record
+      </h3>
+      <form
+        style={{ height: "70%" }}
+        className="d-flex justify-content-center align-items-center "
+      >
+        <div className="table-responsive col-8 col-sm-8 col-md-10 col-lg-12">
+          <table className="table table-borderless">
+            <tr>
+              <th className={classes.tablehead}>Course</th>
+              <th style={{ width: "15%" }} className={classes.tablehead}>
+                Year in which passed
+              </th>
+              <th style={{ width: "45%" }} className={classes.tablehead}>
+                Name of the School/Institution
+              </th>
+              <th style={{ width: "20%" }} className={classes.tablehead}>
+                Board
+              </th>
+              <th className={classes.tablehead}>Percentage</th>
+            </tr>
+            {schoolRecord.map((items, index) => {
+              return (
+                <tr>
+                  <td className={classes.tablehead}>
+                    {(() => {
+                      if (index + 1 === 1) {
+                        items.course = "11th";
+                        return "11th";
+                      } else if (index + 1 === 2) {
+                        items.course = "12th";
+                        return "12th";
+                      } else {
+                        items.course = "Diploma";
+                        return "Diploma";
+                      }
+                    })()}
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.yearPassedOut}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.yearPassedOut = e.target.value;
+                      }}
+                      defaultValue={items.yearPassedOut}
+                      className={classes.inputbox}
+                      type="text"
+                    />
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.nameOfSchool}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.nameOfSchool = e.target.value;
+                      }}
+                      defaultValue={items.nameOfSchool}
+                      className={classes.inputbox}
+                      type="text"
+                    />
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.board}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.board = e.target.value;
+                      }}
+                      defaultValue={items.board}
+                      className={classes.inputbox}
+                      type="text"
+                    />
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.percentage}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.percentage = e.target.value;
+                      }}
+                      defaultValue={items.percentage}
+                      className={classes.inputbox}
+                      type="text"
+                    />
+                  </td>
+                </tr>
+              );
+            })}
+            <tr>
+              <td className={classes.tablehead}>12th Cutoff </td>
+              <td>
+                <input
+                  style={{ borderBottom: "2px solid black" }}
+                  key={twelfthCutOff}
+                  disabled={canEdit}
+                  type="text"
+                  onChange={(e) => {
+                    setTwelfthCutOff(e.target.value);
+                  }}
+                  defaultValue={twelfthCutOff || ""}
+                  className={classes.inputbox}
+                />
+              </td>
+            </tr>
+          </table>
+        </div>
       </form>
-      <div style={{ marginTop: "-6%", marginLeft: "80%" }}>
+      <div style={{ marginTop: "0%", marginLeft: "70%", width: "30%" }}>
         {editButton ? (
           <button
             className={classes.icon}

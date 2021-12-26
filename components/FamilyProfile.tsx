@@ -91,101 +91,107 @@ const FamilyProfile = ({ studentId, canEditProp, editButton }) => {
     setToggleEdit(!toggleEdit);
   };
 
-  let whiteBox = `${classes.forms} col-12 col-xl-11`;
+  let whiteBox = `${classes.forms} col-12 col-xl-11  d-flex flex-column align-items-center justify-content-center`;
 
   return (
-    <div style={{ overflowX: "auto", height: "90%" }} className={whiteBox}>
-      <form style={{ overflowX: "auto", marginLeft: "10%" }}>
-        <table style={{ marginTop: "10%" }} className={classes.table}>
-          <tr>
-            <th style={{ width: "5%" }} className={classes.tablehead}>
-              No.
-            </th>
-            <th className={classes.tablehead}>Relationship</th>
-            <th style={{ width: "10%" }} className={classes.tablehead}>
-              Age
-            </th>
-            <th style={{ width: "30%" }} className={classes.tablehead}>
-              Educational Qualification
-            </th>
-            <th style={{ width: "25%" }} className={classes.tablehead}>
-              Occupation
-            </th>
-            <th className={classes.tablehead}>Annual Income(rs)</th>
-          </tr>
-          {familyProfile.map((items, index) => {
-            return (
-              <tr>
-                <td className={classes.tablehead}>{index + 1}</td>
-                <td className={classes.table}>
-                  {(() => {
-                    if (index + 1 === 1) {
-                      items.relationShip = "Father";
-                      return "Father";
-                    } else if (index + 1 === 2) {
-                      items.relationShip = "Mother";
-                      return "Mother";
-                    } else {
-                      items.relationShip = "sibling(s)";
-                      return "Sibling(s)";
-                    }
-                  })()}
-                </td>
+    <div style={{ height: "100%" }} className={whiteBox}>
+      <h3 className={classes.heading}>Family Profile</h3>
+      <form
+        style={{ height: "60%" }}
+        className="d-flex justify-content-center align-items-center "
+      >
+        <div className="table-responsive col-7 col-sm-8 col-md-10 col-lg-12">
+          <table className="table table-borderless">
+            <tr>
+              <th style={{ width: "5%" }} className={classes.tablehead}>
+                No.
+              </th>
+              <th className={classes.tablehead}>Relationship</th>
+              <th style={{ width: "10%" }} className={classes.tablehead}>
+                Age
+              </th>
+              <th style={{ width: "30%" }} className={classes.tablehead}>
+                Educational Qualification
+              </th>
+              <th style={{ width: "25%" }} className={classes.tablehead}>
+                Occupation
+              </th>
+              <th className={classes.tablehead}>Annual Income(rs)</th>
+            </tr>
+            {familyProfile.map((items, index) => {
+              return (
+                <tr>
+                  <td className={classes.tablehead}>{index + 1}</td>
+                  <td className={classes.table}>
+                    {(() => {
+                      if (index + 1 === 1) {
+                        items.relationShip = "Father";
+                        return "Father";
+                      } else if (index + 1 === 2) {
+                        items.relationShip = "Mother";
+                        return "Mother";
+                      } else {
+                        items.relationShip = "sibling(s)";
+                        return "Sibling(s)";
+                      }
+                    })()}
+                  </td>
 
-                <td className={classes.table}>
-                  <input
-                    key={items.age}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.age = parseInt(e.target.value);
-                    }}
-                    defaultValue={items.age}
-                    className={classes.inputbox}
-                    type="number"
-                  />
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.educationalQualification}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.educationalQualification = e.target.value;
-                    }}
-                    defaultValue={items.educationalQualification}
-                    className={classes.inputbox}
-                    type="text"
-                  />
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.occupation}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.occupation = e.target.value;
-                    }}
-                    defaultValue={items.occupation}
-                    className={classes.inputbox}
-                    type="text"
-                  />
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.annualIncome}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.annualIncome = parseInt(e.target.value);
-                    }}
-                    defaultValue={items.annualIncome}
-                    className={classes.inputbox}
-                    type="number"
-                  />
-                </td>
-              </tr>
-            );
-          })}
-        </table>
+                  <td className={classes.table}>
+                    <input
+                      key={items.age}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.age = parseInt(e.target.value);
+                      }}
+                      defaultValue={items.age}
+                      className={classes.inputbox}
+                      type="number"
+                    />
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.educationalQualification}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.educationalQualification = e.target.value;
+                      }}
+                      defaultValue={items.educationalQualification}
+                      className={classes.inputbox}
+                      type="text"
+                    />
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.occupation}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.occupation = e.target.value;
+                      }}
+                      defaultValue={items.occupation}
+                      className={classes.inputbox}
+                      type="text"
+                    />
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.annualIncome}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.annualIncome = parseInt(e.target.value);
+                      }}
+                      defaultValue={items.annualIncome}
+                      className={classes.inputbox}
+                      type="number"
+                    />
+                  </td>
+                </tr>
+              );
+            })}
+          </table>
+        </div>
       </form>
-      <div style={{ marginTop: "5%", marginLeft: "82%" }}>
+      <div style={{ marginTop: "0%", marginLeft: "70%", width: "30%" }}>
         {editButton ? (
           <button
             className={classes.icon}
