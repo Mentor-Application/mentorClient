@@ -5,12 +5,14 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Profile } from "../../student/[studentId]/Profile";
 import AddMentees from "./AddMentees";
 import Mentees from "./Mentees";
-import { viewProfile } from "../../../interfaces";
+import { User, viewProfile } from "../../../interfaces";
 import Marks from "../../student/[studentId]/Marks";
 import MentorMeetingDetails from "../../student/[studentId]/MentorMeetingDetails";
 import AdditionalDetails from "../../student/[studentId]/AdditionalDetails";
+import { Dropdown, DropdownButton, Row } from "react-bootstrap";
 
 export const index = () => {
+  const router = useRouter();
   const [mentorRoute, setmentorRoute] = useState("mentees");
   const [menteesActive, setmenteesActive] = useState(false);
   const [addMenteesActive, setaddMenteesActive] = useState(false);
@@ -22,6 +24,9 @@ export const index = () => {
   const [childProp, setChildProp] = useState<viewProfile>(Object);
   //const studentId = router.query.studentId;
   const [showNav, setShowNav] = useState(false);
+  const[mentorName,setMentorName] = useState("");
+  let loggedInUser: User;
+
   let navCss = `${
     showNav
       ? "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 position-absolute col-sm-4 col-8"
@@ -40,6 +45,11 @@ export const index = () => {
     setmentorRoute(route);
     childProp.editButton = editButton;
   };
+
+  useEffect(() => {
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    setMentorName(loggedInUser.userName);
+  }, []);
 
   useEffect(() => {
     if (mentorRoute.match("addmentees")) {
@@ -85,6 +95,50 @@ export const index = () => {
       <div style={{ height: "90vh", marginTop: "3%" }} className={navCss}>
         <div className={navStyle}>
           <div className="d-flex flex-column align-items-center ">
+          <div
+              style={{
+                color: "#0166b2",
+                fontWeight: "bold",
+                marginTop: "20%",
+                textAlign: "center",
+              }}
+              className={classes.dropdowntoggle}
+            >
+              <Dropdown style={{marginRight:'5%'}} className={classes.dropdowntoggle}>
+                <Dropdown.Toggle 
+                style={{ background: "white", color: "#0166b2",border:'none',fontWeight:'bold',marginRight:'20%' }}
+                className={classes.dropdowntoggle}>
+                {mentorName}
+                </Dropdown.Toggle>
+                <Dropdown.Menu
+            id="dropdown-menu-align-right"
+            style={{ background: "white", color: "#0166b2" }}
+            className="DropDown"
+          >
+             <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight:"bold" }}
+              className={classes.dropdownitems}
+              onClick={() => {
+                console.log("Password Change");
+              }}
+            >
+              Change Password
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight: "bold" }}
+              className={classes.dropdownitems}
+              onClick={() => {
+                router.push("/")
+                sessionStorage.clear();
+              }}
+            >
+              LogOut
+            </Dropdown.Item>
+          </Dropdown.Menu>
+              </Dropdown>
+             
+            </div>
             <button
               type="button"
               onClick={() => {

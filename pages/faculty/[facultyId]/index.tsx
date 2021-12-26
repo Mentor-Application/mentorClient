@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import classes from "../../../styles/studentMainPage.module.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Profile } from "../../student/[studentId]/Profile";
-import { viewProfile } from "../../../interfaces";
+import { User, viewProfile } from "../../../interfaces";
 import Marks from "../../student/[studentId]/Marks";
 import MentorMeetingDetails from "../../student/[studentId]/MentorMeetingDetails";
 import AdditionalDetails from "../../student/[studentId]/AdditionalDetails";
 import ViewStudents from "./ViewStudents";
+import { Dropdown, DropdownButton, Row } from "react-bootstrap";
 
 export const index = () => {
   const [mentorRoute, setmentorRoute] = useState("viewstudents");
@@ -19,6 +20,8 @@ export const index = () => {
   const [navHidden, setNavHidden] = useState(true);
   const [editbuttonHidden, setEditButtonHidden] = useState(false);
   const [childProp, setChildProp] = useState<viewProfile>(Object);
+  const[facultyName,setFacultyName] = useState("");
+  let loggedInUser: User;
   const router = useRouter();
 
   //const studentId = router.query.studentId;
@@ -71,12 +74,61 @@ export const index = () => {
     }
   }, [mentorRoute]);
 
+  useEffect(() => {
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    setFacultyName(loggedInUser.userName);
+  }, []);
+
   let navStyle = `${classes.navbar} d-flex flex-column justify-content-center`;
   return (
     <div style={{ width: "100%", height: "100vh" }} className="d-flex flex-row">
       <div style={{ height: "90vh", marginTop: "3%" }} className={navCss}>
         <div className={navStyle}>
           <div className="d-flex flex-column align-items-center ">
+          <div
+              style={{
+                color: "#0166b2",
+                fontWeight: "bold",
+                marginTop: "20%",
+                textAlign: "center",
+              }}
+              className={classes.dropdowntoggle}
+            >
+              <Dropdown style={{marginRight:'5%'}} className={classes.dropdowntoggle}>
+                <Dropdown.Toggle 
+                style={{ background: "white", color: "#0166b2",border:'none',fontWeight:'bold',marginRight:'20%' }}
+                className={classes.dropdowntoggle}>
+                {facultyName}
+                </Dropdown.Toggle>
+                <Dropdown.Menu
+            id="dropdown-menu-align-right"
+            style={{ background: "white", color: "#0166b2" }}
+            className="DropDown"
+          >
+             <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight:"bold" }}
+              className={classes.dropdownitems}
+              onClick={() => {
+                console.log("Password Change");
+              }}
+            >
+              Change Password
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight: "bold" }}
+              className={classes.dropdownitems}
+              onClick={() => {
+                router.push("/")
+                sessionStorage.clear();
+              }}
+            >
+              LogOut
+            </Dropdown.Item>
+          </Dropdown.Menu>
+              </Dropdown>
+             
+            </div>
             <button
               type="button"
               onClick={() => {

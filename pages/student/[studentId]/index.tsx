@@ -8,6 +8,10 @@ import MentorMeetingDetails from "./MentorMeetingDetails";
 import AdditionalDetails from "./AdditionalDetails";
 import Image from "next/image";
 import prof from "../../../public/grey.jpg";
+import { Dropdown, DropdownButton, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+
 
 import { Student } from "../../../interfaces/student";
 import { User } from "../../../interfaces";
@@ -20,6 +24,7 @@ export const index = ({ data }) => {
   const router = useRouter();
   //const studentId = router.query.studentId;
   const [studentId, setStudentId] = useState("");
+  const [studentName, setStudentName] = useState("");
   const [showNav, setShowNav] = useState(false);
   const [profileActive, setprofileActive] = useState(false);
   const [marksActive, setmarksActive] = useState(false);
@@ -38,12 +43,14 @@ export const index = ({ data }) => {
     if (!router.isReady) return;
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
     setStudentId(loggedInUser.studentId);
+    setStudentName(loggedInUser.userName);
   }, [router.isReady]);
 
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
     console.log(loggedInUser.studentId);
     setStudentId(loggedInUser.studentId);
+    setStudentName(loggedInUser.userName)
   }, []);
 
   useEffect(() => {
@@ -91,16 +98,53 @@ export const index = ({ data }) => {
               {" "}
               <Image src={prof}></Image>
             </div>
+            <div >
+            
             <div
               style={{
                 color: "#0166b2",
                 fontWeight: "bold",
-                marginTop: "2%",
+                marginTop: "20%",
                 textAlign: "center",
               }}
+              className={classes.dropdowntoggle}
             >
-              Student Name
+              <Dropdown style={{marginRight:'5%'}} className={classes.dropdowntoggle}>
+                <Dropdown.Toggle 
+                style={{ background: "white", color: "#0166b2",border:'none',fontWeight:'bold',marginRight:'20%' }}
+                className={classes.dropdowntoggle}>
+                {studentName}
+                </Dropdown.Toggle>
+                <Dropdown.Menu
+            id="dropdown-menu-align-right"
+            style={{ background: "white", color: "#0166b2" }}
+            className="DropDown"
+          >
+             <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight:"bold" }}
+              className={classes.dropdownitems}
+              onClick={() => {
+                console.log("Password Change");
+              }}
+            >
+              Change Password
+            </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item
+              style={{ color: "#0166b2", fontWeight: "bold" }}
+              className={classes.dropdownitems}
+              onClick={() => {
+                router.push("/")
+                sessionStorage.clear();
+              }}
+            >
+              LogOut
+            </Dropdown.Item>
+          </Dropdown.Menu>
+              </Dropdown>
+             
             </div>
+    </div>
           </div>
           <div className="d-flex flex-column align-items-center ">
             <button
