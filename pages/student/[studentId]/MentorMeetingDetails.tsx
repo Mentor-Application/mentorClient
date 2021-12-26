@@ -112,12 +112,13 @@ export const MentorMeetingDetails = ({
     <div
       style={{
         background: "#ffffff",
-        width: "98%",
-        height: "87%",
+        height: "84%",
         marginTop: "70px",
         overflowY: "scroll",
         marginBottom: "5%",
+        marginLeft: "5%",
       }}
+      className="col-11"
     >
       <div>
         <Dropdown>
@@ -132,7 +133,7 @@ export const MentorMeetingDetails = ({
               fontSize: "100%",
               marginTop: "5%",
               borderRadius: "15px",
-              width: "10%",
+              width: "150px",
               height: "40px",
             }}
           >
@@ -223,78 +224,88 @@ export const MentorMeetingDetails = ({
         </Dropdown>
         <div
           className={classes.internal}
-          style={{ color: "#0166b2", marginTop: "0%" }}
+          style={{ color: "#0166b2", marginTop: "3%" }}
         >
           Mentor Meeting Details{" "}
         </div>
-        <div style={{ height: "100%" }}>
-          <form style={{ overflowX: "auto", marginLeft: "10%" }}>
-            <table style={{ marginTop: "8%" }} className={classes.table}>
-              <tr>
-                <th style={{ width: "15%" }} className={classes.tablehead}>
-                  Date
-                </th>
-                <th style={{ width: "20%" }} className={classes.tablehead}>
-                  Time
-                </th>
-                <th className={classes.tablehead}>Focus of Discussion</th>
-                <th className={classes.tablehead}>Remarks</th>
-              </tr>
-              {mentorMeetingDetails.map((items) => {
-                return (
-                  <tr>
-                    <td style={{ height: "50px" }} className={classes.table}>
-                      <input
-                        disabled={canEdit}
-                        type="date"
-                        onChange={(e) => {
-                          items.meetingDate = e.target.value;
-                        }}
-                        key={items.meetingDate}
-                        defaultValue={items.meetingDate}
-                        className={classes.inputbox}
-                      />
-                    </td>
-                    <td className={classes.table}>
-                      <input
-                        disabled={canEdit}
-                        type="time"
-                        onChange={(e) => {
-                          items.meetingTime = e.target.value;
-                        }}
-                        key={items.meetingTime}
-                        defaultValue={items.meetingTime}
-                        className={classes.inputbox}
-                      />
-                    </td>
-                    <td className={classes.table}>
-                      <input
-                        disabled={canEdit}
-                        onChange={(e) => {
-                          items.focusOnDiscussion = e.target.value;
-                        }}
-                        key={items.focusOnDiscussion}
-                        defaultValue={items.focusOnDiscussion}
-                        className={classes.inputbox}
-                      />
-                    </td>
-                    <td className={classes.table}>
-                      <input
-                        disabled={canEdit}
-                        onChange={(e) => {
-                          items.remarks = e.target.value;
-                        }}
-                        key={items.remarks}
-                        defaultValue={items.remarks}
-                        className={classes.inputbox}
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
-            </table>
+        <div
+          style={{ height: "100%" }}
+          className="d-flex flex-column justify-content-center"
+        >
+          <form
+            style={{ overflowX: "auto", marginTop: "3%" }}
+            className="d-flex justify-content-center align-items-center "
+          >
+            <div className="table-responsive col-10 col-sm-9 col-md-10 col-lg-11">
+              <table className="table table-borderless">
+                <tr>
+                  <th style={{ width: "15%" }} className={classes.tablehead}>
+                    Date
+                  </th>
+                  <th style={{ width: "20%" }} className={classes.tablehead}>
+                    Time
+                  </th>
+                  <th className={classes.tablehead}>Focus of Discussion</th>
+                  <th className={classes.tablehead}>Remarks</th>
+                </tr>
+                {mentorMeetingDetails.map((items) => {
+                  return (
+                    <tr>
+                      <td style={{ height: "50px" }} className={classes.table}>
+                        <input
+                          disabled={canEdit}
+                          type="date"
+                          onChange={(e) => {
+                            items.meetingDate = e.target.value;
+                          }}
+                          key={items.meetingDate}
+                          defaultValue={items.meetingDate}
+                          className={classes.inputbox}
+                        />
+                      </td>
+                      <td className={classes.table}>
+                        <input
+                          disabled={canEdit}
+                          type="time"
+                          onChange={(e) => {
+                            items.meetingTime = e.target.value;
+                          }}
+                          key={items.meetingTime}
+                          defaultValue={items.meetingTime}
+                          className={classes.inputbox}
+                        />
+                      </td>
+                      <td className={classes.table}>
+                        <input
+                          disabled={canEdit}
+                          onChange={(e) => {
+                            items.focusOnDiscussion = e.target.value;
+                          }}
+                          key={items.focusOnDiscussion}
+                          defaultValue={items.focusOnDiscussion}
+                          className={classes.inputbox}
+                        />
+                      </td>
+                      <td className={classes.table}>
+                        <input
+                          disabled={canEdit}
+                          onChange={(e) => {
+                            items.remarks = e.target.value;
+                          }}
+                          key={items.remarks}
+                          defaultValue={items.remarks}
+                          className={classes.inputbox}
+                        />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </table>
+            </div>
           </form>
-          <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+          <div
+            style={{ marginLeft: "83%", marginTop: "3%", marginBottom: "3%" }}
+          >
             {editButton ? (
               <button
                 className={classes.icon}

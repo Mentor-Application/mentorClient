@@ -114,7 +114,7 @@ const ChallengesSupport = ({ studentId, canEditProp, editButton }) => {
               <th style={{ width: "45%" }} className={classes.tablehead}>
                 Challenges
               </th>
-              <th style={{ width: "200%" }} className={classes.tablehead}>
+              <th style={{ width: "70%" }} className={classes.tablehead}>
                 Sources of Support
               </th>
             </tr>

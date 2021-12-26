@@ -231,94 +231,92 @@ const SemesterMarks = ({
         </div>
       </div>
       <form
-        style={{
-          marginLeft: "10%",
-          height: "100%",
-          overflow: "visible",
-          marginTop: "5%",
-        }}
+        style={{ overflowX: "auto", marginTop: "5%" }}
+        className="d-flex flex-column justify-content-center align-items-center "
       >
-        <table style={{ marginTop: "1%" }} className={classes.table}>
-          <tr>
-            <th style={{ width: "5%" }} className={classes.tablehead}>
-              SI No.
-            </th>
-            <th style={{ width: "30%" }} className={classes.tablehead}>
-              Subject Code
-            </th>
-            <th style={{ width: "50%" }} className={classes.tablehead}>
-              Subject Name
-            </th>
-            <th className={classes.tablehead}>Grade</th>
-            <th className={classes.tablehead}>
-              Grade points obtained (Credits x Score)
-            </th>
-            <th className={classes.tablehead}>Month and Year of Passing</th>
-          </tr>
-          {SemMarks.map((items, index) => {
-            return (
-              <tr>
-                <td className={classes.tablehead}>{index + 1}</td>
-                <td className={classes.table}>
-                  <input
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.subjectCode = e.target.value;
-                    }}
-                    key={items.subjectCode}
-                    defaultValue={items.subjectCode}
-                    className={classes.inputbox}
-                  ></input>
-                </td>
-                <td className={classes.table}>
-                  <input
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.subjectName = e.target.value;
-                    }}
-                    key={items.subjectName}
-                    defaultValue={items.subjectName}
-                    className={classes.inputbox}
-                  ></input>
-                </td>
-                <td className={classes.table}>
-                  <input
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.grade = e.target.value;
-                    }}
-                    key={items.grade}
-                    defaultValue={items.grade}
-                    className={classes.inputbox}
-                  ></input>
-                </td>
-                <td className={classes.table}>
-                  <input
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.gradePoints = e.target.value;
-                    }}
-                    key={items.gradePoints}
-                    defaultValue={items.gradePoints}
-                    className={classes.inputbox}
-                  ></input>
-                </td>
-                <td className={classes.table}>
-                  <input
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.monthAndYearOfPassing = e.target.value;
-                    }}
-                    key={items.monthAndYearOfPassing}
-                    defaultValue={items.monthAndYearOfPassing}
-                    className={classes.inputbox}
-                  ></input>
-                </td>
-              </tr>
-            );
-          })}
-        </table>
-        <div style={{ marginTop: "5%" }} className="row">
+        <div className="table-responsive col-9 col-sm-9 col-md-11 col-lg-11">
+          <table style={{ marginTop: "1%" }} className="table table-borderless">
+            <tr>
+              <th style={{ width: "5%" }} className={classes.tablehead}>
+                SI No.
+              </th>
+              <th style={{ width: "30%" }} className={classes.tablehead}>
+                Subject Code
+              </th>
+              <th style={{ width: "50%" }} className={classes.tablehead}>
+                Subject Name
+              </th>
+              <th className={classes.tablehead}>Grade</th>
+              <th className={classes.tablehead}>
+                Grade points obtained (Credits x Score)
+              </th>
+              <th className={classes.tablehead}>Month and Year of Passing</th>
+            </tr>
+            {SemMarks.map((items, index) => {
+              return (
+                <tr>
+                  <td className={classes.tablehead}>{index + 1}</td>
+                  <td className={classes.table}>
+                    <input
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.subjectCode = e.target.value;
+                      }}
+                      key={items.subjectCode}
+                      defaultValue={items.subjectCode}
+                      className={classes.inputbox}
+                    ></input>
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.subjectName = e.target.value;
+                      }}
+                      key={items.subjectName}
+                      defaultValue={items.subjectName}
+                      className={classes.inputbox}
+                    ></input>
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.grade = e.target.value;
+                      }}
+                      key={items.grade}
+                      defaultValue={items.grade}
+                      className={classes.inputbox}
+                    ></input>
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.gradePoints = e.target.value;
+                      }}
+                      key={items.gradePoints}
+                      defaultValue={items.gradePoints}
+                      className={classes.inputbox}
+                    ></input>
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.monthAndYearOfPassing = e.target.value;
+                      }}
+                      key={items.monthAndYearOfPassing}
+                      defaultValue={items.monthAndYearOfPassing}
+                      className={classes.inputbox}
+                    ></input>
+                  </td>
+                </tr>
+              );
+            })}
+          </table>
+        </div>
+        <div style={{ marginTop: "5%", marginLeft: "5%" }} className="row ">
           <div
             className="col-md-3"
             style={{ marginTop: "1%", color: "#0166b2", fontWeight: "bold" }}
@@ -365,7 +363,14 @@ const SemesterMarks = ({
             ></input>
           </div>
         </div>
-        <div style={{ marginTop: "4%", marginLeft: "83%", marginBottom: "3%" }}>
+        <div
+          style={{
+            marginTop: "4%",
+            marginLeft: "70%",
+            marginBottom: "3%",
+            width: "20%",
+          }}
+        >
           {editButton ? (
             <button
               className={classes.icon}

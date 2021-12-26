@@ -7,21 +7,22 @@ import CatMarks from "../../../components/CatMarks";
 import { Dropdown, DropdownButton, Row } from "react-bootstrap";
 import SemesterMarks from "../../../components/SemesterMarks";
 
-export const Marks = ({ studentId, canEdit,editButton }) => {
-  const [semesterName, setSemesterName] = useState("semester1");
+export const Marks = ({ studentId, canEdit, editButton }) => {
+  const [semesterName, setSemesterName] = useState("Semester1");
 
   return (
     <div
       style={{
+        marginLeft: "3%",
         background: "#ffffff",
-        width: "98%",
         height: "87%",
         marginTop: "70px",
         overflowY: "scroll",
         marginBottom: "5%",
       }}
+      className="col-11"
     >
-      <div>
+      <div style={{ marginLeft: "10%" }}>
         <Dropdown>
           <Dropdown.Toggle
             id="dropwdown-custom-1"
@@ -29,11 +30,10 @@ export const Marks = ({ studentId, canEdit,editButton }) => {
               color: "white",
               backgroundColor: "#0166b2",
               border: "2.5px solid #0166b2",
-              marginLeft: "20px",
               fontWeight: "bold",
               marginTop: "5%",
               borderRadius: "15px",
-              width: "15%",
+              width: "140px",
               height: "40px",
             }}
           >
@@ -47,7 +47,7 @@ export const Marks = ({ studentId, canEdit,editButton }) => {
             <Dropdown.Item
               style={{ color: "#0166b2", fontWeight: "bold" }}
               onClick={() => {
-                setSemesterName("semester1");
+                setSemesterName("Semester1");
               }}
             >
               Semester-1
@@ -55,7 +55,7 @@ export const Marks = ({ studentId, canEdit,editButton }) => {
             <Dropdown.Item
               style={{ color: "#0166b2", fontWeight: "bold" }}
               onClick={() => {
-                setSemesterName("semester2");
+                setSemesterName("Semester2");
               }}
             >
               Semester-2
@@ -64,7 +64,7 @@ export const Marks = ({ studentId, canEdit,editButton }) => {
             <Dropdown.Item
               style={{ color: "#0166b2", fontWeight: "bold" }}
               onClick={() => {
-                setSemesterName("semester3");
+                setSemesterName("Semester3");
               }}
             >
               Semester-3
@@ -72,7 +72,7 @@ export const Marks = ({ studentId, canEdit,editButton }) => {
             <Dropdown.Item
               style={{ color: "#0166b2", fontWeight: "bold" }}
               onClick={() => {
-                setSemesterName("semester4");
+                setSemesterName("Semester4");
               }}
             >
               Semester-4
@@ -81,7 +81,7 @@ export const Marks = ({ studentId, canEdit,editButton }) => {
             <Dropdown.Item
               style={{ color: "#0166b2", fontWeight: "bold" }}
               onClick={() => {
-                setSemesterName("semester5");
+                setSemesterName("Semester5");
               }}
             >
               Semester-5
@@ -89,7 +89,7 @@ export const Marks = ({ studentId, canEdit,editButton }) => {
             <Dropdown.Item
               style={{ color: "#0166b2", fontWeight: "bold" }}
               onClick={() => {
-                setSemesterName("semester6");
+                setSemesterName("Semester6");
               }}
             >
               Semester-6
@@ -98,7 +98,7 @@ export const Marks = ({ studentId, canEdit,editButton }) => {
             <Dropdown.Item
               style={{ color: "#0166b2", fontWeight: "bold" }}
               onClick={() => {
-                setSemesterName("semester7");
+                setSemesterName("Semester7");
               }}
             >
               Semester-7
@@ -107,7 +107,7 @@ export const Marks = ({ studentId, canEdit,editButton }) => {
               style={{ color: "#0166b2", fontWeight: "bold" }}
               href="/Semester8"
               onClick={() => {
-                setSemesterName("semester8");
+                setSemesterName("Semester8");
               }}
             >
               Semester-8
@@ -115,30 +115,29 @@ export const Marks = ({ studentId, canEdit,editButton }) => {
             <Dropdown.Divider />
           </Dropdown.Menu>
         </Dropdown>
+      </div>
+      <div
+        style={{ height: "100%" }}
+        className="d-flex justify-content-center    col-lg-12 col-md-12 col-xl-12"
+      >
+        <CatMarks
+          semesterName={semesterName}
+          studentId={studentId}
+          canEditProp={canEdit}
+          editButton={editButton}
+        ></CatMarks>
+      </div>
 
-        <div
-          style={{ height: "100%" }}
-          className="d-flex justify-content-center    col-lg-12 col-md-11 col-xl-12"
-        >
-          <CatMarks
-            semesterName={semesterName}
-            studentId={studentId}
-            canEditProp={canEdit}
-            editButton={editButton}
-          ></CatMarks>
-        </div>
-
-        <div
-          style={{ height: "100%", marginTop: "3%" }}
-          className="d-flex justify-content-center  col-lg-12 col-md-11 col-xl-12"
-        >
-          <SemesterMarks
-            canEditProp={canEdit}
-            semesterName={semesterName}
-            studentId={studentId}
-            editButton={editButton}
-          ></SemesterMarks>
-        </div>
+      <div
+        style={{ height: "100%", marginTop: "10%" }}
+        className="d-flex justify-content-center  col-lg-12 col-md-12 col-xl-12"
+      >
+        <SemesterMarks
+          canEditProp={canEdit}
+          semesterName={semesterName}
+          studentId={studentId}
+          editButton={editButton}
+        ></SemesterMarks>
       </div>
     </div>
   );

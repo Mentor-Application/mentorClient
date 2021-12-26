@@ -16,6 +16,7 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
   let url: string;
 
   useEffect(() => {
+    console.log("efff");
     setCanEdit(canEditProp);
     url = `marks/${studentId}/${semesterName}/list`;
     apiService
@@ -196,119 +197,124 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
           Internal Assesment Results
         </div>
       </div>
-      <form style={{ overflowX: "auto", marginTop: "5%" }}>
-        <table style={{ marginLeft: "10%" }} className={classes.table}>
-          <tr>
-            <th style={{ width: "5%" }} className={classes.tablehead}>
-              SI No.
-            </th>
-            <th style={{ width: "30%" }} className={classes.tablehead}>
-              Subject Code
-            </th>
-            <th style={{ width: "50%" }} className={classes.tablehead}>
-              Subject Name
-            </th>
-            <th className={classes.tablehead}>CAT 1 Marks</th>
-            <th className={classes.tablehead}>CAT 2 Marks</th>
-            <th className={classes.tablehead}>CAT 3 Marks</th>
-            <th className={classes.tablehead}>Internal Marks</th>
-          </tr>
-          {catMarks.map((items, index) => {
-            return (
-              <tr>
-                <td className={classes.tablehead}>{index + 1}</td>
-                <td className={classes.table}>
-                  <input
-                    key={items.subjectCode}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.subjectCode = e.target.value;
-                    }}
-                    className={classes.inputbox}
-                    defaultValue={items.subjectCode}
-                  ></input>
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.subjectName}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.subjectName = e.target.value;
-                    }}
-                    className={classes.inputbox}
-                    defaultValue={items.subjectName}
-                  ></input>
-                </td>
-                <td className={classes.table}>
-                  <input
-                    type="number"
-                    key={items.firstCatMark}
-                    disabled={canEdit}
-                    onChange={(e) => {
-                      items.firstCatMark = parseInt(e.target.value);
-                    }}
-                    defaultValue={items.firstCatMark || ""}
-                    className={classes.inputbox}
-                  ></input>
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.secondCatMark}
-                    disabled={canEdit}
-                    type="number"
-                    onChange={(e) => {
-                      items.secondCatMark = parseInt(e.target.value);
-                    }}
-                    defaultValue={items.secondCatMark || ""}
-                    className={classes.inputbox}
-                  ></input>
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.thirdCatMark}
-                    disabled={canEdit}
-                    type="number"
-                    onChange={(e) => {
-                      items.thirdCatMark = parseInt(e.target.value);
-                    }}
-                    defaultValue={items.thirdCatMark || ""}
-                    className={classes.inputbox}
-                  ></input>
-                </td>
-                <td className={classes.table}>
-                  <input
-                    key={items.internalMark}
-                    disabled={canEdit}
-                    type="number"
-                    onChange={(e) => {
-                      items.internalMark = parseInt(e.target.value);
-                    }}
-                    defaultValue={items.internalMark || ""}
-                    className={classes.inputbox}
-                  ></input>
-                </td>
-              </tr>
-            );
-          })}
+      <form
+        style={{ overflowX: "auto", marginTop: "5%" }}
+        className="d-flex justify-content-center align-items-center "
+      >
+        <div className="table-responsive col-9 col-sm-9 col-md-11 col-lg-11">
+          <table className="table table-borderless">
+            <tr>
+              <th style={{ width: "5%" }} className={classes.tablehead}>
+                SI No.
+              </th>
+              <th style={{ width: "30%" }} className={classes.tablehead}>
+                Subject Code
+              </th>
+              <th style={{ width: "50%" }} className={classes.tablehead}>
+                Subject Name
+              </th>
+              <th className={classes.tablehead}>CAT 1 Marks</th>
+              <th className={classes.tablehead}>CAT 2 Marks</th>
+              <th className={classes.tablehead}>CAT 3 Marks</th>
+              <th className={classes.tablehead}>Internal Marks</th>
+            </tr>
+            {catMarks.map((items, index) => {
+              return (
+                <tr>
+                  <td className={classes.tablehead}>{index + 1}</td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.subjectCode}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.subjectCode = e.target.value;
+                      }}
+                      className={classes.inputbox}
+                      defaultValue={items.subjectCode}
+                    ></input>
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.subjectName}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.subjectName = e.target.value;
+                      }}
+                      className={classes.inputbox}
+                      defaultValue={items.subjectName}
+                    ></input>
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      type="number"
+                      key={items.firstCatMark}
+                      disabled={canEdit}
+                      onChange={(e) => {
+                        items.firstCatMark = parseInt(e.target.value);
+                      }}
+                      defaultValue={items.firstCatMark || ""}
+                      className={classes.inputbox}
+                    ></input>
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.secondCatMark}
+                      disabled={canEdit}
+                      type="number"
+                      onChange={(e) => {
+                        items.secondCatMark = parseInt(e.target.value);
+                      }}
+                      defaultValue={items.secondCatMark || ""}
+                      className={classes.inputbox}
+                    ></input>
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.thirdCatMark}
+                      disabled={canEdit}
+                      type="number"
+                      onChange={(e) => {
+                        items.thirdCatMark = parseInt(e.target.value);
+                      }}
+                      defaultValue={items.thirdCatMark || ""}
+                      className={classes.inputbox}
+                    ></input>
+                  </td>
+                  <td className={classes.table}>
+                    <input
+                      key={items.internalMark}
+                      disabled={canEdit}
+                      type="number"
+                      onChange={(e) => {
+                        items.internalMark = parseInt(e.target.value);
+                      }}
+                      defaultValue={items.internalMark || ""}
+                      className={classes.inputbox}
+                    ></input>
+                  </td>
+                </tr>
+              );
+            })}
 
-          <tr>
-            <td className={classes.tablehead}>Attendance</td>
-            <td>
-              <input
-                key={attendance}
-                disabled={canEdit}
-                type="number"
-                onChange={(e) => {
-                  setAttendance(parseInt(e.target.value));
-                }}
-                defaultValue={attendance || ""}
-                className={classes.inputbox}
-              ></input>
-            </td>
-          </tr>
-        </table>
+            <tr>
+              <td className={classes.tablehead}>Attendance</td>
+              <td>
+                <input
+                  key={attendance}
+                  disabled={canEdit}
+                  type="number"
+                  onChange={(e) => {
+                    setAttendance(parseInt(e.target.value));
+                  }}
+                  defaultValue={attendance || ""}
+                  className={classes.inputbox}
+                ></input>
+              </td>
+            </tr>
+          </table>
+        </div>
       </form>
-      <div style={{ marginTop: "5%", marginLeft: "83%" }}>
+      <div style={{ marginLeft: "70%" }}>
         {editButton ? (
           <button
             className={classes.icon}
