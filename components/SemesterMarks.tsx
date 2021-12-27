@@ -25,6 +25,7 @@ const SemesterMarks = ({
   let apiService: ApiService = new ApiService();
   let url: string;
   useEffect(() => {
+    setCanEdit(canEditProp);
     url = `endsemester/${studentId}/${semesterName}/list`;
     apiService
       .get(url)
@@ -166,7 +167,6 @@ const SemesterMarks = ({
               gpa: gpa,
             },
           ]);
-          setCanEdit(false);
         } else {
           if (data.length < 8) {
             while (data.length <= 8) {

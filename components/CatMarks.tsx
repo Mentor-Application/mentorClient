@@ -135,7 +135,6 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
               studentId: studentId,
             },
           ]);
-          setCanEdit(false);
         } else {
           if (data.length < 8) {
             while (data.length <= 8) {
