@@ -15,6 +15,7 @@ import {
 import { ApiService } from "../../../services/api.service";
 
 type MenteeCardItems = {
+  photo: string;
   studentName: string;
   registerNumber: string;
   studentId: string;
@@ -38,6 +39,7 @@ export const Mentees = ({ sendProp }) => {
       .get(`student/mentor/${loggedInUser.mentorId}`)
       .then((res) => {
         const data = res;
+        console.log(data);
         setMenteeCardItems(data);
         setClearMentee(data);
       })
@@ -99,162 +101,231 @@ export const Mentees = ({ sendProp }) => {
 
   return (
     <div style={{ overflowY: "scroll" }}>
-      <div style={{ marginTop: "7%" }}>
-        {MenteeCardItems.length != 0 ? (
-          <button
-            className={classes.Editbtn}
-            onClick={() => {
-              setIsEdit(!isEdit);
-            }}
-          >
-            Edit Mentees
-          </button>
-        ) : null}
-        {isEdit ? (
-          <button onClick={Clear} className={classes.Clearbtn}>
-            Clear Mentees
-          </button>
-        ) : null}
-        {MenteeCardItems.length != 0 ? (
+      {MenteeCardItems.length != 0 ? (
+        <div
+          style={{
+            overflowY: "scroll",
+            height: "80%",
+          }}
+          className={whiteBox}
+        >
+          <div>
+            {MenteeCardItems.length != 0 ? (
+              <button
+                className={classes.Editbtn}
+                onClick={() => {
+                  setIsEdit(!isEdit);
+                }}
+              >
+                Edit Mentees
+              </button>
+            ) : null}
+            {isEdit ? (
+              <button onClick={Clear} className={classes.Clearbtn}>
+                Clear Mentees
+              </button>
+            ) : null}
+
+            {isEdit ? (
+              <button className={classes.Clearbtn} onClick={Undo}>
+                Undo
+              </button>
+            ) : null}
+
+            {isEdit ? (
+              <button className={classes.Clearbtn} onClick={Submit}>
+                Submit
+              </button>
+            ) : null}
+          </div>
           <div
-            style={{
-              overflowX: "auto",
-              overflowY: "scroll",
-              height: "90%",
-              marginBottom: "10px",
-              borderRadius: "0px",
-            }}
-            className={whiteBox}
+            style={{ overflowY: "scroll", marginTop: "2rem" }}
+            className="row d-flex justify-content-center align-items-center"
           >
-            {MenteeCardItems.map((items) => (
-              <div>
+            {MenteeCardItems.map((items) => {
+              return (
                 <div
+                  className="card"
                   style={{
+                    width: "18rem",
+                    margin: "2% 2% 2% 2% ",
                     background: "#0166b2",
                     opacity: "0.9",
                     borderRadius: "10px",
-                    width: "25%",
-                    outline: "black",
-                    height: "200px",
-                    flexDirection: "row",
-                    float: "left",
-                    marginLeft: "20px",
-                    marginTop: "40px",
-                    marginBottom: "5%",
                   }}
-                  className="col-11 col-xl-4 col-lg-4 col-md-6 col-sm-7 d-flex flex-column
-        justify-content-center "
                 >
-                  <div>
-                    {isEdit ? (
-                      <button
+                  {isEdit ? (
+                    <button
+                      style={{
+                        top: "0px",
+                        right: "0px",
+                        background: "none",
+                        marginLeft: "70%",
+                        border: "none",
+                      }}
+                      onClick={() =>
+                        handleremoveMentees(items, items.registerNumber)
+                      }
+                    >
+                      <FontAwesomeIcon
                         style={{
-                          top: "0px",
-                          right: "0px",
-                          background: "none",
-                          marginLeft: "70%",
-                          border: "none",
+                          opacity: "1",
+                          marginTop: " 5%",
+                          marginLeft: "20px",
+                          color: "white",
+                          alignItems: "center",
                         }}
-                        onClick={() =>
-                          handleremoveMentees(items, items.registerNumber)
-                        }
-                      >
-                        <FontAwesomeIcon
-                          style={{
-                            opacity: "1",
-                            marginTop: " 5%",
-                            marginLeft: "20px",
-                            color: "white",
-                            alignItems: "center",
-                          }}
-                          icon={faMinusCircle}
-                        />
-                      </button>
-                    ) : null}
-                  </div>
-                  {/* <Image width={15} height={115} src={prof}></Image> */}
-                  <FontAwesomeIcon
-                    style={{
-                      fontSize: "400%",
-                      color: "white",
-                      marginLeft: "37%",
-                      marginBottom: "5%",
-                    }}
-                    icon={faUserCircle}
-                  />
+                        icon={faMinusCircle}
+                      />
+                    </button>
+                  ) : null}
                   <div
                     style={{
-                      textAlign: "center",
-                      color: "white",
-                      fontWeight: "bold",
-                      marginTop: "4%",
+                      marginTop: "5%",
                     }}
                   >
-                    {items.studentName}-{items.registerNumber}
-                    <div>
-                      <button
-                        className={classes.editprofilebutton}
-                        onClick={() =>
-                          sendProp(items.studentId, true, "profile", true)
-                        }
-                      >
-                        Edit Profile
-                      </button>
+                    <Image
+                      src={
+                        items.photo
+                          ? `data:image/jpg;base64,${items.photo}`
+                          : prof
+                      }
+                      height="150rem"
+                      width="260rem"
+                      objectFit="contain"
+                    ></Image>
+                  </div>
+                  <div className="card-body">
+                    <div
+                      style={{
+                        textAlign: "center",
+                        color: "white",
+                        fontWeight: "bold",
+                        marginTop: "4%",
+                      }}
+                    >
+                      {items.studentName}-{items.registerNumber}
+                      <div>
+                        <button
+                          className={classes.editprofilebutton}
+                          onClick={() =>
+                            sendProp(items.studentId, true, "profile", true)
+                          }
+                        >
+                          Edit Profile
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-            <div
-              style={{
-                bottom: "0px",
-                left: "600px",
-                marginTop: "30%",
-                marginBottom: "5%",
-                marginLeft: "60%",
-              }}
-            >
-              <Row>
-                {" "}
+              );
+            })}
+          </div>
+          {/* {MenteeCardItems.map((items) => (
+            
+              */}
+
+          {/* <div
+                style={{
+                  background: "#0166b2",
+                  opacity: "0.9",
+                  borderRadius: "10px",
+                  width: "25%",
+                  outline: "black",
+                  height: "200px",
+                  flexDirection: "row",
+                  float: "left",
+                  marginLeft: "20px",
+                  marginTop: "40px",
+                  marginBottom: "5%",
+                }}
+                className="col-11 col-xl-4 col-lg-4 col-md-6 col-sm-7 d-flex flex-column
+        justify-content-center "
+              >
                 <div>
                   {isEdit ? (
                     <button
-                      style={{ marginLeft: "40%", opacity: "0.9" }}
-                      className={classes.Clearbtn}
-                      onClick={Undo}
+                      style={{
+                        top: "0px",
+                        right: "0px",
+                        background: "none",
+                        marginLeft: "70%",
+                        border: "none",
+                      }}
+                      onClick={() =>
+                        handleremoveMentees(items, items.registerNumber)
+                      }
                     >
-                      Undo
-                    </button>
-                  ) : null}
-
-                  {isEdit ? (
-                    <button
-                      style={{ opacity: "0.9", marginLeft: "0%" }}
-                      className={classes.Clearbtn}
-                      onClick={Submit}
-                    >
-                      Submit
+                      <FontAwesomeIcon
+                        style={{
+                          opacity: "1",
+                          marginTop: " 5%",
+                          marginLeft: "20px",
+                          color: "white",
+                          alignItems: "center",
+                        }}
+                        icon={faMinusCircle}
+                      />
                     </button>
                   ) : null}
                 </div>
-              </Row>
-            </div>
-          </div>
-        ) : (
+                <FontAwesomeIcon
+                  style={{
+                    fontSize: "400%",
+                    color: "white",
+                    marginLeft: "37%",
+                    marginBottom: "5%",
+                  }}
+                  icon={faUserCircle}
+                />
+                <div
+                  style={{
+                    textAlign: "center",
+                    color: "white",
+                    fontWeight: "bold",
+                    marginTop: "4%",
+                  }}
+                >
+                  {items.studentName}-{items.registerNumber}
+                  <div>
+                    <button
+                      className={classes.editprofilebutton}
+                      onClick={() =>
+                        sendProp(items.studentId, true, "profile", true)
+                      }
+                    >
+                      Edit Profile
+                    </button>
+                  </div>
+                </div>
+              </div> */}
+
+          {/* ))} */}
+
           <div
             style={{
-              overflowX: "auto",
-              overflowY: "scroll",
-              height: "20%",
-              marginBottom: "10px",
-              borderRadius: "30px",
+              bottom: "0px",
+              left: "600px",
+              marginTop: "30%",
+              marginBottom: "5%",
+              marginLeft: "60%",
             }}
-            className={whiteBox}
-          >
-            <h2 className={classes.nomentees}>No Mentees Added</h2>
-          </div>
-        )}
-      </div>
+          ></div>
+        </div>
+      ) : (
+        <div
+          style={{
+            overflowX: "auto",
+            overflowY: "scroll",
+            height: "60%",
+            marginBottom: "10px",
+            borderRadius: "30px",
+          }}
+          className={whiteBox}
+        >
+          <h2 className={classes.nomentees}>No Mentees Added</h2>
+        </div>
+      )}
     </div>
   );
 };
