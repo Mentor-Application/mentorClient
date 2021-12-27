@@ -114,7 +114,7 @@ const SchoolRecord = ({ studentId, canEditProp, editButton }) => {
         style={{ height: "70%" }}
         className="d-flex justify-content-center align-items-center "
       >
-        <div className="table-responsive col-8 col-sm-8 col-md-10 col-lg-12">
+        <div className="table-responsive col-9 col-sm-8 col-md-10 col-lg-11">
           <table className="table table-borderless">
             <tr>
               <th className={classes.tablehead}>Course</th>

@@ -100,7 +100,7 @@ const FamilyProfile = ({ studentId, canEditProp, editButton }) => {
         style={{ height: "60%" }}
         className="d-flex justify-content-center align-items-center "
       >
-        <div className="table-responsive col-7 col-sm-8 col-md-10 col-lg-12">
+        <div className="table-responsive col-9 col-sm-8 col-md-10 col-lg-11">
           <table className="table table-borderless">
             <tr>
               <th style={{ width: "5%" }} className={classes.tablehead}>

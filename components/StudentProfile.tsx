@@ -42,9 +42,9 @@ export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
       .then((res) => {
         const data = res;
         console.log(data);
-        if (data.length > 0) {
+        if (data.studentName) {
           setCanEdit(true);
-          console.log("Boolean1",canEdit)
+          console.log("Boolean1", canEdit);
         }
 
         logedinstudent.setValue(setValue, data);
@@ -59,11 +59,11 @@ export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
       .catch((err) => {
         console.log(err);
       });
-    response.then((res) => {});
-    if(loggedinStudent.studentName!==null){
-      setCanEdit(true);
-    }
-    console.log("Boolean",canEdit)
+    // response.then((res) => {});
+    // if(loggedinStudent.studentName!==null){
+    //   setCanEdit(true);
+    // }
+    // console.log("Boolean",canEdit)
   }, []);
 
   const edit = (e) => {

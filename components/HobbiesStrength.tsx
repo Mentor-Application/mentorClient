@@ -62,22 +62,22 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
       .catch((err) => {
         console.log(err);
       });
-      if(loggedinStudent.iAm!==null){
-        setStrengthCanEdit(true);
-      }
-      console.log("Hobbie",canEdit,"Strength",strengthCanEdit);
+    if (loggedinStudent.iAm !== null) {
+      setStrengthCanEdit(true);
+    }
+    console.log("Hobbie", canEdit, "Strength", strengthCanEdit);
   }, []);
 
   useEffect(() => {
     url = `student/list/strengthassessment/${studentId}`;
     console.log("hello");
-
+    setStrengthCanEdit(canEditProp);
     apiService
       .get(url)
       .then((res) => {
         const data = res;
         console.log(data);
-        if (data.length > 0) {
+        if (data) {
           setStrengthCanEdit(true);
         }
         //setStrengthCanEdit(true);

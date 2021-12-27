@@ -16,10 +16,11 @@ export class ApiService {
     });
   }
 
-  async get(url: string ) {
+  async get(url: string, resp?: any) {
     try {
       const response = await axios.get(`${environment.api_url}/${url}`, {
         headers: this.options,
+        responseType: resp,
       });
       const data = response.data;
 
@@ -31,9 +32,11 @@ export class ApiService {
     }
   }
 
-  async post(url: string, data: any) {
+  async post(url: string, data: any, resp?: any) {
     const response = await axios
-      .post(`${environment.api_url}/${url}`, data)
+      .post(`${environment.api_url}/${url}`, data, {
+        responseType: resp,
+      })
       .then((res) => {
         return res.data;
       })

@@ -48,51 +48,43 @@ export const ParentGuardian = ({ studentId, canEditProp, editButton }) => {
     const response = apiService
       .get(url)
       .then((res) => {
-        return res;
+        const data = res;
+
+        if (data) {
+          setGuardianCanEdit(true);
+        }
+        setValue("guardianName", data.guardianName);
+        setValue("address", data.address);
+        setValue("mobileNumber", data.mobileNumber);
+        setValue("emailId", data.emailId);
+        setLoggedinguardian(data);
       })
       .catch((err) => {
         console.log(err);
       });
-    response.then((res) => {
-      const data = res;
-      if (data.length > 0) {
-        setParentCanEdit(true);
-      }
-      //==setParentCanEdit(true);
-      setValue("guardianName", data.guardianName);
-      setValue("address", data.address);
-      setValue("mobileNumber", data.mobileNumber);
-      setValue("emailId", data.emailId);
-      setLoggedinguardian(data);
-      console.log(data);
-      if(data.guardianName){
-        setGuardianCanEdit(true);
-      }
-    });
+
     const response2 = apiService
       .get(`student/list/parent/${studentId}`)
       .then((res) => {
-        return res;
+        const data = res;
+        if (data) {
+          setParentCanEdit(true);
+        }
+
+        parentSetValue("parentName", data.parentName);
+        parentSetValue("parentAddress", data.parentAddress);
+        parentSetValue("parentEmailId", data.parentEmailId);
+        setLoggedinParent(data);
       })
       .catch((err) => {
         console.log(err);
       });
     response2.then((res) => {
-      const data = res;
-      if (data.length > 0) {
-        setGuardianCanEdit(true);
-      }
-
-      parentSetValue("parentName", data.parentName);
-      parentSetValue("parentAddress", data.parentAddress);
-      parentSetValue("parentEmailId", data.parentEmailId);
-      setLoggedinParent(data);
-      
-      if(data.parentName!==null){
-        setParentCanEdit(true);
-      }
-      console.log(parentCanEdit);
-      console.log("Guardian",guardianCanEdit);
+      // if(data.parentName!==null){
+      //   setParentCanEdit(true);
+      // }
+      // console.log(parentCanEdit);
+      // console.log("Guardian",guardianCanEdit);
     });
   }, []);
 
