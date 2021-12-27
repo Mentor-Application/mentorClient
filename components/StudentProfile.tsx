@@ -44,6 +44,7 @@ export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
         console.log(data);
         if (data.length > 0) {
           setCanEdit(true);
+          console.log("Boolean1",canEdit)
         }
 
         logedinstudent.setValue(setValue, data);
@@ -59,7 +60,10 @@ export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
         console.log(err);
       });
     response.then((res) => {});
-    //setCanEdit(canEditProp);
+    if(loggedinStudent.studentName!==null){
+      setCanEdit(true);
+    }
+    console.log("Boolean",canEdit)
   }, []);
 
   const edit = (e) => {
@@ -331,7 +335,7 @@ export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
             </Col>
 
             <Col>
-              <label className={classes.label}>Room No./Hostel No.</label>
+              <label className={classes.label}>Room No./Bus No.</label>
               <input
                 disabled={canEdit}
                 {...register("busRouteNumber", {

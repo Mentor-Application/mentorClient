@@ -13,12 +13,18 @@ export const DisciplinaryAction = ({ studentId, canEditProp, editButton }) => {
   var logedinStudent: Disciplinary = new Disciplinary();
   const [disciplinary, setdisciplinary] = useState<Disciplinary>(Object);
   const [toggleEdit, setToggleEdit] = useState(true);
-  const [canEdit, setCanEdit] = useState(false);
+  const [canEdit, setCanEdit] = useState(true);
+  const [editbuttons, setEditButtons] = useState(true);
 
   let url: string;
   let apiService: ApiService = new ApiService();
   useEffect(() => {
-    setCanEdit(canEditProp);
+    if(canEditProp===true){
+      setCanEdit(canEditProp)
+    }
+    else{
+      setCanEdit(!canEditProp);
+    }
     url = `disciplinary/${studentId}/list`;
     apiService
       .get(url)
@@ -33,7 +39,7 @@ export const DisciplinaryAction = ({ studentId, canEditProp, editButton }) => {
             year4: " ",
           });
         } else {
-          //setCanEdit(true);
+          setCanEdit(canEdit);
           setValue("studentId", data.studentId);
           setValue("year1", data.year1);
           setValue("year2", data.year2);
@@ -46,6 +52,7 @@ export const DisciplinaryAction = ({ studentId, canEditProp, editButton }) => {
       .catch((err) => {
         console.log(err);
       });
+      setEditButtons(!editButton);
   }, []);
 
   const { register, handleSubmit, getValues, setValue } = useForm();
@@ -137,17 +144,19 @@ export const DisciplinaryAction = ({ studentId, canEditProp, editButton }) => {
           </tr>
         </table>
       </form>
-      <div style={{ marginTop: "5%", marginLeft: "83%" }}>
-        {editButton ? (
-          <button
+      <div style={{marginLeft:'83%',marginTop:'3%'}}>
+            <button
+            type="button"
+            hidden={editbuttons}
             className={classes.icon}
             onClick={edit}
             title="Edit"
-            // style={{marginLeft:'60%'}}
           >
             <FontAwesomeIcon style={{ fontSize: "100%" }} icon={faPen} />
           </button>
-        ) : null}
+          
+          
+        
         <button
           hidden={canEdit}
           onClick={() => {
@@ -158,7 +167,9 @@ export const DisciplinaryAction = ({ studentId, canEditProp, editButton }) => {
         >
           <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />
         </button>
-      </div>
+        </div>
+        
+      
     </div>
   );
 };

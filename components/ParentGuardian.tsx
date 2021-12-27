@@ -65,6 +65,9 @@ export const ParentGuardian = ({ studentId, canEditProp, editButton }) => {
       setValue("emailId", data.emailId);
       setLoggedinguardian(data);
       console.log(data);
+      if(data.guardianName){
+        setGuardianCanEdit(true);
+      }
     });
     const response2 = apiService
       .get(`student/list/parent/${studentId}`)
@@ -84,7 +87,12 @@ export const ParentGuardian = ({ studentId, canEditProp, editButton }) => {
       parentSetValue("parentAddress", data.parentAddress);
       parentSetValue("parentEmailId", data.parentEmailId);
       setLoggedinParent(data);
-      console.log(data);
+      
+      if(data.parentName!==null){
+        setParentCanEdit(true);
+      }
+      console.log(parentCanEdit);
+      console.log("Guardian",guardianCanEdit);
     });
   }, []);
 

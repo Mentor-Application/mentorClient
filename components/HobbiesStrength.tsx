@@ -62,6 +62,10 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
       .catch((err) => {
         console.log(err);
       });
+      if(loggedinStudent.iAm!==null){
+        setStrengthCanEdit(true);
+      }
+      console.log("Hobbie",canEdit,"Strength",strengthCanEdit);
   }, []);
 
   useEffect(() => {
