@@ -100,7 +100,7 @@ const ChallengesSupport = ({ studentId, canEditProp, editButton }) => {
       </h3>
       <form
         style={{ height: "70%" }}
-        className="d-flex justify-content-center align-items-center "
+        className="d-flex justify-content-center align-items-center col-10"
       >
         <div className="table-responsive col-9 col-sm-8 col-md-10 col-lg-12">
           <table className="table table-borderless">

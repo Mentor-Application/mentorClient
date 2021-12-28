@@ -272,14 +272,22 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
               <th style={{ width: "35%" }} className={classes.tablehead}>
                 Subject Name
               </th>
-              <th style={{ width: "8%" }} className={classes.tablehead}>CAT 1 Marks</th>
-              <th style={{ width: "8%" }} className={classes.tablehead}>CAT 2 Marks</th>
-              <th style={{ width: "8%" }} className={classes.tablehead}>CAT 3 Marks</th>
-              <th style={{ width: "8%" }} className={classes.tablehead}>Internal Marks</th>
+              <th style={{ width: "8%" }} className={classes.tablehead}>
+                CAT 1 Marks
+              </th>
+              <th style={{ width: "8%" }} className={classes.tablehead}>
+                CAT 2 Marks
+              </th>
+              <th style={{ width: "8%" }} className={classes.tablehead}>
+                CAT 3 Marks
+              </th>
+              <th style={{ width: "8%" }} className={classes.tablehead}>
+                Internal Marks
+              </th>
             </tr>
             {catMarks.map((items, index) => {
               return (
-                <tr >
+                <tr>
                   <td className={classes.tablehead}>{index + 1}</td>
                   <td className={classes.table}>
                     <input
@@ -373,7 +381,7 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
           </table>
         </div>
       </form>
-      <div style={{ marginLeft: "70%" }}>
+      <div style={{ marginLeft: "80%" }}>
         {editButton ? (
           <button
             className={classes.icon}

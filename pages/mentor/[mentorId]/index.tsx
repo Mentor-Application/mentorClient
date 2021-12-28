@@ -24,7 +24,7 @@ export const index = () => {
   const [childProp, setChildProp] = useState<viewProfile>(Object);
   //const studentId = router.query.studentId;
   const [showNav, setShowNav] = useState(false);
-  const[mentorName,setMentorName] = useState("");
+  const [mentorName, setMentorName] = useState("");
   let loggedInUser: User;
 
   let navCss = `${
@@ -95,7 +95,7 @@ export const index = () => {
       <div style={{ height: "90vh", marginTop: "3%" }} className={navCss}>
         <div className={navStyle}>
           <div className="d-flex flex-column align-items-center ">
-          <div
+            <div
               style={{
                 color: "#0166b2",
                 fontWeight: "bold",
@@ -104,40 +104,49 @@ export const index = () => {
               }}
               className={classes.dropdowntoggle}
             >
-              <Dropdown style={{marginRight:'5%'}} className={classes.dropdowntoggle}>
-                <Dropdown.Toggle 
-                style={{ background: "white", color: "#0166b2",border:'none',fontWeight:'bold',marginRight:'20%' }}
-                className={classes.dropdowntoggle}>
-                {mentorName}
+              <Dropdown
+                style={{ marginRight: "5%" }}
+                className={classes.dropdowntoggle}
+              >
+                <Dropdown.Toggle
+                  style={{
+                    background: "white",
+                    color: "#0166b2",
+                    border: "none",
+                    fontWeight: "bold",
+                    marginRight: "20%",
+                  }}
+                  className={classes.dropdowntoggle}
+                >
+                  {mentorName}
                 </Dropdown.Toggle>
                 <Dropdown.Menu
-            id="dropdown-menu-align-right"
-            style={{ background: "white", color: "#0166b2" }}
-            className="DropDown"
-          >
-             <Dropdown.Item
-              style={{ color: "#0166b2", fontWeight:"bold" }}
-              className={classes.dropdownitems}
-              onClick={() => {
-                console.log("Password Change");
-              }}
-            >
-              Change Password
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item
-              style={{ color: "#0166b2", fontWeight: "bold" }}
-              className={classes.dropdownitems}
-              onClick={() => {
-                router.push("/")
-                sessionStorage.clear();
-              }}
-            >
-              LogOut
-            </Dropdown.Item>
-          </Dropdown.Menu>
+                  id="dropdown-menu-align-right"
+                  style={{ background: "white", color: "#0166b2" }}
+                  className="DropDown"
+                >
+                  <Dropdown.Item
+                    style={{ color: "#0166b2", fontWeight: "bold" }}
+                    className={classes.dropdownitems}
+                    onClick={() => {
+                      console.log("Password Change");
+                    }}
+                  >
+                    Change Password
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item
+                    style={{ color: "#0166b2", fontWeight: "bold" }}
+                    className={classes.dropdownitems}
+                    onClick={() => {
+                      router.push("/");
+                      sessionStorage.clear();
+                    }}
+                  >
+                    LogOut
+                  </Dropdown.Item>
+                </Dropdown.Menu>
               </Dropdown>
-             
             </div>
             <button
               type="button"
@@ -223,6 +232,17 @@ export const index = () => {
         className="home d-flex flex-column col-12 col-md-8 col-sm-12 col-lg-9 col-xl-9"
       >
         <button
+          style={{
+            position: "absolute",
+            border: "1px  solid #ffffff",
+            borderRadius: "10px",
+            width: "40px",
+            height: "40px",
+            marginLeft: "15px",
+            marginTop: "15px",
+            color: "white",
+            backgroundColor: "#0166b2",
+          }}
           className="d-md-none"
           onClick={() => {
             setShowNav((state) => !state);

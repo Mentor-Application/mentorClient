@@ -100,7 +100,7 @@ const GoalsGrid = ({ studentId, canEditProp, editButton }) => {
       </h3>
       <form
         style={{ height: "75%" }}
-        className="d-flex justify-content-center  align-items-center"
+        className="d-flex justify-content-center  align-items-center col-10"
       >
         <div
           style={{ height: "95%", marginTop: "5%" }}
@@ -122,7 +122,7 @@ const GoalsGrid = ({ studentId, canEditProp, editButton }) => {
             {goalsGrid.map((items, index) => {
               return (
                 <tr>
-                  <td className={classes.tablehead}>{index+1}</td>
+                  <td className={classes.tablehead}>{index + 1}</td>
                   <td className={classes.table}>
                     {(() => {
                       if (index + 1 === 1) {

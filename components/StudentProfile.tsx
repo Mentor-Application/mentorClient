@@ -11,6 +11,7 @@ import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { ApiService } from "../services/api.service";
 import { Student } from "../interfaces/student";
 import { User } from "../interfaces";
+import Popup from "./Popup";
 
 export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
   let apiService: ApiService = new ApiService();
@@ -21,6 +22,7 @@ export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
   const [isMale, setMale] = useState(false);
   const [isFemale, setFemale] = useState(false);
   const [toggleEdit, setToggleEdit] = useState(true);
+  const [displayPopup, setDisplayPopup] = useState(false);
   let loggedInUser: User;
   let url: string;
 
@@ -94,16 +96,25 @@ export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
     return <div>Loarding...</div>;
   }
 
+  const popSubmit = () => {
+    handleSubmit(submitProfile)();
+  };
+
   return (
     <div style={{ height: "90%" }} className={whiteBox}>
-      
+      {displayPopup && (
+        <Popup handleSubmit={popSubmit} closePopup={setDisplayPopup}></Popup>
+      )}
       <form
         style={{ overflowY: "scroll", overflowX: "hidden" }}
         className="row d-flex justify-content-around"
       >
-        <h3 style={{ marginTop: "5%",marginBottom:'2%' }} className={classes.heading}>
-        Student Profile
-      </h3>
+        <h3
+          style={{ marginTop: "5%", marginBottom: "2%" }}
+          className={classes.heading}
+        >
+          Student Profile
+        </h3>
         <div className="d-flex  flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
           <Row className="d-flex justify-content-center">
             <label style={{ marginTop: "10%" }} className={classes.label}>
@@ -516,7 +527,9 @@ export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
                 title="Submit"
                 onClick={(e) => {
                   e.preventDefault();
-                  handleSubmit(submitProfile)();
+                  setDisplayPopup(true);
+
+                  // handleSubmit(submitProfile)();
                 }}
               >
                 <FontAwesomeIcon style={{ fontSize: "110%" }} icon={faCheck} />

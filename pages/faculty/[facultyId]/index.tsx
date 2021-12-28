@@ -20,7 +20,7 @@ export const index = () => {
   const [navHidden, setNavHidden] = useState(true);
   const [editbuttonHidden, setEditButtonHidden] = useState(false);
   const [childProp, setChildProp] = useState<viewProfile>(Object);
-  const[facultyName,setFacultyName] = useState("");
+  const [facultyName, setFacultyName] = useState("");
   let loggedInUser: User;
   const router = useRouter();
 
@@ -32,12 +32,17 @@ export const index = () => {
       : "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 d-none d-sm-flex"
   } `;
 
-  const getChildProp = (studentId:string, canEdit:boolean,route:string,editButton?:boolean) => {
+  const getChildProp = (
+    studentId: string,
+    canEdit: boolean,
+    route: string,
+    editButton?: boolean
+  ) => {
     childProp.studentId = studentId;
     childProp.canEdit = canEdit;
     setNavHidden(false);
     setmentorRoute(route);
-    childProp.editButton=editButton;
+    childProp.editButton = editButton;
   };
 
   useEffect(() => {
@@ -47,7 +52,7 @@ export const index = () => {
       setmarksActive(false);
       setcareerActive(false);
       setmeetActive(false);
-    }  else if (mentorRoute.match("profile")) {
+    } else if (mentorRoute.match("profile")) {
       setViewStudentsActive(false);
       setprofileActive(true);
       setmarksActive(false);
@@ -85,7 +90,7 @@ export const index = () => {
       <div style={{ height: "90vh", marginTop: "3%" }} className={navCss}>
         <div className={navStyle}>
           <div className="d-flex flex-column align-items-center ">
-          <div
+            <div
               style={{
                 color: "#0166b2",
                 fontWeight: "bold",
@@ -94,40 +99,49 @@ export const index = () => {
               }}
               className={classes.dropdowntoggle}
             >
-              <Dropdown style={{marginRight:'5%'}} className={classes.dropdowntoggle}>
-                <Dropdown.Toggle 
-                style={{ background: "white", color: "#0166b2",border:'none',fontWeight:'bold',marginRight:'20%' }}
-                className={classes.dropdowntoggle}>
-                {facultyName}
+              <Dropdown
+                style={{ marginRight: "5%" }}
+                className={classes.dropdowntoggle}
+              >
+                <Dropdown.Toggle
+                  style={{
+                    background: "white",
+                    color: "#0166b2",
+                    border: "none",
+                    fontWeight: "bold",
+                    marginRight: "20%",
+                  }}
+                  className={classes.dropdowntoggle}
+                >
+                  {facultyName}
                 </Dropdown.Toggle>
                 <Dropdown.Menu
-            id="dropdown-menu-align-right"
-            style={{ background: "white", color: "#0166b2" }}
-            className="DropDown"
-          >
-             <Dropdown.Item
-              style={{ color: "#0166b2", fontWeight:"bold" }}
-              className={classes.dropdownitems}
-              onClick={() => {
-                console.log("Password Change");
-              }}
-            >
-              Change Password
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item
-              style={{ color: "#0166b2", fontWeight: "bold" }}
-              className={classes.dropdownitems}
-              onClick={() => {
-                router.push("/")
-                sessionStorage.clear();
-              }}
-            >
-              LogOut
-            </Dropdown.Item>
-          </Dropdown.Menu>
+                  id="dropdown-menu-align-right"
+                  style={{ background: "white", color: "#0166b2" }}
+                  className="DropDown"
+                >
+                  <Dropdown.Item
+                    style={{ color: "#0166b2", fontWeight: "bold" }}
+                    className={classes.dropdownitems}
+                    onClick={() => {
+                      console.log("Password Change");
+                    }}
+                  >
+                    Change Password
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item
+                    style={{ color: "#0166b2", fontWeight: "bold" }}
+                    className={classes.dropdownitems}
+                    onClick={() => {
+                      router.push("/");
+                      sessionStorage.clear();
+                    }}
+                  >
+                    LogOut
+                  </Dropdown.Item>
+                </Dropdown.Menu>
               </Dropdown>
-             
             </div>
             <button
               type="button"
@@ -136,13 +150,19 @@ export const index = () => {
                 setmentorRoute("viewstudents");
                 console.log(mentorRoute);
               }}
-              className={viewStudentsActive ? classes.navbtnActive: classes.navbtn}
+              className={
+                viewStudentsActive ? classes.navbtnActive : classes.navbtn
+              }
             >
               View Students
             </button>
           </div>
           <div className="d-flex flex-column align-items-center ">
-           <hr style={{marginTop:'20%'}}hidden={navHidden} className={classes.horizontalline}/>
+            <hr
+              style={{ marginTop: "20%" }}
+              hidden={navHidden}
+              className={classes.horizontalline}
+            />
             <button
               hidden={navHidden}
               type="button"
@@ -196,6 +216,17 @@ export const index = () => {
         className="home d-flex flex-column col-12 col-md-8 col-sm-12 col-lg-9 col-xl-9"
       >
         <button
+          style={{
+            position: "absolute",
+            border: "1px  solid #ffffff",
+            borderRadius: "10px",
+            width: "40px",
+            height: "40px",
+            marginLeft: "15px",
+            marginTop: "15px",
+            color: "white",
+            backgroundColor: "#0166b2",
+          }}
           className="d-md-none"
           onClick={() => {
             setShowNav((state) => !state);
@@ -229,15 +260,16 @@ export const index = () => {
                 canEditProp={childProp.canEdit}
                 studentId={childProp.studentId}
                 editButton={childProp.editButton}
-
               ></MentorMeetingDetails>
             );
           } else if (mentorRoute.match("additionaldetails")) {
-            return <AdditionalDetails 
-            canEdit={childProp.canEdit}
-            studentId={childProp.studentId}
-            editButton={childProp.editButton}
-            ></AdditionalDetails>;
+            return (
+              <AdditionalDetails
+                canEdit={childProp.canEdit}
+                studentId={childProp.studentId}
+                editButton={childProp.editButton}
+              ></AdditionalDetails>
+            );
           } else {
             return <></>;
           }

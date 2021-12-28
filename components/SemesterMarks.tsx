@@ -48,8 +48,8 @@ const SemesterMarks = ({
               credits: credits,
               totalGradePoints: totalGradePoints,
               gpa: gpa,
-              attempt1:"",
-              attempt2:"",
+              attempt1: "",
+              attempt2: "",
             },
             {
               endsemId: "",
@@ -63,8 +63,8 @@ const SemesterMarks = ({
               credits: credits,
               totalGradePoints: totalGradePoints,
               gpa: gpa,
-              attempt1:"",
-              attempt2:"",
+              attempt1: "",
+              attempt2: "",
             },
             {
               endsemId: "",
@@ -78,8 +78,8 @@ const SemesterMarks = ({
               credits: credits,
               totalGradePoints: totalGradePoints,
               gpa: gpa,
-              attempt1:"",
-              attempt2:"",
+              attempt1: "",
+              attempt2: "",
             },
             {
               endsemId: "",
@@ -93,8 +93,8 @@ const SemesterMarks = ({
               credits: credits,
               totalGradePoints: totalGradePoints,
               gpa: gpa,
-              attempt1:"",
-              attempt2:"",
+              attempt1: "",
+              attempt2: "",
             },
             {
               endsemId: "",
@@ -108,8 +108,8 @@ const SemesterMarks = ({
               credits: credits,
               totalGradePoints: totalGradePoints,
               gpa: gpa,
-              attempt1:"",
-              attempt2:"",
+              attempt1: "",
+              attempt2: "",
             },
             {
               endsemId: "",
@@ -123,8 +123,8 @@ const SemesterMarks = ({
               credits: credits,
               totalGradePoints: totalGradePoints,
               gpa: gpa,
-              attempt1:"",
-              attempt2:"",
+              attempt1: "",
+              attempt2: "",
             },
             {
               endsemId: "",
@@ -138,8 +138,8 @@ const SemesterMarks = ({
               credits: credits,
               totalGradePoints: totalGradePoints,
               gpa: gpa,
-              attempt1:"",
-              attempt2:"",
+              attempt1: "",
+              attempt2: "",
             },
             {
               endsemId: "",
@@ -153,8 +153,8 @@ const SemesterMarks = ({
               credits: credits,
               totalGradePoints: totalGradePoints,
               gpa: gpa,
-              attempt1:"",
-              attempt2:"",
+              attempt1: "",
+              attempt2: "",
             },
             {
               endsemId: "",
@@ -168,8 +168,8 @@ const SemesterMarks = ({
               credits: credits,
               totalGradePoints: totalGradePoints,
               gpa: gpa,
-              attempt1:"",
-              attempt2:"",
+              attempt1: "",
+              attempt2: "",
             },
             {
               endsemId: "",
@@ -183,8 +183,8 @@ const SemesterMarks = ({
               credits: credits,
               totalGradePoints: totalGradePoints,
               gpa: gpa,
-              attempt1:"",
-              attempt2:"",
+              attempt1: "",
+              attempt2: "",
             },
           ]);
         } else {
@@ -202,8 +202,8 @@ const SemesterMarks = ({
                 credits: credits,
                 totalGradePoints: totalGradePoints,
                 gpa: gpa,
-                attempt1:"",
-                attempt2:"",
+                attempt1: "",
+                attempt2: "",
               });
             }
           }
@@ -268,13 +268,21 @@ const SemesterMarks = ({
               <th style={{ width: "30%" }} className={classes.tablehead}>
                 Subject Name
               </th>
-              <th style={{ width: "8%" }} className={classes.tablehead}>Grade</th>
+              <th style={{ width: "8%" }} className={classes.tablehead}>
+                Grade
+              </th>
               <th style={{ width: "8%" }} className={classes.tablehead}>
                 Grade points obtained (Credits x Score)
               </th>
-              <th style={{ width: "17%" }} className={classes.tablehead}>Month and Year of Passing</th>
-              <th style={{ width: '8%'}} className={classes.tablehead}>Attempt 1</th>
-              <th style={{ width: '8%'}} className={classes.tablehead}>Attempt 2</th>
+              <th style={{ width: "17%" }} className={classes.tablehead}>
+                Month and Year of Passing
+              </th>
+              <th style={{ width: "8%" }} className={classes.tablehead}>
+                Attempt 1
+              </th>
+              <th style={{ width: "8%" }} className={classes.tablehead}>
+                Attempt 2
+              </th>
             </tr>
             {SemMarks.map((items, index) => {
               return (
@@ -412,7 +420,7 @@ const SemesterMarks = ({
         <div
           style={{
             marginTop: "4%",
-            marginLeft: "70%",
+            marginLeft: "75%",
             marginBottom: "3%",
             width: "20%",
           }}

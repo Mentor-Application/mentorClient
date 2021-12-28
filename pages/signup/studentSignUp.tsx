@@ -16,6 +16,12 @@ export const studentSignUp = () => {
   const router = useRouter();
 
   const handleLogin = async (values) => {
+    var str: string = values.email;
+    if (!str.endsWith("ssn.edu.in")) {
+      setIsError(false);
+      setErrorMessage("you must enter your SSN email");
+      return;
+    }
     const response = await axios
       .post(`${environment.api_url}/auth/signup`, values)
       .then((res) => {

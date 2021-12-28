@@ -115,7 +115,10 @@ const SchoolRecord = ({ studentId, canEditProp, editButton }) => {
         className="d-flex justify-content-center align-items-center "
       >
         <div className="table-responsive col-9 col-sm-8 col-md-10 col-lg-11">
-          <table className="table table-borderless">
+          <table
+            style={{ border: "border: 1px solid black;" }}
+            className="table table-borderless"
+          >
             <tr>
               <th className={classes.tablehead}>Course</th>
               <th style={{ width: "15%" }} className={classes.tablehead}>
@@ -201,7 +204,7 @@ const SchoolRecord = ({ studentId, canEditProp, editButton }) => {
               <td className={classes.tablehead}>12th Cutoff </td>
               <td>
                 <input
-                  style={{ borderBottom: "2px solid black" }}
+                  // style={{ borderBottom: "2px solid black" }}
                   key={twelfthCutOff}
                   disabled={canEdit}
                   type="text"
