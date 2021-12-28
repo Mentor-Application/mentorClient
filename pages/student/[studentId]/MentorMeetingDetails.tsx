@@ -14,6 +14,7 @@ export const MentorMeetingDetails = ({
 }) => {
   const [mentorMeetingDetails, setMentor] = useState<Array<MentorMeeting>>([]);
   const [semesterName, setSemesterName] = useState("semester1");
+  const [additionalInfo,setAdditionalInfo] = useState("");
   let apiService: ApiService = new ApiService();
   const [canEdit, setCanEdit] = useState(false);
   const [toggleEdit, setToggleEdit] = useState(true);
@@ -34,6 +35,7 @@ export const MentorMeetingDetails = ({
               meetingTime: "",
               focusOnDiscussion: "",
               remarks: "",
+              additionalinfo:"",
             },
             {
               studentId: studentId,
@@ -42,6 +44,7 @@ export const MentorMeetingDetails = ({
               meetingTime: "",
               focusOnDiscussion: "",
               remarks: "",
+              additionalinfo:"",
             },
             {
               studentId: studentId,
@@ -50,6 +53,7 @@ export const MentorMeetingDetails = ({
               meetingTime: "",
               focusOnDiscussion: "",
               remarks: "",
+              additionalinfo:"",
             },
             {
               studentId: studentId,
@@ -58,6 +62,7 @@ export const MentorMeetingDetails = ({
               meetingTime: "",
               focusOnDiscussion: "",
               remarks: "",
+              additionalinfo:"",
             },
             {
               studentId: studentId,
@@ -66,6 +71,7 @@ export const MentorMeetingDetails = ({
               meetingTime: "",
               focusOnDiscussion: "",
               remarks: "",
+              additionalinfo:"",
             },
           ]);
         } else {
@@ -78,11 +84,13 @@ export const MentorMeetingDetails = ({
                 meetingTime: "",
                 focusOnDiscussion: "",
                 remarks: "",
+                additionalinfo:"",
               });
             }
           }
           setCanEdit(true);
           setMentor(data);
+          setAdditionalInfo(data[0].additionalinfo);
         }
       })
       .catch((err) => {
@@ -98,9 +106,13 @@ export const MentorMeetingDetails = ({
 
   const updateMarks = (e) => {
     e.preventDefault();
+    mentorMeetingDetails.forEach((items)=>{
+          items.additionalinfo=additionalInfo;
+    });
     apiService
       .post("mentormeeting/update", mentorMeetingDetails)
       .then((res) => {
+        
         console.log(res);
       })
       .catch((res) => {
@@ -301,7 +313,22 @@ export const MentorMeetingDetails = ({
                   );
                 })}
               </table>
+              <div style={{color:'#0166b2',fontWeight:'bold',marginTop:'5%'}}>
+              Additional Information :
             </div>
+            <textarea 
+            disabled={canEdit}
+            style={{height:'150px',width:'600px',marginTop:'2%'}}
+            className={classes.box}
+            defaultValue={additionalInfo || ""}
+            onChange={(e) => {
+              setAdditionalInfo(e.target.value);
+            }}
+            >
+            
+            </textarea>
+            </div>
+            
           </form>
           <div
             style={{ marginLeft: "83%", marginTop: "3%", marginBottom: "3%" }}

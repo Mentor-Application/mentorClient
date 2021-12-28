@@ -5,4 +5,5 @@ export class MentorMeeting {
   meetingTime: string;
   focusOnDiscussion: string;
   remarks: string;
+  additionalinfo: string;
 }

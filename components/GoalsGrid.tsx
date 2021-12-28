@@ -122,7 +122,7 @@ const GoalsGrid = ({ studentId, canEditProp, editButton }) => {
             {goalsGrid.map((items, index) => {
               return (
                 <tr>
-                  <td className={classes.tablehead}>1.</td>
+                  <td className={classes.tablehead}>{index+1}</td>
                   <td className={classes.table}>
                     {(() => {
                       if (index + 1 === 1) {

@@ -96,10 +96,14 @@ export const StudentProfile = ({ studentId, canEditProp, editButton }) => {
 
   return (
     <div style={{ height: "90%" }} className={whiteBox}>
+      
       <form
         style={{ overflowY: "scroll", overflowX: "hidden" }}
         className="row d-flex justify-content-around"
       >
+        <h3 style={{ marginTop: "5%",marginBottom:'2%' }} className={classes.heading}>
+        Student Profile
+      </h3>
         <div className="d-flex  flex-column col-lg-5 col-xl-5 col-md-10 col-sm-9 col-12">
           <Row className="d-flex justify-content-center">
             <label style={{ marginTop: "10%" }} className={classes.label}>

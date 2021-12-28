@@ -266,20 +266,20 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
               <th style={{ width: "5%" }} className={classes.tablehead}>
                 SI No.
               </th>
-              <th style={{ width: "30%" }} className={classes.tablehead}>
+              <th style={{ width: "25%" }} className={classes.tablehead}>
                 Subject Code
               </th>
-              <th style={{ width: "30%" }} className={classes.tablehead}>
+              <th style={{ width: "35%" }} className={classes.tablehead}>
                 Subject Name
               </th>
-              <th className={classes.tablehead}>CAT 1 Marks</th>
-              <th className={classes.tablehead}>CAT 2 Marks</th>
-              <th className={classes.tablehead}>CAT 3 Marks</th>
-              <th className={classes.tablehead}>Internal Marks</th>
+              <th style={{ width: "8%" }} className={classes.tablehead}>CAT 1 Marks</th>
+              <th style={{ width: "8%" }} className={classes.tablehead}>CAT 2 Marks</th>
+              <th style={{ width: "8%" }} className={classes.tablehead}>CAT 3 Marks</th>
+              <th style={{ width: "8%" }} className={classes.tablehead}>Internal Marks</th>
             </tr>
             {catMarks.map((items, index) => {
               return (
-                <tr>
+                <tr >
                   <td className={classes.tablehead}>{index + 1}</td>
                   <td className={classes.table}>
                     <input
@@ -356,7 +356,7 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
             })}
 
             <tr>
-              <td className={classes.tablehead}>Attendance</td>
+              <tr className={classes.tablehead}>Attendance</tr>
               <td>
                 <input
                   key={attendance}

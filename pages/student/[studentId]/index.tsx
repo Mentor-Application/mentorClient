@@ -174,10 +174,22 @@ export const index = ({ data }) => {
                   style={{ background: "white", color: "#0166b2" }}
                   className="DropDown"
                 >
+                  
                   <Dropdown.Item
                     style={{ color: "#0166b2", fontWeight: "bold" }}
                     className={classes.dropdownitems}
                     onClick={() => {
+                      setUpload(false);
+                    }}
+                  >
+                    Upload Picture
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item
+                    style={{ color: "#0166b2", fontWeight: "bold" }}
+                    className={classes.dropdownitems}
+                    onClick={() => {
+                      router.push("/changepassword")
                       console.log("Password Change");
                     }}
                   >
@@ -194,16 +206,7 @@ export const index = ({ data }) => {
                   >
                     LogOut
                   </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item
-                    style={{ color: "#0166b2", fontWeight: "bold" }}
-                    className={classes.dropdownitems}
-                    onClick={() => {
-                      setUpload(false);
-                    }}
-                  >
-                    upload picture
-                  </Dropdown.Item>
+                  
                 </Dropdown.Menu>
               </Dropdown>
             </div>

@@ -19,6 +19,7 @@ export class CatMark {
 
   attendance: number;
 
+
   // destructure(input, output) {
   //   output.markId = input.markId;
   //   output.semesterName = input.semesterName;

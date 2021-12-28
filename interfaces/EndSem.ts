@@ -20,4 +20,8 @@ export class EndSem {
   totalGradePoints: string;
 
   gpa: string;
+
+  attempt1: string;
+
+  attempt2: string;
 }

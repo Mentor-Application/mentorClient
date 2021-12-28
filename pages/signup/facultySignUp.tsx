@@ -16,17 +16,18 @@ export const facultySignup = () => {
   const router = useRouter();
 
   const handleLogin = async (values) => {
-    const response = await axios
-      .post(`${environment.api_url}/auth/signup`, values)
-      .then((res) => {
-        console.log(res);
-        setIsError(true);
-        router.push("/");
-      })
-      .catch((error) => {
-        setErrorMessage(error.response.data.message);
-        setIsError(false);
-      });
+    console.log(values);
+    // const response = await axios
+    //   .post(`${environment.api_url}/auth/signup`, values)
+    //   .then((res) => {
+    //     console.log(res);
+    //     setIsError(true);
+    //     router.push("/");
+    //   })
+    //   .catch((error) => {
+    //     setErrorMessage(error.response.data.message);
+    //     setIsError(false);
+    //   });
   };
 
   return (
