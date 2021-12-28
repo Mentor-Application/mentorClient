@@ -262,17 +262,17 @@ const SemesterMarks = ({
               <th style={{ width: "5%" }} className={classes.tablehead}>
                 SI No.
               </th>
-              <th style={{ width: "20%" }} className={classes.tablehead}>
+              <th style={{ width: "15%" }} className={classes.tablehead}>
                 Subject Code
               </th>
-              <th style={{ width: "40%" }} className={classes.tablehead}>
+              <th style={{ width: "30%" }} className={classes.tablehead}>
                 Subject Name
               </th>
               <th style={{ width: "8%" }} className={classes.tablehead}>Grade</th>
               <th style={{ width: "8%" }} className={classes.tablehead}>
                 Grade points obtained (Credits x Score)
               </th>
-              <th style={{ width: "8%" }} className={classes.tablehead}>Month and Year of Passing</th>
+              <th style={{ width: "17%" }} className={classes.tablehead}>Month and Year of Passing</th>
               <th style={{ width: '8%'}} className={classes.tablehead}>Attempt 1</th>
               <th style={{ width: '8%'}} className={classes.tablehead}>Attempt 2</th>
             </tr>
