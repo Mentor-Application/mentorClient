@@ -13,11 +13,18 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
   const [attendance, setAttendance] = useState(Number);
   const [catMarks, setcatMarks] = useState<Array<CatMark>>([]);
   const [toggleEdit, setToggleEdit] = useState(true);
+  const [firstCatEdit, setFirstEdit] = useState(false);
+  const [secondCatEdit, setSecondEdit] = useState(false);
+  const [thirdCatEdit, setThirdEdit] = useState(false);
+  const [internalEdit, setInternalEdit] = useState(false);
   let url: string;
 
   useEffect(() => {
-    console.log("efff");
     setCanEdit(canEditProp);
+    setFirstEdit(canEditProp);
+    setSecondEdit(canEditProp);
+    setThirdEdit(canEditProp);
+    setInternalEdit(canEditProp);
     url = `marks/${studentId}/${semesterName}/list`;
     apiService
       .get(url)
@@ -152,7 +159,29 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
               });
             }
           }
-          setCanEdit(true);
+          if (data[0].firstCatMark === null) {
+            setFirstEdit(false);
+          } else {
+            setFirstEdit(true);
+          }
+          if (data[0].secondCatMark === null) {
+            setSecondEdit(false);
+          } else {
+            setSecondEdit(true);
+          }
+          if (data[0].thirdCatMark === null) {
+            setThirdEdit(false);
+          } else {
+            setThirdEdit(true);
+          }
+          if (data[0].internalMark === null) {
+            setInternalEdit(false);
+          } else {
+            setInternalEdit(true);
+          }
+          if (data) {
+            setCanEdit(true);
+          }
           setcatMarks(data);
           console.log("cat", catMarks);
           setAttendance(data[0].attendance);
@@ -163,6 +192,8 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
       });
   }, [semesterName]);
 
+  useEffect(() => {}, [catMarks]);
+
   const updateMarks = (e) => {
     e.preventDefault();
     catMarks.forEach((items) => {
@@ -171,7 +202,31 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
     apiService
       .post("marks/update", catMarks)
       .then((res) => {
-        console.log(res);
+        if (res[0].firstCatMark === null) {
+          setFirstEdit(false);
+        } else {
+          setFirstEdit(true);
+        }
+        if (res[0].secondCatMark === null) {
+          setSecondEdit(false);
+        } else {
+          setSecondEdit(true);
+        }
+        if (res[0].thirdCatMark === null) {
+          console.log("false here");
+          setThirdEdit(false);
+        } else {
+          setThirdEdit(true);
+        }
+        if (res[0].internalMark === null) {
+          console.log("inter false here");
+          setInternalEdit(false);
+        } else {
+          setInternalEdit(true);
+        }
+        if (res) {
+          setCanEdit(true);
+        }
       })
       .catch((res) => {
         console.log(res);
@@ -180,11 +235,16 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
 
   const edit = (e) => {
     e.preventDefault();
+    console.log("toggle", toggleEdit);
     setCanEdit(!toggleEdit);
+    setFirstEdit(!toggleEdit);
+    setSecondEdit(!toggleEdit);
+    setThirdEdit(!toggleEdit);
+    setInternalEdit(!toggleEdit);
     setToggleEdit(!toggleEdit);
   };
 
-  let whiteBox = `${classes.forms} col-12 col-xl-11 `;
+  let whiteBox = ` col-12 col-xl-11 `;
 
   return (
     <div style={{ height: "100%" }} className={whiteBox}>
@@ -209,7 +269,7 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
               <th style={{ width: "30%" }} className={classes.tablehead}>
                 Subject Code
               </th>
-              <th style={{ width: "50%" }} className={classes.tablehead}>
+              <th style={{ width: "30%" }} className={classes.tablehead}>
                 Subject Name
               </th>
               <th className={classes.tablehead}>CAT 1 Marks</th>
@@ -247,7 +307,7 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
                     <input
                       type="number"
                       key={items.firstCatMark}
-                      disabled={canEdit}
+                      disabled={firstCatEdit}
                       onChange={(e) => {
                         items.firstCatMark = parseInt(e.target.value);
                       }}
@@ -258,7 +318,7 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
                   <td className={classes.table}>
                     <input
                       key={items.secondCatMark}
-                      disabled={canEdit}
+                      disabled={secondCatEdit}
                       type="number"
                       onChange={(e) => {
                         items.secondCatMark = parseInt(e.target.value);
@@ -270,7 +330,7 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
                   <td className={classes.table}>
                     <input
                       key={items.thirdCatMark}
-                      disabled={canEdit}
+                      disabled={thirdCatEdit}
                       type="number"
                       onChange={(e) => {
                         items.thirdCatMark = parseInt(e.target.value);
@@ -282,7 +342,7 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
                   <td className={classes.table}>
                     <input
                       key={items.internalMark}
-                      disabled={canEdit}
+                      disabled={internalEdit}
                       type="number"
                       onChange={(e) => {
                         items.internalMark = parseInt(e.target.value);
@@ -325,7 +385,13 @@ const CatMarks = ({ semesterName, studentId, canEditProp, editButton }) => {
           </button>
         ) : null}
         <button
-          hidden={canEdit}
+          hidden={
+            canEdit &&
+            firstCatEdit &&
+            secondCatEdit &&
+            thirdCatEdit &&
+            internalEdit
+          }
           className={classes.icon}
           type="button"
           style={{ marginLeft: "7%" }}
