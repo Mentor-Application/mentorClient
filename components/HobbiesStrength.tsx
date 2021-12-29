@@ -80,10 +80,7 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
         if (data) {
           setStrengthCanEdit(true);
         }
-        //setStrengthCanEdit(true);
         setLoggedinStudent(data);
-        //logedinstudent.deserialize(data, loggedinStudent);
-        //console.log(loggedinStudent);
       })
       .catch((err) => {
         console.log(err);
@@ -96,6 +93,7 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
       .post(`student/${studentId}/strengthassessment`, values)
 
       .then((res) => {
+        setStrengthCanEdit(true);
         console.log(res);
       })
       .catch((err) => {
@@ -117,13 +115,13 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
 
   let apiService: ApiService = new ApiService();
   const updateHobbies = (e) => {
-    setCanEdit(true);
     e.preventDefault();
     console.log(hobbies);
     apiService
       .post(`student/${studentId}/hobbies`, hobbies)
 
       .then((res) => {
+        setCanEdit(true);
         console.log(res);
       })
       .catch((err) => {

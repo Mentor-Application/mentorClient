@@ -66,12 +66,11 @@ export const login = () => {
             router.push("student");
           } else if (mentorId != null) {
             router.push("mentor");
-          } else if (facultyId !=null) {
+          } else if (facultyId != null) {
             router.push("faculty");
+          } else if (parentId != null) {
+            router.push("parent");
           }
-            else if(parentId!= null){
-              router.push("parent")
-            }
         } else {
           setIsError(false);
         }
@@ -104,9 +103,9 @@ export const login = () => {
             {errorMessage}
           </div>
           <input
-            placeholder="Username"
+            placeholder="SSN email"
             onFocus={(e) => (e.target.placeholder = "")}
-            onBlur={(e) => (e.target.placeholder = "Username")}
+            onBlur={(e) => (e.target.placeholder = "SSN email")}
             type="text"
             className={classes.username}
             onChange={(e) => setemail(e.target.value)}

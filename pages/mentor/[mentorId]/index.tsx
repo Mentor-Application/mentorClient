@@ -45,9 +45,31 @@ export const index = () => {
     setmentorRoute(route);
     childProp.editButton = editButton;
   };
+  useEffect(() => {
+    if (!router.isReady) return;
+    loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    if (
+      loggedInUser == undefined ||
+      loggedInUser == null ||
+      Object.keys(loggedInUser).length == 0
+    ) {
+      console.log("if1");
+      router.replace("/");
+      return;
+    }
+  }, [router.isReady]);
 
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    if (
+      loggedInUser == undefined ||
+      loggedInUser == null ||
+      Object.keys(loggedInUser).length == 0
+    ) {
+      console.log("if");
+      router.replace("/");
+      return;
+    }
     setMentorName(loggedInUser.userName);
   }, []);
 

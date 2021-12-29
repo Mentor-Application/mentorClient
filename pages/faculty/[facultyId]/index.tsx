@@ -81,6 +81,14 @@ export const index = () => {
 
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    if (
+      loggedInUser == undefined ||
+      loggedInUser == null ||
+      Object.keys(loggedInUser).length == 0
+    ) {
+      router.replace("/");
+      return;
+    }
     setFacultyName(loggedInUser.userName);
   }, []);
 

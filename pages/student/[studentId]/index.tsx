@@ -7,7 +7,7 @@ import Marks from "./Marks";
 import MentorMeetingDetails from "./MentorMeetingDetails";
 import AdditionalDetails from "./AdditionalDetails";
 import Image from "next/image";
-import prof from "../../../public/grey.jpg";
+import prof from "../../../public/profile.jpg";
 import { Dropdown, DropdownButton, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
@@ -45,12 +45,29 @@ export const index = ({ data }) => {
   useEffect(() => {
     if (!router.isReady) return;
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    if (
+      loggedInUser == undefined ||
+      loggedInUser == null ||
+      Object.keys(loggedInUser).length == 0
+    ) {
+      router.replace("/");
+      return;
+    }
     setStudentId(loggedInUser.studentId);
     setStudentName(loggedInUser.userName);
   }, [router.isReady]);
 
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    console.log(loggedInUser);
+    if (
+      loggedInUser == undefined ||
+      loggedInUser == null ||
+      Object.keys(loggedInUser).length == 0
+    ) {
+      router.replace("/");
+      return;
+    }
     console.log(loggedInUser.studentId);
     setStudentId(loggedInUser.studentId);
     setStudentName(loggedInUser.userName);

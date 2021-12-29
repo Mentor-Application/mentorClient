@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { User } from "../../../interfaces";
-import prof from "../../../public/grey.jpg";
+import prof from "../../../public/profile.jpg";
 import classes from "../../../styles/studentMainPage.module.css";
 import Row from "react-bootstrap/Row";
 import Image from "next/image";
@@ -13,6 +13,7 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { ApiService } from "../../../services/api.service";
+import { useRouter } from "next/dist/client/router";
 
 type MenteeCardItems = {
   photo: string;
@@ -33,8 +34,17 @@ export const Mentees = ({ sendProp }) => {
   >([]);
   const [removeMenteecards, setRemoveMenteecards] = useState([]);
   const [clearMentee, setClearMentee] = useState([]);
+  const router = useRouter();
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    if (
+      loggedInUser == undefined ||
+      loggedInUser == null ||
+      Object.keys(loggedInUser).length == 0
+    ) {
+      router.replace("/");
+      return;
+    }
     apiService
       .get(`student/mentor/${loggedInUser.mentorId}`)
       .then((res) => {

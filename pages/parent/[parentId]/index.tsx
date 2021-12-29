@@ -7,7 +7,7 @@ import Marks from "../../student/[studentId]/Marks";
 import MentorMeetingDetails from "../../student/[studentId]/MentorMeetingDetails";
 import AdditionalDetails from "../../student/[studentId]/AdditionalDetails";
 import Image from "next/image";
-import prof from "../../../public/grey.jpg";
+import prof from "../../../public/profile.jpg";
 import { ApiService } from "../../../services/api.service";
 import { User } from "../../../interfaces";
 const index = ({ data }) => {
@@ -20,6 +20,8 @@ const index = ({ data }) => {
   const [meetActive, setmeetActive] = useState(false);
   const [careerActive, setcareerActive] = useState(false);
   const [pageRoute, setPageRoute] = useState("profile");
+  const [image, setImage] = useState("");
+  const [imagePresent, SetImagePresent] = useState(false);
   let loggedInUser: User;
   let url: string;
   let apiService: ApiService = new ApiService();
@@ -29,15 +31,36 @@ const index = ({ data }) => {
       ? "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 position-absolute col-sm-4 col-8"
       : "d-flex justify-content-center align-items-center col-lg-3 col-xl-3 col-md-4 d-none d-sm-flex"
   } `;
+
   useEffect(() => {
     if (!router.isReady) return;
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    if (
+      loggedInUser == undefined ||
+      loggedInUser == null ||
+      Object.keys(loggedInUser).length == 0
+    ) {
+      router.replace("/");
+      return;
+    }
     setparentId(loggedInUser.parentId);
     apiService
       .get(`parent/${loggedInUser.parentId}`)
       .then((res) => {
         const data = res;
         console.log(data);
+        apiService
+          .get(`student/${data.studentId}/picture/list`, "arraybuffer")
+          .then((res) => {
+            const data = res;
+            const base64 = Buffer.from(data, "binary").toString("base64");
+            console.log(base64);
+            setImage(base64);
+            SetImagePresent(true);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         setStudentId(data.studentId);
       })
       .catch((err) => {
@@ -45,10 +68,21 @@ const index = ({ data }) => {
       });
   }, [router.isReady]);
 
+  useEffect(() => {}, [studentId]);
+
   useEffect(() => {
     loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    if (
+      loggedInUser == undefined ||
+      loggedInUser == null ||
+      Object.keys(loggedInUser).length == 0
+    ) {
+      router.replace("/");
+      return;
+    }
     url = `parent/${parentId}`;
-    console.log(loggedInUser.parentId);
+
+    //console.log(loggedInUser.parentId);
     setparentId(loggedInUser.parentId);
   }, []);
 
@@ -94,8 +128,11 @@ const index = ({ data }) => {
                 height: "250px",
               }}
             >
-              {" "}
-              <Image src={prof}></Image>
+              <Image
+                src={imagePresent ? `data:image/jpg;base64,${image}` : prof}
+                width="200px"
+                height="200px"
+              ></Image>
             </div>
             <div
               style={{
