@@ -21,6 +21,7 @@ export const MentorMeetingDetails = ({
   let whiteBox = `${classes.forms} col-12 col-xl-11`;
   let url: string;
   useEffect(() => {
+    setCanEdit(canEditProp);
     url = `mentormeeting/${studentId}/${semesterName}/list`;
     apiService
       .get(url)
@@ -128,6 +129,7 @@ export const MentorMeetingDetails = ({
         overflowY: "scroll",
         marginBottom: "5%",
         marginLeft: "5%",
+        borderRadius: "30px",
       }}
       className="col-11"
     >

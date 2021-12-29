@@ -24,7 +24,7 @@ export interface studentProfileProp {
 export const index = ({ data }) => {
   const router = useRouter();
   const [image, setImage] = useState("");
-  //const studentId = router.query.studentId;
+  const [imagePresent, SetImagePresent] = useState(false);
   const [uploadActive, setUpload] = useState(true);
   const [studentId, setStudentId] = useState("");
   const [studentName, setStudentName] = useState("");
@@ -58,10 +58,16 @@ export const index = ({ data }) => {
       .get(`student/${loggedInUser.studentId}/picture/list`, "arraybuffer")
       .then((res) => {
         const data = res;
+        if (data.byteLength === 0) {
+          SetImagePresent(false);
+          return;
+        } else {
+          const base64 = Buffer.from(data, "binary").toString("base64");
+          console.log(base64);
+          setImage(base64);
+          SetImagePresent(true);
+        }
         // setImage(data);
-        const base64 = Buffer.from(data, "binary").toString("base64");
-        setImage("data:image/jpg;base64," + base64);
-        console.log("picture", base64);
       })
       .catch((err) => {
         console.log(err);
@@ -104,9 +110,11 @@ export const index = ({ data }) => {
       .post(`student/${studentId}/picture`, form, "arraybuffer")
       .then((res) => {
         const data = res;
+        console.log(data);
         const base64 = Buffer.from(data, "binary").toString("base64");
-        setImage("data:image/jpg;base64," + base64);
+        setImage(base64);
         setUpload(true);
+        SetImagePresent(true);
       })
       .catch((err) => {
         console.log(err);
@@ -136,7 +144,7 @@ export const index = ({ data }) => {
             id="profilePic"
           >
             <Image
-              src={image ? image : prof}
+              src={imagePresent ? `data:image/jpg;base64,${image}` : prof}
               width="200px"
               height="200px"
             ></Image>
@@ -174,7 +182,6 @@ export const index = ({ data }) => {
                   style={{ background: "white", color: "#0166b2" }}
                   className="DropDown"
                 >
-                  
                   <Dropdown.Item
                     style={{ color: "#0166b2", fontWeight: "bold" }}
                     className={classes.dropdownitems}
@@ -189,7 +196,7 @@ export const index = ({ data }) => {
                     style={{ color: "#0166b2", fontWeight: "bold" }}
                     className={classes.dropdownitems}
                     onClick={() => {
-                      router.push("/changepassword")
+                      router.push("/changepassword");
                       console.log("Password Change");
                     }}
                   >
@@ -206,7 +213,6 @@ export const index = ({ data }) => {
                   >
                     LogOut
                   </Dropdown.Item>
-                  
                 </Dropdown.Menu>
               </Dropdown>
             </div>

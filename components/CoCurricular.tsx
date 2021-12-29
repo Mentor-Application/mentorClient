@@ -75,10 +75,7 @@ export const CoCurricular = ({ canEditProp, studentId, editButton }) => {
         <span style={{ fontSize: " small", marginLeft: " 20px" }}>
           (Sports,Competitions,Club Activities,Services,Hobbies)
         </span>
-        <table
-          style={{ marginTop: "3%", marginLeft: "10%" }}
-          className={classes.table}
-        >
+        <table style={{ marginTop: "3%" }} className={classes.table}>
           <tr>
             <th style={{ width: "5%" }} className={classes.tablehead}>
               YEAR 1

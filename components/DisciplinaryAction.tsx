@@ -85,10 +85,7 @@ export const DisciplinaryAction = ({ studentId, canEditProp, editButton }) => {
           attendance , striking off from rolls,disciplinary actions,stoppage of
           scholarships,etc.)
         </span>
-        <table
-          style={{ marginTop: "3%", marginLeft: "10%" }}
-          className={classes.table}
-        >
+        <table style={{ marginTop: "3%" }} className={classes.table}>
           <tr>
             <th style={{ width: "5%" }} className={classes.tablehead}>
               YEAR 1

@@ -73,10 +73,7 @@ const OverallAssesment = ({ canEditProp, studentId, editButton }) => {
           (Scholarship/Remarkable acheivements/Any other accomplishments ,
           please Mention :)
         </span>
-        <table
-          style={{ marginTop: "3%", marginLeft: "10%" }}
-          className={classes.table}
-        >
+        <table style={{ marginTop: "3%" }} className={classes.table}>
           <tr>
             <th style={{ width: "5%" }} className={classes.tablehead}>
               YEAR 1

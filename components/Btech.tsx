@@ -79,7 +79,7 @@ const Btech = ({ canEditProp, studentId, editButton }) => {
         </div>
         <div className="row">
           <div
-            className="col-md-3"
+            className="col-md-5 col-lg-3"
             style={{
               marginTop: "1.5%",
               color: "#0166b2",
@@ -96,8 +96,13 @@ const Btech = ({ canEditProp, studentId, editButton }) => {
             ></input>
           </div>
           <div
-            className="col-md-5"
-            style={{ color: "#0166b2", fontWeight: "bold", marginTop: "0%" }}
+            className="col-md-5 col-lg-3"
+            style={{
+              color: "#0166b2",
+              fontWeight: "bold",
+              marginTop: "1.5%",
+              marginLeft: "20px",
+            }}
           >
             Class :{" "}
             <input
@@ -108,9 +113,9 @@ const Btech = ({ canEditProp, studentId, editButton }) => {
             ></input>
           </div>
           <div
-            className="col-md-4"
+            className="col-md-5 col-lg-3"
             style={{
-              marginLeft: "-40px",
+              marginLeft: "20px",
               color: "#0166b2",
               fontWeight: "bold",
               marginTop: "1%",
@@ -125,7 +130,7 @@ const Btech = ({ canEditProp, studentId, editButton }) => {
             ></input>
           </div>
           <label
-            style={{ marginTop: "2%", marginLeft: "20px" }}
+            style={{ marginTop: "8%", marginLeft: "20px" }}
             className={classes.placement}
           >
             Career (PLacement) Information :

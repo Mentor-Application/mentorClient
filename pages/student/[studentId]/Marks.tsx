@@ -19,6 +19,7 @@ export const Marks = ({ studentId, canEdit, editButton }) => {
         marginTop: "70px",
         overflowY: "scroll",
         marginBottom: "5%",
+        borderRadius: "30px",
       }}
       className="col-11"
     >
