@@ -7,6 +7,9 @@ import classes from "../../styles/login.module.css";
 let loggedInUser: User;
 import Image from "next/image";
 import prof from "../../public/grey.jpg";
+import axios from "axios";
+import { environment } from "../../environments/environments";
+import { useRouter } from "next/dist/client/router";
 
 
 
@@ -14,10 +17,14 @@ const index = () => {
 
     const { register, handleSubmit, setValue } = useForm();
     const [userName,setUserName]=useState("");
-    const [password,setPassword]=useState("");
+    const [repeatPassword,setRepeatPassword]=useState("");
     const [newPassword,setNewPassword]=useState("");
     const [image, setImage] = useState("");
     const [error,setError] = useState(true);
+    const [email,setEmail] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isError, setIsError] = useState(true);
+    const router = useRouter();
 
     let apiService: ApiService = new ApiService();
 
@@ -25,7 +32,7 @@ const index = () => {
         loggedInUser = JSON.parse(sessionStorage.getItem("user"));
         
         setUserName(loggedInUser.userName);
-      
+        setEmail(loggedInUser.email);
         apiService
           .get(`student/${loggedInUser.studentId}/picture/list`, "arraybuffer")
           .then((res) => {
@@ -33,12 +40,29 @@ const index = () => {
             // setImage(data);
             const base64 = Buffer.from(data, "binary").toString("base64");
             setImage("data:image/jpg;base64," + base64);
-            console.log("picture", base64);
+            // console.log("picture", base64);
           })
           .catch((err) => {
             console.log(err);
           });
       }, []);
+
+
+      const submit=async(values)=>{
+       console.log(values);
+       const response = await axios
+      .post(`${environment.api_url}/auth/changepassword`, values)
+      .then((res) => {
+        console.log(res);
+        setIsError(true);
+        router.push(`/student/${loggedInUser.studentId}`);
+      })
+      .catch((error) => {
+        setErrorMessage("Old Password Incorrect");
+        setIsError(false);
+      });
+      }
+
 
     return (
         <div className="container-fluid d-flex justify-content-center align-items-center">
@@ -58,6 +82,12 @@ const index = () => {
             <h4 style={{ fontWeight: "bold", marginTop: "15px",color:'#0166b2' }}>
                 {userName}
             </h4>
+            <div
+          style={{ color: "red", marginBottom: "3%", textAlign: "center" }}
+          hidden={isError}
+        >
+          {errorMessage}
+        </div>
             </div>
             
             <form
@@ -67,7 +97,7 @@ const index = () => {
             <input
             className={classes.username}
             placeholder="Old Password"
-            {...register("oldPassword", {
+            {...register("password", {
                 required: "Required",
               })}
             />
@@ -77,28 +107,29 @@ const index = () => {
             {...register("newPassword", {
                 required: "Required",
               })}
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e)=>setNewPassword(e.target.value)}
             />
             <input
             className={classes.username}
             placeholder="Repeat New Password"
-            {...register("repeatNewPassword", {
+            {...register("repeatPassword", {
                 required: "Required",
               })}
-              onChange={(e)=>setNewPassword(e.target.value)}
+              onChange={(e)=>setRepeatPassword(e.target.value)}
             />
-            <div style={{ color: "red", marginBottom: "3%",marginTop:'-3%', textAlign: "center" }} hidden={error}>
-                Password and Repeat Password are not same
-            </div>
             <button
             className={classes.login}
             onClick={(e)=>{
                 e.preventDefault();
-                if(password.match(newPassword)){
+                if(newPassword.match(repeatPassword)){
                     console.log("Password Matches")
+                    setValue("email",email);
+                    handleSubmit(submit)();
+                    setIsError(true);
                 }
                 else{
-                    setError(false);
+                    setIsError(false);
+                    setErrorMessage("New Password and Repeat Password are not same");
                 }
             }}>
                 Change Password
