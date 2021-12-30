@@ -212,6 +212,7 @@ export const Mentees = ({ sendProp }) => {
                         color: "white",
                         fontWeight: "bold",
                         marginTop: "4%",
+                        textTransform: "capitalize"
                       }}
                     >
                       {items.studentName}-{items.registerNumber}

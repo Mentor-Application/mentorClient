@@ -259,7 +259,7 @@ export const MentorMeetingDetails = ({
                     Time
                   </th>
                   <th className={classes.tablehead}>Focus of Discussion</th>
-                  <th className={classes.tablehead}>Remarks</th>
+                  <th hidden={!editButton} className={classes.tablehead}>Remarks</th>
                 </tr>
                 {mentorMeetingDetails.map((items) => {
                   return (
@@ -299,7 +299,7 @@ export const MentorMeetingDetails = ({
                           className={classes.inputbox}
                         />
                       </td>
-                      <td className={classes.table}>
+                      <td hidden={!editButton} className={classes.table}>
                         <input
                           disabled={canEdit}
                           onChange={(e) => {
@@ -315,6 +315,7 @@ export const MentorMeetingDetails = ({
                 })}
               </table>
               <div
+                hidden={!editButton}
                 style={{
                   color: "#0166b2",
                   fontWeight: "bold",
@@ -324,6 +325,7 @@ export const MentorMeetingDetails = ({
                 Additional Information :
               </div>
               <textarea
+                hidden={!editButton}
                 disabled={canEdit}
                 style={{ height: "150px", width: "600px", marginTop: "2%" }}
                 className={classes.box}

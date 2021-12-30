@@ -189,6 +189,7 @@ export const index = ({ data }) => {
                     border: "none",
                     fontWeight: "bold",
                     marginRight: "20%",
+                    textTransform: "capitalize"
                   }}
                   className={classes.dropdowntoggle}
                 >

@@ -194,6 +194,7 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
                 type="submit"
                 style={{ marginLeft: "5%" }}
                 onClick={(e) => {
+                  setCanEdit(true);
                   updateHobbies(e);
                 }}
               >
@@ -291,6 +292,7 @@ const HobbiesStrength = ({ studentId, canEditProp, editButton }) => {
               style={{ marginLeft: "5%" }}
               onClick={(e) => {
                 e.preventDefault();
+                setStrengthCanEdit(true);
                 handleSubmit(onsubmit)();
               }}
             >

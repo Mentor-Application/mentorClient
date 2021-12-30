@@ -252,7 +252,7 @@ export const AddMentees = ({ sendProp }) => {
                     {items.registerNumber}
                   </label>
                   <label
-                    style={{ width: "50px" }}
+                    style={{ width: "75px" }}
                     className={classes.labeldisplay}
                   >
                     {items.studentName}
